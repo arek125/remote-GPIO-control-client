@@ -1,0 +1,22 @@
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+   <EditText
+    android:id="@+id/dialog_txt_name"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:textColor="#000"
+    android:maxLength="12"
+    android:singleLine="true" >
+
+    <requestFocus />
+  </EditText>
+  </LinearLayout>

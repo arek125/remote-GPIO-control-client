@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:id="@+id/titleL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add new connection: "
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/nameL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+             <TextView
+                 android:id="@+id/ipL"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="IP/HOST: "
+                 android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/ip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+             <TextView
+                 android:id="@+id/portL"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Port: "
+                 android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/port"
+               	android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textSize="15sp"
+                android:textColor="#000" 
+                android:theme="@style/AppTheme"
+                android:inputType="number" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+		 <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+		     
+		     <TextView
+                 android:id="@+id/hasloL"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Password: "
+                 android:textSize="15sp"
+                android:textColor="#000"  />
+             <CheckBox
+                 android:id="@+id/setpass"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/password"
+               	android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textSize="15sp"
+                android:textColor="#000"
+                android:editable="false"
+                android:theme="@style/AppTheme"
+                android:inputType="textPassword" >
+		     <requestFocus />
+            </EditText>
+		     
+		     </TableRow>
+        <TableRow
+            android:id="@+id/tableRow4_5"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/hasloL2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Or disable password ? " />
+            <CheckBox
+                android:id="@+id/disablepass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+		  <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+		     
+		     <TextView
+                 android:id="@+id/artimeL"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Auto refresh time: "
+                 android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/artime"
+               	android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="in seconds(0 = disable)"
+                android:text="5"
+                android:textSize="15sp"
+                android:textColor="#000" 
+                android:theme="@style/AppTheme"
+                android:inputType="numberDecimal" >
+		     <requestFocus />
+            </EditText>
+		     
+		     </TableRow>
+       
+
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableRow6" >
+
+        <TextView
+            android:text="Tabs:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TabsL"
+            android:textSize="20sp"
+            android:textColor="#000"/>
+    </TableRow>
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/GPIO_outputL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="GPIO Output control: " />
+            <CheckBox
+                android:id="@+id/GPIO_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/GPIO_inputL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="GPIO Input read: " />
+            <CheckBox
+                android:id="@+id/GPIO_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/GPIO_pwmL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="GPIO PWM control: " />
+            <CheckBox
+                android:id="@+id/GPIO_pwm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/GPIO_SAL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Scheduled actions: " />
+            <CheckBox
+                android:id="@+id/GPIO_SA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/GPIO_historyL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="History log: " />
+            <CheckBox
+                android:id="@+id/GPIO_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+</TableLayout>
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,4 @@
+#Tue Jan 10 13:34:13 CET 2017
+base.0=C\:\\Users\\arek1\\Desktop\\workspaceAS\\rgc-c\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=C\:\\Users\\arek1\\Desktop\\workspaceAS\\rgc-c\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

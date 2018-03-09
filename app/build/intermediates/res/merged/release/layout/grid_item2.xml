@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid_item_rl"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/grid_item_corner"
+    android:layout_margin="4dp"
+    android:padding="4dp" >
+    
+
+  
+    <ImageView
+        android:id="@+id/grid_item_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="2dp"
+        android:clickable="true"
+        android:src="@drawable/yelow" >
+         
+    </ImageView>
+
+      <TextView
+          android:id="@+id/grid_item_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignTop="@+id/grid_item_image"
+          android:layout_toRightOf="@+id/grid_item_image"
+          android:text="Name"
+          android:textColor="#000"
+          android:textSize="16sp" />
+
+      <TextView
+          android:id="@+id/grid_item_gpio"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_above="@+id/seekBar1"
+          android:layout_toRightOf="@+id/grid_item_image"
+          android:text="GPIO"
+          android:textSize="10sp" />
+
+      <SeekBar
+          android:id="@+id/seekBar1"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/grid_item_image"
+          android:focusable="false"
+          android:max="100" />
+
+      <TextView
+          android:id="@+id/grid_item_dc"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBaseline="@+id/grid_item_gpio"
+          android:layout_alignBottom="@+id/grid_item_gpio"
+          android:layout_alignRight="@+id/seekBar1"
+          android:text="DC"
+          android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/grid_item_fr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/grid_item_name"
+                android:layout_alignRight="@+id/grid_item_dc"
+                android:text="FR"
+                android:textSize="13sp" />
+      
+</RelativeLayout>
