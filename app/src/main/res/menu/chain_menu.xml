@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.shehabic.droppy_samples.MainActivity">
+    <group android:enabled="true">
+        <item
+            android:id="@+id/edit"
+            android:title="Edit chain"
+            />
+
+        <item
+            android:id="@+id/addBond"
+            android:title="Add chain bond"
+            />
+        <item
+            android:id="@+id/setOrder"
+            android:title="Set bond order"
+            />
+    </group>
+</menu>

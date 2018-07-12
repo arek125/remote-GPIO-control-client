@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.shehabic.droppy_samples.MainActivity">
+    <group android:enabled="true">
+        <item
+            android:id="@+id/edit"
+            android:title="Edit connection"
+            />
+        <item
+            android:id="@+id/rmnotif"
+            android:title="Remove all notifications"
+            />
+    </group>
+    <group android:enabled="true">
+        <item
+            android:id="@+id/connLogs"
+            android:title="Show connection logs"
+            />
+        <item
+            android:id="@+id/serverLogs"
+            android:title="Get logs from server app"
+            />
+        <item
+            android:id="@+id/restartServer"
+            android:title="Restart server app"
+            />
+        <item
+            android:id="@+id/rebootServer"
+            android:title="Reboot server"
+            />
+    </group>
+</menu>

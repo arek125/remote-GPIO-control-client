@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.shehabic.droppy_samples.MainActivity">
+    <group android:enabled="true">
+        <item
+            android:id="@+id/edit"
+            android:title="Edit action"
+            />
+
+        <item
+            android:id="@+id/addTrigger"
+            android:title="Add trigger"
+            />
+        <item
+            android:id="@+id/setConj"
+            android:title="Set conjunction"
+            />
+    </group>
+</menu>

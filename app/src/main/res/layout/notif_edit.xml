@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:id="@+id/titleL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add notification:"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:stretchColumns="*"
+        android:shrinkColumns="0"
+        android:layout_height="wrap_content" >
+        
+         <TableRow
+            android:id="@+id/tableRow0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/activeRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/activeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <CheckBox
+                android:id="@+id/active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/typeRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/typeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/targetioRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/targetioL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Target: "
+            android:textSize="15sp"
+            android:textColor="#000" />
+        <Spinner
+            android:id="@+id/targetio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+    </TableRow>
+        <TableRow
+            android:id="@+id/targetSRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetSL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/condRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/condL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operator: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <EditText
+                android:id="@+id/operator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:text="=="
+                android:textSize="15sp" >
+            </EditText>
+
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/valueSRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                 android:id="@+id/valueSL"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Value: "
+                 android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/valueS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/valueioRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/valueioL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Value: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <Spinner
+                android:id="@+id/valueio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/preciseRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/preciseL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precise: (High battery usage)"
+            android:textSize="15sp"
+            android:textColor="#000" />
+
+        <CheckBox
+            android:id="@+id/precise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/intervalRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/intervalL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Interval (seconds): "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/interval"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:text="900"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+
+
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/soundRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/soundL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sound path: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <TextView
+                android:id="@+id/sound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Not selected"
+                android:singleLine="true"
+                android:ellipsize="start"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#000"  />
+
+
+
+        </TableRow>
+        
+
+
+       
+    </TableLayout>
+
+</LinearLayout>

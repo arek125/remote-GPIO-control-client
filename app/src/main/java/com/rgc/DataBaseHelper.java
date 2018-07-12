@@ -25,7 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
-	private final static int DATABASE_VERSION = 2;
+	private final static int DATABASE_VERSION = 6;
 
     public DataBaseHelper(Context context) {
  
@@ -142,6 +142,27 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_History INT DEFAULT 1 NOT NULL");
 			db.execSQL("CREATE TABLE 'errorLog' ('_id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,'id_u' INTEGER,'data' TEXT,'timestamp' TIMESTAMP DEFAULT CURRENT_TIMESTAMP);");
 		}
+		if (oldVersion<3){
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_Sensors INT DEFAULT 1 NOT NULL");
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_Notifications INT DEFAULT 1 NOT NULL");
+            db.execSQL("ALTER TABLE urzadzenia ADD COLUMN selected_tab INTEGER NOT NULL DEFAULT 0");
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_ASA INT DEFAULT 1 NOT NULL");
+			db.execSQL("CREATE TABLE powiadomienia ("+
+				"_id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"+
+				"connection_id INTEGER NOT NULL,"+
+				"target_id	TEXT NOT NULL,"+
+				"type	TEXT NOT NULL,"+
+				"value	TEXT NOT NULL,"+
+				"condition	TEXT DEFAULT '==',"+
+				"precise	INTEGER NOT NULL DEFAULT 0,"+
+				"repeat_sec	INTEGER NOT NULL DEFAULT 900,"+
+				"sound_file_url TEXT,"+
+				"last_update TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP"+
+			");"
+			);
+		}
+		if(oldVersion<6)
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_Chains INT DEFAULT 1 NOT NULL");
 	}
  
 	
@@ -157,7 +178,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		return kursor;
 	}
 	
-	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History){
+	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -170,12 +191,16 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
 		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
 		wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
+		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
 		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
+		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
+        wartosci.put("Tab_Notifications",Tab_Notifications);
+		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
 		db.insertOrThrow("urzadzenia", null, wartosci);
 		
 	}
 	
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History){
+	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains){
 		SQLiteDatabase db = getWritableDatabase(); 
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -188,10 +213,15 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
 		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
 		wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
+		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
 		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
+		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
+        wartosci.put("Tab_Notifications",Tab_Notifications);
+		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
+        wartosci.put("selected_tab",0);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History){
+	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors , int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -202,12 +232,24 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
 		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
 		wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
+		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
 		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
+		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
+        wartosci.put("Tab_Notifications",Tab_Notifications);
+		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
+        wartosci.put("selected_tab",0);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}
+    public void edytujUrzadzenie(int id, int selectedPos){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues wartosci = new ContentValues();
+        wartosci.put("selected_tab",selectedPos);
+        db.update("urzadzenia",wartosci, "_id="+id, null);
+    }
 	public void usunUrzadzenie(int id){
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("urzadzenia", "_id="+id, null);
+		db.delete("powiadomienia", "connection_id="+id, null);
 	}
 
 	public void dodajLog(int id_u, String data){
@@ -234,6 +276,71 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public void czyscLogi(int id_u){
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete("errorLog", "_id NOT IN (SELECT _id FROM errorLog WHERE id_u = "+id_u+" ORDER BY timestamp DESC LIMIT 10)", null);
+	}
+
+	public Cursor dajPowiadomienie(int id){
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor kursor = db.rawQuery("SELECT * FROM powiadomienia p LEFT JOIN urzadzenia u ON p.connection_id = u._id WHERE p._id = "+id, null);
+		return kursor;
+	}
+
+	public void edutyjPowiadomienie(int id){
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor c = db.rawQuery("UPDATE powiadomienia SET last_update = datetime('now') WHERE _id="+id,null);
+		c.moveToFirst();
+		c.close();
+	}
+	public Cursor dajPowiadomienia(boolean activeOnly, int conn_id){
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor kursor;
+		if(activeOnly)kursor = db.rawQuery("SELECT * FROM powiadomienia p LEFT JOIN urzadzenia u ON p.connection_id = u._id WHERE p.precise > 0", null);
+		else kursor = db.rawQuery("SELECT * FROM powiadomienia p LEFT JOIN urzadzenia u ON p.connection_id = u._id WHERE p.connection_id ="+conn_id, null);
+
+		return kursor;
+	}
+
+	public int dodajPowiadomienie(int conn_id,String target_id, String type, String value,String cond, int precise, long repeat_sec, String sound){
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues wartosci = new ContentValues();
+		wartosci.put("connection_id",conn_id);
+		wartosci.put("target_id",target_id);
+		wartosci.put("type",type);
+		wartosci.put("value",value);
+		wartosci.put("condition",cond);
+		wartosci.put("precise",precise);
+		wartosci.put("repeat_sec",repeat_sec);
+		wartosci.put("sound_file_url",sound);
+		db.insertOrThrow("powiadomienia", null, wartosci);
+		Cursor kursor = db.query("powiadomienia", null,null,null,null,null,null);
+		kursor.moveToLast();
+		int lid = kursor.getInt(0);
+		return lid;
+	}
+	public void edytujPowiadomienie(int id,int conn_id,String target_id, String type, String value,String cond, int precise, long repeat_sec, String sound){
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues wartosci = new ContentValues();
+		wartosci.put("connection_id",conn_id);
+		wartosci.put("target_id",target_id);
+		wartosci.put("type",type);
+		wartosci.put("value",value);
+		wartosci.put("condition",cond);
+		wartosci.put("precise",precise);
+		wartosci.put("repeat_sec",repeat_sec);
+		wartosci.put("sound_file_url",sound);
+		db.update("powiadomienia",wartosci,"_id="+id,null);
+
+	}
+	public void usunPowiadomienie(int id){
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete("powiadomienia", "_id="+id, null);
+	}
+	public void usunPowiadomieniePoTID(String id){
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete("powiadomienia", "target_id="+id, null);
+	}
+	public void usunPowiadomieniePoCID(int id){
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete("powiadomienia", "connection_id="+id, null);
 	}
    
 }

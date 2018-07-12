@@ -63,7 +63,7 @@
                  android:id="@+id/ipL"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="IP/HOST: "
+                 android:text="IP/HOST/URL: "
                  android:textSize="15sp"
                 android:textColor="#000"  />
 
@@ -259,23 +259,69 @@
                 android:checked="true" />
         </TableRow>
         <TableRow
-            android:id="@+id/tableRow10"
+            android:id="@+id/tableRow9_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
                 android:textSize="15.0sp"
                 android:textColor="#ff000000"
+                android:id="@+id/GPIO_chainsL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Execution chains: " />
+            <CheckBox
+                android:id="@+id/GPIO_chains"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#f44e42"
                 android:id="@+id/GPIO_SAL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
+                android:paddingBottom="5dp"
                 android:text="Scheduled actions: " />
             <CheckBox
                 android:id="@+id/GPIO_SA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="false" />
+            <TextView
+                android:textSize="10.0sp"
+                android:textColor="#f44e42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Will be deleted." />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow10_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/GPIO_ASAL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:paddingBottom="5dp"
+                android:text="Advanced scheduled actions: " />
+            <CheckBox
+                android:id="@+id/GPIO_ASA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
+
         <TableRow
             android:id="@+id/tableRow11"
             android:layout_width="wrap_content"
@@ -290,6 +336,42 @@
                 android:text="History log: " />
             <CheckBox
                 android:id="@+id/GPIO_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/sensorsL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Sensors: " />
+            <CheckBox
+                android:id="@+id/sensors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/notificationsL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Notifications: " />
+            <CheckBox
+                android:id="@+id/notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true" />

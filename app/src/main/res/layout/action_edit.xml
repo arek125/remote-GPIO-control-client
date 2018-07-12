@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:id="@+id/titleL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add action:"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:stretchColumns="*"
+        android:shrinkColumns="1"
+        android:layout_height="wrap_content" >
+        
+         <TableRow
+            android:id="@+id/tableRow0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/nameRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/nameL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/typeRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/typeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            
+        </TableRow>
+
+        <TableRow
+        android:id="@+id/targetoRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/targetoL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Target: "
+            android:textSize="15sp"
+            android:textColor="#000" />
+        <Spinner
+            android:id="@+id/targeto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+    </TableRow>
+        <TableRow
+            android:id="@+id/targetpwmRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetpwmL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetpwm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/targetChainRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetChainL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetChain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/noeRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/noeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of executions: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <EditText
+                android:id="@+id/noe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number"
+                android:digits="-0123456789"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:text="-1"
+                android:textSize="15sp" >
+            </EditText>
+
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_span="2"
+                android:text="(-1 unlimited, 0 disabled or any number for execution countdown)"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/stateRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/stateL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set state: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <Spinner
+                android:id="@+id/state"
+                android:entries="@array/states"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/pwmFRRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/pwmFRL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set frequency(Hz): "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/pwmFR"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:inputType="numberDecimal"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:id="@+id/pwmDCRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/pwmDCL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set duty cycle(0-100%): "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/pwmDC"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:inputType="numberDecimal"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/keepLogsRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/keepLogsL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keep logs: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <CheckBox
+                android:id="@+id/keepLogs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                >
+            </CheckBox>
+        </TableRow>
+
+
+        
+
+
+       
+    </TableLayout>
+
+</LinearLayout>

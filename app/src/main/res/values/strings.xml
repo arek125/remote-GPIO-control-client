@@ -12,4 +12,38 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
+    <string-array name="weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thurseday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string-array name="states">
+        <item>OFF</item>
+        <item>ON</item>
+        <item>OPPOSITE</item>
+    </string-array>
+    <string-array name="states_two">
+        <item>OFF</item>
+        <item>ON</item>
+    </string-array>
+
+    <string-array name="triggersType">
+        <item>date</item>
+        <item>hour</item>
+        <item>timer</item>
+        <item>weekday</item>
+        <item>sensor</item>
+        <item>i/o</item>
+        <item>pwm state</item>
+        <item>pwm fr</item>
+        <item>pwm dc</item>
+        <item>in chain</item>
+    </string-array>
+
+
 </resources>

@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rgc-c.iml" filepath="$PROJECT_DIR$/rgc-c.iml" />
+      <module fileurl="file://$PROJECT_DIR$/remote-GPIO-control-client.iml" filepath="$PROJECT_DIR$/remote-GPIO-control-client.iml" />
     </modules>
   </component>
 </project>

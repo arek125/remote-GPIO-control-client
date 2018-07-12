@@ -89,13 +89,17 @@ public class CustomGridAdapter2 extends BaseAdapter {
                
                 tv1.setText(nazwy.get(position));tv2.setText("GPIO:"+gpios.get(position));
                 tv3.setText("dc="+dc.get(position)+"%");tv4.setText("f="+fr.get(position)+"Hz");
-                final ImageView iv = (ImageView) gridView.findViewById(R.id.grid_item_image);
-                if (s_s.get(position).equals("1"))
-                	iv.setImageResource(R.drawable.green);
-                else if (s_s.get(position).equals("0"))
-                	iv.setImageResource(R.drawable.red);
-                else iv.setImageResource(R.drawable.yelow);
                 final SeekBar sb1 = (SeekBar) gridView.findViewById(R.id.seekBar1);
+                final ImageView iv = (ImageView) gridView.findViewById(R.id.grid_item_image);
+                if (s_s.get(position).equals("1")){
+                	iv.setImageResource(R.drawable.green);
+                	sb1.setEnabled(true);
+                }
+                else if (s_s.get(position).equals("0")){
+                	iv.setImageResource(R.drawable.red);
+                    sb1.setEnabled(false);
+                }
+                else iv.setImageResource(R.drawable.yelow);
                 RelativeLayout rLayout = (RelativeLayout) gridView.findViewById(R.id.grid_item_rl);
                 rLayout.setOnLongClickListener(new OnLongClickListener() {
                     @Override
@@ -283,10 +287,14 @@ public class CustomGridAdapter2 extends BaseAdapter {
               			    @Override
               				public void processFinish(String output){
               			    	List list = new ArrayList<String>(Arrays.asList(output.split(";")));
-              			    	 if (list.get(1).equals("1"))
+              			    	 if (list.get(1).equals("1")){
               	                	iv.setImageResource(R.drawable.green);
-              	                else if (list.get(1).equals("0"))
+              	                	sb1.setEnabled(true);
+              			    	 }
+              	                else if (list.get(1).equals("0")){
               	                	iv.setImageResource(R.drawable.red);
+                                     sb1.setEnabled(false);
+              			    	 }
               			    	 s_s.set(position, list.get(1).toString());
               			    	tv3.setText("dc="+list.get(0).toString()+"%");
               			    	dc.set(position, list.get(0).toString());
@@ -294,6 +302,7 @@ public class CustomGridAdapter2 extends BaseAdapter {
               			GPIO_PSS.execute("GPIO_PSS",idki.get(position),gpios.get(position),String.valueOf(sb1.getProgress()),s_sS,fr.get(position));
                     }
                 });
+
                 
                 sb1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override

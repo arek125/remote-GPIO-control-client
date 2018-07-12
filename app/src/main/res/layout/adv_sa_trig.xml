@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/lp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginEnd="5dp"
+        android:text="Lp" />
+
+    <TextView
+        android:id="@+id/cond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lp"
+        android:layout_toRightOf="@id/lp"
+        android:layout_marginRight="5sp"
+        android:layout_marginEnd="5dp"
+        android:text="cond"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/op"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/cond"
+        android:layout_toRightOf="@id/cond"
+        android:layout_marginRight="5sp"
+        android:layout_marginEnd="5dp"
+        android:text="op"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/op"
+        android:layout_toRightOf="@id/op"
+        android:text="data"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+
+
+
+</RelativeLayout>

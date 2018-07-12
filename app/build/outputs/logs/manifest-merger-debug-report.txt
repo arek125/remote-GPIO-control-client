@@ -1,79 +1,222 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:2:1-35:12
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:14:1-24:12
+MERGED from [com.afollestad.material-dialogs:core:0.9.6.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\core-0.9.6.0.aar\3725871a9f6915bdc92605b2ee3abfeb\AndroidManifest.xml:2:1-15:12
+MERGED from [me.zhanghai.android.materialprogressbar:library:1.4.2] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\library-1.4.2.aar\a8a6597f27afacacbbe9c5b444ea2ea9\AndroidManifest.xml:6:1-16:12
+MERGED from [com.android.support:appcompat-v7:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.0.aar\d4f96b5ae16c2522621f95717b23ebb7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:27.0.1] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.1.aar\049ded3b2b81c07c66a2b2d0cf72ce2e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\839e6a9b3bf5a4eb0eb9c84729b16ff5\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.0.aar\8a5549db67ab2a48d250df7013d65b18\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\557c2a47d94d50d1928dcb219cc45643\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\32b2bb60a3f3af1b158ef66770aaf9fd\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.0.aar\af539bff61b713b87fe09113c36ca944\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\5e44e3d63674b3783ebca149e3d11138\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\be3182fb0a583c46ff25d9976b4db238\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\09200e0bd8159024385dadc189497b8d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\f09b0b8f59c9fda5b5dbd3bc6c19b64d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\b64e142d27b811beed9235049e75cc45\AndroidManifest.xml:17:1-22:12
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:1-66:12
 	package
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:3:5-22
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:3:5-22
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:5:5-30
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-	android:versionCode
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:4:5-28
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:5:5-30
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:2:11-69
-uses-sdk
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Mdi\.android\build-cache\c0545e1af89705b15dc46686bae60cfe0fc0a880\output\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\Mdi\.android\build-cache\24da6f7fa2b4018c2fcbbcc105696ef3f6fd62ef\output\AndroidManifest.xml:5:5-44
-MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\Mdi\.android\build-cache\4c9aed09516dd32fecb53f7dcee5dbd10e2a4503\output\AndroidManifest.xml:5:5-43
-MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Mdi\.android\build-cache\b50e0a31935e69c7bf9fce1f25cae6644aa1682e\output\AndroidManifest.xml:20:5-43
-	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Mdi\.android\build-cache\c0545e1af89705b15dc46686bae60cfe0fc0a880\output\AndroidManifest.xml:23:9-75
-	android:targetSdkVersion
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:9:9-38
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-	android:minSdkVersion
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:8:9-35
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:11:5-67
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:7:5-67
 	android:name
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:11:22-64
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:7:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:12:5-79
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:8:5-79
 	android:name
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:12:22-76
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:9:5-80
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:21:5-80
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:21:5-80
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:9:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:10:5-81
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:22:5-81
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:22:5-81
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:10:22-78
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:11:5-81
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:11:22-78
+uses-permission#android.permission.WAKE_LOCK
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:12:5-68
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:12:22-65
 application
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:14:5-33:19
-MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Mdi\.android\build-cache\c0545e1af89705b15dc46686bae60cfe0fc0a880\output\AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\Mdi\.android\build-cache\24da6f7fa2b4018c2fcbbcc105696ef3f6fd62ef\output\AndroidManifest.xml:7:5-20
-MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\Mdi\.android\build-cache\4c9aed09516dd32fecb53f7dcee5dbd10e2a4503\output\AndroidManifest.xml:7:5-20
-MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Mdi\.android\build-cache\b50e0a31935e69c7bf9fce1f25cae6644aa1682e\output\AndroidManifest.xml:22:5-20
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:14:5-64:19
+MERGED from [com.afollestad.material-dialogs:core:0.9.6.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\core-0.9.6.0.aar\3725871a9f6915bdc92605b2ee3abfeb\AndroidManifest.xml:13:5-20
+MERGED from [com.afollestad.material-dialogs:core:0.9.6.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\core-0.9.6.0.aar\3725871a9f6915bdc92605b2ee3abfeb\AndroidManifest.xml:13:5-20
 	android:label
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:17:9-41
-	android:allowBackup
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:17:9-41
 	android:icon
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:16:9-45
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:16:9-45
+	android:allowBackup
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:15:9-35
 	android:theme
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:18:9-40
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:18:9-40
 activity#com.rgc.MainActivity
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:19:9-27:20
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:19:9-27:20
 	android:label
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:21:13-45
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:21:13-45
+	android:launchMode
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:22:13-44
 	android:name
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:20:13-48
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:22:13-26:29
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:20:13-48
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:23:13-26:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:23:17-69
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:24:17-69
 	android:name
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:23:25-66
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:24:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:25:17-77
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:25:27-74
-activity#com.rgc.PagerTabStripActivity
-ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:28:9-31:70
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:25:27-74
+receiver#com.rgc.AlarmReceiver
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:28:9-33:20
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:28:19-48
+intent-filter#action:name:android.media.action.DISPLAY_NOTIFICATION+category:name:android.intent.category.DEFAULT
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:29:13-32:29
+action#android.media.action.DISPLAY_NOTIFICATION
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:30:17-84
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:30:25-81
+category#android.intent.category.DEFAULT
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:31:17-76
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:31:27-73
+receiver#com.rgc.RestartAlarmsReceiver
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:34:9-41:20
+	android:enabled
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:34:57-79
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:34:19-56
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:35:13-37:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:36:17-79
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:36:25-76
+intent-filter#action:name:android.intent.action.MY_PACKAGE_REPLACED
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:38:13-40:29
+action#android.intent.action.MY_PACKAGE_REPLACED
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:39:17-83
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:39:25-81
+receiver#com.rgc.OnOffWidget
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:42:9-50:20
 	android:label
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:31:13-67
-	android:configChanges
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:30:13-59
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:42:47-76
+	android:icon
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:42:77-107
 	android:name
-		ADDED from C:\Users\Mdi\Desktop\workspaceAS\rgc-c\app\src\main\AndroidManifest.xml:29:13-57
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:42:19-46
+intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:43:13-45:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:44:17-83
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:44:25-81
+meta-data#android.appwidget.provider
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:47:13-49:61
+	android:resource
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:49:17-59
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:48:17-58
+service#com.rgc.UpdateOnOffWidgetService
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:51:9-60
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:51:18-58
+service#com.rgc.OnOffRemoteViewService
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:52:9-54:40
+	android:exported
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:54:13-37
+	android:permission
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:53:13-69
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:52:18-56
+activity#com.rgc.PagerTabStripActivity
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:55:9-58:70
+	android:label
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:58:13-67
+	android:configChanges
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:57:13-59
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:56:13-57
+activity#com.rgc.OnOffWidgetConfActivity
+ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:59:9-62:15
+	android:excludeFromRecents
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:61:13-46
+	android:theme
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:60:13-56
+	android:name
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml:59:19-58
+uses-sdk
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:17:5-19:41
+MERGED from [com.kevalpatel2106:ringtonepicker:1.3] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\ringtonepicker-1.3.aar\928ba809bfc8c7b3823b1c52f44ebfd0\AndroidManifest.xml:17:5-19:41
+MERGED from [com.afollestad.material-dialogs:core:0.9.6.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\core-0.9.6.0.aar\3725871a9f6915bdc92605b2ee3abfeb\AndroidManifest.xml:8:5-11:75
+MERGED from [com.afollestad.material-dialogs:core:0.9.6.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\core-0.9.6.0.aar\3725871a9f6915bdc92605b2ee3abfeb\AndroidManifest.xml:8:5-11:75
+MERGED from [me.zhanghai.android.materialprogressbar:library:1.4.2] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\library-1.4.2.aar\a8a6597f27afacacbbe9c5b444ea2ea9\AndroidManifest.xml:12:5-14:41
+MERGED from [me.zhanghai.android.materialprogressbar:library:1.4.2] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\library-1.4.2.aar\a8a6597f27afacacbbe9c5b444ea2ea9\AndroidManifest.xml:12:5-14:41
+MERGED from [com.android.support:appcompat-v7:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.0.aar\d4f96b5ae16c2522621f95717b23ebb7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.0.aar\d4f96b5ae16c2522621f95717b23ebb7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.1] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.1.aar\049ded3b2b81c07c66a2b2d0cf72ce2e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.1] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.1.aar\049ded3b2b81c07c66a2b2d0cf72ce2e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\839e6a9b3bf5a4eb0eb9c84729b16ff5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\839e6a9b3bf5a4eb0eb9c84729b16ff5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.0.aar\8a5549db67ab2a48d250df7013d65b18\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.0.aar\8a5549db67ab2a48d250df7013d65b18\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\557c2a47d94d50d1928dcb219cc45643\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\557c2a47d94d50d1928dcb219cc45643\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\32b2bb60a3f3af1b158ef66770aaf9fd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\32b2bb60a3f3af1b158ef66770aaf9fd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.0.aar\af539bff61b713b87fe09113c36ca944\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.0.aar\af539bff61b713b87fe09113c36ca944\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\5e44e3d63674b3783ebca149e3d11138\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\5e44e3d63674b3783ebca149e3d11138\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\be3182fb0a583c46ff25d9976b4db238\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\be3182fb0a583c46ff25d9976b4db238\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\09200e0bd8159024385dadc189497b8d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\09200e0bd8159024385dadc189497b8d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\f09b0b8f59c9fda5b5dbd3bc6c19b64d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\f09b0b8f59c9fda5b5dbd3bc6c19b64d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\b64e142d27b811beed9235049e75cc45\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\b64e142d27b811beed9235049e75cc45\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.afollestad.material-dialogs:core:0.9.6.0] C:\Users\agolen\.gradle\caches\transforms-1\files-1.1\core-0.9.6.0.aar\3725871a9f6915bdc92605b2ee3abfeb\AndroidManifest.xml:11:9-72
+	android:targetSdkVersion
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\agolen\Desktop\workspaceAS\remote-GPIO-control-client\app\src\main\AndroidManifest.xml

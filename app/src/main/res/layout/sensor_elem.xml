@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="0C" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/refresh_date"
+        android:layout_toLeftOf="@+id/refresh_date"
+        android:layout_toRightOf="@id/value"
+        android:layout_toEndOf="@id/value"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="Name"
+        android:textSize="16sp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/refresh_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:singleLine="true"
+        android:text="Date"
+        android:layout_marginTop="2dp"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/value"
+        android:layout_toStartOf="@+id/type"
+        android:layout_toLeftOf="@+id/type"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:layout_toRightOf="@id/value"
+        android:layout_toEndOf="@id/value"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="idddd"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/value"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="type"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/h_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/value"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/h_keep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/value"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        />
+</RelativeLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:id="@+id/titleL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add execution chain:"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:stretchColumns="*"
+        android:shrinkColumns="1"
+        android:layout_height="wrap_content" >
+        
+         <TableRow
+            android:id="@+id/tableRow0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/nameRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/nameL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+
+
+
+
+        
+
+
+       
+    </TableLayout>
+
+</LinearLayout>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rgc"
-    android:versionCode="2"
-    android:versionName="1.1">
-
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="23" />
+    android:versionCode="3"
+    android:versionName="2.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -18,17 +18,48 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.rgc.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".RestartAlarmsReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".OnOffWidget" android:label="On/Off Output" android:icon="@drawable/green">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/on_off_widget_info"/>
+        </receiver>
+        <service android:name=".UpdateOnOffWidgetService"/>
+        <service android:name=".OnOffRemoteViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
         <activity
             android:name="com.rgc.PagerTabStripActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_pager_tab_strip" />
+        <activity android:name=".OnOffWidgetConfActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:excludeFromRecents="true"
+            />
 
     </application>
 

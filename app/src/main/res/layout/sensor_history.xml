@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:id="@+id/titleL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tableHistory"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:stretchColumns="*"
+        android:showDividers="middle"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Time stamp " />
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:text="Value" />
+        </TableRow>
+
+    </TableLayout>
+        <ListView
+            android:id="@+id/listHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+</LinearLayout>

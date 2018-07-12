@@ -24,17 +24,43 @@ private Context mContext;
 		TextView tvtitle = (TextView) titleview.findViewById(R.id.mytitle);
 		Bundle b = getIntent().getExtras();
 		mContext=this;
+        final DataBaseHelper myDbHelper = new DataBaseHelper(mContext);
 		String nazwa_urzadzenia=b.getString("nazwa");
-		String dstAddress = b.getString("ip");
-		int port = b.getInt("port");int artime = b.getInt("artime");int id_u = b.getInt("id_u");
-		String password = b.getString("password");
-		String enc_key = b.getString("enc_key");
+		Connection c =getIntent().getParcelableExtra("connection");
+		//String dstAddress = b.getString("ip");
+		//int port = b.getInt("port");
+		int artime = b.getInt("artime");
+        final int id_u = b.getInt("id_u");
+		//String password = b.getString("password");
+		//String enc_key = b.getString("enc_key");
 		tvtitle.setText(nazwa_urzadzenia);
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME); 
 		getSupportActionBar().setCustomView(titleview);
-        TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(),nazwa_urzadzenia,dstAddress,port,password,mContext,enc_key,artime,id_u);
+        TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(),nazwa_urzadzenia,c,mContext,artime,id_u);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
+        int selectedTab = b.getInt("selectedTab",0);
+        pager.setCurrentItem(selectedTab,true);
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                myDbHelper.edytujUrzadzenie(id_u,position);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
     }
     
     
@@ -52,10 +78,10 @@ private Context mContext;
     }
     @Override
     public void onPause() {
-    	//this.finish();
-        
         super.onPause();
     }
+
+
     
 
 }

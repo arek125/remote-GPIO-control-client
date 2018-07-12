@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="2dp">
+
+
+    <TextView
+        android:id="@+id/lp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_marginRight="5sp"
+        android:layout_marginEnd="5dp"
+        android:text="Lp" />
+
+    <TextView
+        android:id="@+id/targetname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/lp"
+        android:layout_toRightOf="@id/lp"
+        android:layout_marginRight="5sp"
+        android:layout_marginEnd="5dp"
+        android:text="target"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/targetname"
+        android:layout_toRightOf="@id/targetname"
+        android:layout_marginRight="5sp"
+        android:layout_marginEnd="5dp"
+        android:text="set"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/daley"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/set"
+        android:layout_toRightOf="@id/set"
+        android:text="daley"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/bup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/bdown"
+        android:layout_toLeftOf="@id/bdown"
+        android:minHeight="0dp"
+        android:visibility="invisible"
+        android:minWidth="40dp"
+        android:padding="4dp"
+
+        android:text="↑" />
+    <Button
+        android:id="@+id/bdown"
+        android:layout_width="wrap_content"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:minHeight="0dp"
+        android:minWidth="40dp"
+        android:padding="4dp"
+        android:text="↓" />
+
+
+
+
+</RelativeLayout>
