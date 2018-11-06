@@ -92,13 +92,14 @@ public class OnOffWidget extends AppWidgetProvider {
                     c.moveToFirst();
                     String response = "";
                     boolean passwd = false;
-                    boolean succes = false;
+                    boolean succes = false,tcpOnly = false;
                     List<String> list = new ArrayList<String>();
                     int dstPort = c.getInt(3);
                     String dstAddress = c.getString(2), dstPassword = c.getString(4), encKey = c.getString(5);
+                    if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
                     c.close();
                     try {
-                        Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey);
+                        Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
                         response = conn.sendString("GPIO_set"+";"+idt+";"+gpio+";"+stanUstaw+";"+GPIO_Status.DatetoString(new Date())+";"+String.valueOf(reverse)+";"+android.os.Build.MODEL, 256);
                         list = new ArrayList<String>(Arrays.asList(response.split(";")));
                         if (list.get(0).equals("true")) passwd = true;

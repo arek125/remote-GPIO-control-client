@@ -188,6 +188,29 @@
             </EditText>
 		     
 		     </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/tcpOnlyL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TCP Only: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <CheckBox
+                android:id="@+id/tcpOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false" />
+
+
+        </TableRow>
        
 
 
@@ -279,7 +302,8 @@
         <TableRow
             android:id="@+id/tableRow10"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <TextView
                 android:textSize="15.0sp"
                 android:textColor="#f44e42"

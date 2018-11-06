@@ -127,6 +127,9 @@ public class AdvSAListAdapter extends BaseAdapter {
                     Date Tdate = new Date((long)(Long.parseLong( timelist[0])*1000));
                     dane.setText(sdfSeconds.format(Tdate)+ " | "+sdfSeconds.format(cTdate));
                     break;
+                case "ping":
+                    dane.setText(triggerO.dane+" | "+triggerO.id_s);
+                    break;
                 default:
                     dane.setText(triggerO.dane);
             }
@@ -207,6 +210,40 @@ public class AdvSAListAdapter extends BaseAdapter {
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return dateFormat.format(date);
+    }
+    public static Date StringtoDate(String dtStart) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = null;
+        try {
+            date = format.parse(dtStart);
+        } catch (android.net.ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public static String DatetoString(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String stringtime = null;
+        try {
+            stringtime = format.format(date);
+        } catch (android.net.ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return stringtime;
+    }
+
+    public static String SecondstoString(long l) {
+        return String.format("%02d:%02d:%02d", new Object[]{
+                Integer.valueOf((int) (l / 3600)), Integer.valueOf((int) ((l % 3600) / 60)), Integer.valueOf((int) (l % 60))
+        });
     }
 
 }

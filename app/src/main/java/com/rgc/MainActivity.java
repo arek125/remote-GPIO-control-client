@@ -55,7 +55,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 public class MainActivity extends AppCompatActivity {
     //MenuItem miActionProgressItem;
     ProgressBar pb;
-    int verCode = 3;
+    int verCode = 4;
     //boolean activityCreated = false;
     Connection cC;
     DataBaseHelper myDbHelper;
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         final CheckBox notifications = (CheckBox) loginView.findViewById(R.id.notifications);
         final CheckBox tab_ASA = (CheckBox) loginView.findViewById(R.id.GPIO_ASA);
         final CheckBox tab_Chains = (CheckBox) loginView.findViewById(R.id.GPIO_chains);
+        final CheckBox tcpOnly = (CheckBox) loginView.findViewById(R.id.tcpOnly);
         tab_SA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundbutton, boolean flag) {
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                 passWd = sha256(passWd);
                                 encWd = md5(pass.getText().toString());
                             }
-                            myDbHelper.dodajUrzadzenie(name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0);
+                            myDbHelper.dodajUrzadzenie(name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnly.isChecked()) ? 1 : 0);
                             Toast.makeText(getApplicationContext(), "Added: " + name.getText().toString(), Toast.LENGTH_SHORT).show();
                             recreate();
                             myDbHelper.close();
@@ -192,13 +193,13 @@ public class MainActivity extends AppCompatActivity {
         float arTime;
         String response = "";
         boolean succes;
-        boolean passwd;
+        boolean passwd,tcpOnly;
         List<String> list;
         String Message;
         Connection c;
         MaterialDialog pDialog;
 
-        MyClientTask(String name, String addr, int port, String pass, String enc_key, float artime, int id_u,int selected, String message) {
+        MyClientTask(String name, String addr, int port, String pass, String enc_key, float artime, int id_u,int selected, String message, boolean tcpOnly) {
             dstName = name;
             dstAddress = addr;
             dstPort = port;
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
             id_U = id_u;
             selectedTab = selected;
             Message = message;
+            this.tcpOnly = tcpOnly;
 
         }
         @Override
@@ -231,26 +233,30 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    pDialog = new MaterialDialog.Builder(MainActivity.this)
-                                            .content(dstName+" not responding...")
-                                            .title("Connecting...")
-                                            .progress(true, 0)
-                                            .negativeText("Cancel connection")
-                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(MaterialDialog dialog, DialogAction which) {
-                                                    that.cancel(true);
-                                                    pb.setVisibility(View.INVISIBLE);
-                                                    if(c != null)
-                                                        c.cancel();
-                                                }
-                                            })
-                                            .show();
+                                    try{
+                                        pDialog = new MaterialDialog.Builder(MainActivity.this)
+                                                .content(dstName+" not responding...")
+                                                .title("Connecting...")
+                                                .progress(true, 0)
+                                                .negativeText("Cancel connection")
+                                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                    @Override
+                                                    public void onClick(MaterialDialog dialog, DialogAction which) {
+                                                        that.cancel(true);
+                                                        pb.setVisibility(View.INVISIBLE);
+                                                        if(c != null)
+                                                            c.cancel();
+                                                    }
+                                                })
+                                                .show();
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                         }
 
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -263,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... arg0) {
 
             try {
-                c = new Connection(dstAddress, dstPort, dstPass, encKey);
+                c = new Connection(dstAddress, dstPort, dstPass, encKey,tcpOnly);
                 cC=c;
                 if(Message.matches("Server_logs|Server_status"))
                     response = c.sendStringTCP(Message,true);
@@ -346,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
                                                     response = c.sendString("Server_status_code",128);
                                                     list = new ArrayList<String>(Arrays.asList(response.split(";")));
                                                     if(list.get(2).equals("0")){
+                                                        c.timeout = 120000;
                                                         c.sendStringTCP("Server_update;"+encodedString,false);
                                                         Thread.sleep(10000);
                                                     }else{
@@ -360,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
                                                     error="ERROR"+e;
                                                 }
                                                 final String errorF = error;
-                                                MyClientTask myClientTask1 = new MyClientTask(dstName,dstAddress,dstPort,dstPass,encKey,arTime,id_U,selectedTab,"Server_status");
+                                                MyClientTask myClientTask1 = new MyClientTask(dstName,dstAddress,dstPort,dstPass,encKey,arTime,id_U,selectedTab,"Server_status",tcpOnly);
                                                 if(succes)myClientTask1.execute();
                                                 else
                                                 runOnUiThread(new Runnable() {
@@ -455,7 +462,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 final Cursor k = (Cursor) parent.getItemAtPosition(position);
-                final Connection c = new Connection(k.getString(2), k.getInt(3), k.getString(4), k.getString(5));
+                boolean tcpOnly = false;
+                if(!k.isNull(17))
+                    tcpOnly = (k.getInt(17)==1);
+                final boolean tcpOnlyF = tcpOnly;
+                final Connection c = new Connection(k.getString(2), k.getInt(3), k.getString(4), k.getString(5), tcpOnly);
                 final PopupMenu popup = new PopupMenu(getApplicationContext(), view);
                 popup.getMenuInflater().inflate(R.menu.device_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(
@@ -512,7 +523,7 @@ public class MainActivity extends AppCompatActivity {
                                                     error="ERROR"+e;
                                                 }
                                                 final String errorF = error;
-                                                MyClientTask myClientTask1 = new MyClientTask(k.getString(1), k.getString(2), k.getInt(3), k.getString(4), k.getString(5), k.getFloat(6), k.getInt(0),k.getInt(14),"Server_status");
+                                                MyClientTask myClientTask1 = new MyClientTask(k.getString(1), k.getString(2), k.getInt(3), k.getString(4), k.getString(5), k.getFloat(6), k.getInt(0),k.getInt(14),"Server_status",tcpOnlyF);
                                                 if(succes)myClientTask1.execute();
                                                 else
                                                 runOnUiThread(new Runnable() {
@@ -525,7 +536,7 @@ public class MainActivity extends AppCompatActivity {
                                         }).start();
                                         break;
                                     case R.id.serverLogs:
-                                        MyClientTask myClientTask = new MyClientTask(k.getString(1), k.getString(2), k.getInt(3), k.getString(4), k.getString(5), k.getFloat(6), k.getInt(0),k.getInt(14),"Server_logs");
+                                        MyClientTask myClientTask = new MyClientTask(k.getString(1), k.getString(2), k.getInt(3), k.getString(4), k.getString(5), k.getFloat(6), k.getInt(0),k.getInt(14),"Server_logs",tcpOnlyF);
                                         myClientTask.execute();
                                         break;
                                     case R.id.connLogs:
@@ -605,6 +616,7 @@ public class MainActivity extends AppCompatActivity {
                                         final CheckBox notifications = (CheckBox) loginView.findViewById(R.id.notifications);
                                         final CheckBox tab_ASA = (CheckBox) loginView.findViewById(R.id.GPIO_ASA);
                                         final CheckBox tab_Chains = (CheckBox) loginView.findViewById(R.id.GPIO_chains);
+                                        final CheckBox tcpOnlyCh = (CheckBox) loginView.findViewById(R.id.tcpOnly);
                                         tab_SA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                             @Override
                                             public void onCheckedChanged(CompoundButton compoundbutton, boolean flag) {
@@ -622,6 +634,10 @@ public class MainActivity extends AppCompatActivity {
                                         tab_SA.setChecked(k.getInt(10) != 0);
                                         tab_history.setChecked(k.getInt(11) != 0);
                                         sensors.setChecked(k.getInt(12) != 0);
+                                        notifications.setChecked(k.getInt(13) != 0);
+                                        tab_ASA.setChecked(k.getInt(15) != 0);
+                                        tab_Chains.setChecked(k.getInt(16) != 0);
+                                        tcpOnlyCh.setChecked(k.getInt(17) != 0);
                                         ((TableRow) loginView.findViewById(R.id.tableRow4_5)).setVisibility(View.VISIBLE);
 
                                         final AlertDialog d = new AlertDialog.Builder(MainActivity.this)
@@ -666,11 +682,11 @@ public class MainActivity extends AppCompatActivity {
                                                                 encWd = md5(pass.getText().toString());
                                                             }
                                                             if (chk.isChecked()) {
-                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0);
+                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0);
                                                             } else if (!chk.isChecked() && !chk2.isChecked()) {
-                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0);
+                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0);
                                                             } else if (chk2.isChecked()) {
-                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), "", "", Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0);
+                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), "", "", Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0);
                                                             }
 
 
@@ -767,8 +783,11 @@ public class MainActivity extends AppCompatActivity {
     private void reconnect(int id_u){
         if(id_u != -1){
             Cursor kU = myDbHelper.dajUrzadzenie(id_u);
+            boolean tcpOnly = false;
             if(kU.moveToFirst()){
-                MyClientTask myClientTask = new MyClientTask(kU.getString(1), kU.getString(2), kU.getInt(3), kU.getString(4), kU.getString(5), kU.getFloat(6), kU.getInt(0),kU.getInt(14),"version_check");
+                if(!kU.isNull(17))
+                    tcpOnly = (kU.getInt(17)==1);
+                MyClientTask myClientTask = new MyClientTask(kU.getString(1), kU.getString(2), kU.getInt(3), kU.getString(4), kU.getString(5), kU.getFloat(6), kU.getInt(0),kU.getInt(14),"version_check",tcpOnly);
                 myClientTask.execute();
             }
         }

@@ -25,7 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
-	private final static int DATABASE_VERSION = 6;
+	private final static int DATABASE_VERSION = 7;
 
     public DataBaseHelper(Context context) {
  
@@ -163,6 +163,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		}
 		if(oldVersion<6)
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_Chains INT DEFAULT 1 NOT NULL");
+		if(oldVersion<7)
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN TCP_Only INTEGER DEFAULT 0 NOT NULL");
 	}
  
 	
@@ -178,7 +180,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		return kursor;
 	}
 	
-	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains){
+	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -196,11 +198,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
         wartosci.put("Tab_Notifications",Tab_Notifications);
 		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
+        wartosci.put("TCP_Only",TCP_Only);
 		db.insertOrThrow("urzadzenia", null, wartosci);
 		
 	}
 	
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains){
+	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only){
 		SQLiteDatabase db = getWritableDatabase(); 
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -218,10 +221,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
         wartosci.put("Tab_Notifications",Tab_Notifications);
 		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
+        wartosci.put("TCP_Only",TCP_Only);
         wartosci.put("selected_tab",0);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors , int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains){
+	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors , int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -237,6 +241,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
         wartosci.put("Tab_Notifications",Tab_Notifications);
 		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
+        wartosci.put("TCP_Only",TCP_Only);
         wartosci.put("selected_tab",0);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}

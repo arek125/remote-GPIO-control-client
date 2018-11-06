@@ -1,7 +1,6 @@
 package com.rgc;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -27,7 +26,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
@@ -84,7 +82,7 @@ public class Notifications extends Fragment{
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_scheduled_actions, container, false);
-
+        //Log.i("Mdi","CREATING");
         listview = (ListView) rootView.findViewById(R.id.listView2);
         setHasOptionsMenu(true);
         this.inflater = inflater;
@@ -124,7 +122,7 @@ public class Notifications extends Fragment{
                             public void run() {
                                 String[] columns = new String[]{"target_id", "type", "condition", "value", "repeat_sec"};
                                 int[] to = new int[]{R.id.target, R.id.type, R.id.condition, R.id.value, R.id.imageView};
-                                SimpleCursorAdapter customAdapter = new SimpleCursorAdapter(mContext, R.layout.notification_item, k, columns, to);
+                                SimpleCursorAdapter customAdapter = new SimpleCursorAdapter(mContext, R.layout.notification_item, k, columns, to,0);
 
                                 customAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
                                     @Override

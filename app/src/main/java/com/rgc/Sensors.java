@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -69,21 +70,15 @@ public class Sensors extends Fragment {
         listview = (ListView) rootView.findViewById(R.id.listView2);
         setHasOptionsMenu(true);
         this.inflater = inflater;
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, final View view,final int position, long id) {
                 //final View loginView = inflater.inflate(R.layout.sensor_history, null);
                 final TextView dId =  view.findViewById(R.id.id);
                 final TextView dName =  view.findViewById(R.id.name);
                 final TextView dType =  view.findViewById(R.id.type);
-                SensorsTask myClientTask2_1 = new SensorsTask();
-                myClientTask2_1.execute("SENSOR_history",dId.getText().toString(),dType.getText().toString(),dName.getText().toString());
-            }
-        });
-        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final SensorsTask myClientTask2_1 = new SensorsTask();
                 final View loginView = inflater.inflate(R.layout.edit_sensor, null);
-                final TextView dId =  view.findViewById(R.id.id);
-                TextView dName =  view.findViewById(R.id.name);
                 TextView dhr =  view.findViewById(R.id.h_refresh);
                 TextView dhk =  view.findViewById(R.id.h_keep);
                 final EditText edName = loginView.findViewById(R.id.name);
@@ -92,31 +87,90 @@ public class Sensors extends Fragment {
                 edName.setText(dName.getText().toString());
                 edhr.setText(dhr.getText().toString());
                 edhk.setText(dhk.getText().toString());
-                final AlertDialog d = new AlertDialog.Builder(getActivity())
-                        .setView(loginView)
-                        .setPositiveButton("SAVE",
-                                new Dialog.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface d, int which) {
-                                        SensorsTask myClientTask2_1 = new SensorsTask();
-                                        myClientTask2_1.execute("SENSOR_update",dId.getText().toString(),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString());
-                                    }
-                                })
-                        .setNeutralButton("REMOVE",
-                                new Dialog.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface d, int which) {
-                                        SensorsTask myClientTask2_1 = new SensorsTask();
-                                        myClientTask2_1.execute("SENSOR_remove",dId.getText().toString());
-                                    }
-                                })
-                        .setNegativeButton("CANCEL", null)
-                        .create();
+                //myClientTask2_1.execute("SENSOR_history",dId.getText().toString(),dType.getText().toString(),dName.getText().toString());
 
-                d.show();
-                return true;
+                final PopupMenu popup = new PopupMenu(mContext, view);
+                popup.getMenuInflater().inflate(R.menu.sensor_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(
+                        new PopupMenu.OnMenuItemClickListener() {
+                            public boolean onMenuItemClick(MenuItem item) {
+                                //item.getActionView().startAnimation(alpha);
+                                switch (item.getItemId()) {
+                                    case R.id.refresh:
+                                        myClientTask2_1.execute("SENSOR_refresh",dId.getText().toString());
+                                        break;
+                                    case R.id.showHistory:
+                                        myClientTask2_1.execute("SENSOR_history",dId.getText().toString(),dType.getText().toString(),dName.getText().toString());
+                                        break;
+                                    case R.id.edit:
+                                        new AlertDialog.Builder(getActivity())
+                                                .setView(loginView)
+                                                .setPositiveButton("SAVE",
+                                                        new Dialog.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface d, int which) {
+                                                                myClientTask2_1.execute("SENSOR_update",dId.getText().toString(),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString());
+                                                            }
+                                                        })
+                                                .setNeutralButton("REMOVE",
+                                                        new Dialog.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface d, int which) {
+                                                                myClientTask2_1.execute("SENSOR_remove",dId.getText().toString());
+                                                            }
+                                                        })
+                                                .setNegativeButton("CANCEL", null)
+                                                .create()
+                                                .show();
+                                        break;
+
+                                }
+                                return true;
+                            }
+                        });
+                popup.show();
+
             }
         });
+//        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                final View loginView = inflater.inflate(R.layout.edit_sensor, null);
+//                final TextView dId =  view.findViewById(R.id.id);
+//                TextView dName =  view.findViewById(R.id.name);
+//                TextView dhr =  view.findViewById(R.id.h_refresh);
+//                TextView dhk =  view.findViewById(R.id.h_keep);
+//                final EditText edName = loginView.findViewById(R.id.name);
+//                final EditText edhr = loginView.findViewById(R.id.hr);
+//                final EditText edhk = loginView.findViewById(R.id.hk);
+//                edName.setText(dName.getText().toString());
+//                edhr.setText(dhr.getText().toString());
+//                edhk.setText(dhk.getText().toString());
+//                final AlertDialog d = new AlertDialog.Builder(getActivity())
+//                        .setView(loginView)
+//                        .setPositiveButton("SAVE",
+//                                new Dialog.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface d, int which) {
+//                                        SensorsTask myClientTask2_1 = new SensorsTask();
+//                                        myClientTask2_1.execute("SENSOR_update",dId.getText().toString(),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString());
+//                                    }
+//                                })
+//                        .setNeutralButton("REMOVE",
+//                                new Dialog.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface d, int which) {
+//                                        SensorsTask myClientTask2_1 = new SensorsTask();
+//                                        myClientTask2_1.execute("SENSOR_remove",dId.getText().toString());
+//                                    }
+//                                })
+//                        .setNegativeButton("CANCEL", null)
+//
+//                        .create();
+//
+//                d.show();
+//                return true;
+//            }
+//        });
         return rootView;
     }
 
@@ -157,7 +211,7 @@ public class Sensors extends Fragment {
                     response = c.sendString( params[0], 1024);
                 else if (params[0].equals("SENSOR_update"))
                     response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3]+ ";" + params[4], 256);
-                else if (params[0].equals("SENSOR_remove"))
+                else if (params[0].matches("SENSOR_remove|SENSOR_refresh"))
                     response = c.sendString(params[0] + ";" + params[1], 256);
                 else if (params[0].equals("SENSOR_history")) {
                     response = c.sendStringTCP(params[0] + ";" + params[1] + ";" + params[2],true);
@@ -210,7 +264,7 @@ public class Sensors extends Fragment {
                         adapter = new SimpleAdapter(mContext, fillMaps, R.layout.sensor_elem, from, to);
                         listview.setAdapter(adapter);
                     }
-                } else if (list.get(1).equals("SENSOR_update")|| list.get(1).equals("SENSOR_remove")) {
+                } else if (list.get(1).matches("SENSOR_update|SENSOR_remove|SENSOR_refresh")) {
                     check_state();
                 } else if (list.get(1).equals("SENSOR_history")) {
                     final View loginView = inflater.inflate(R.layout.sensor_history, null);
@@ -263,7 +317,6 @@ public class Sensors extends Fragment {
 
                     new AlertDialog.Builder(getActivity())
                             .setView(loginView)
-                            .create()
                             .show();
 
                     //d.show();
@@ -273,7 +326,7 @@ public class Sensors extends Fragment {
                     myDbHelper.dodajLog(id_U, response);
                     r.setTextColor(Color.RED);
                 } else if (!passwd) {
-                    myDbHelper.dodajLog(id_U, list.get(1));
+                    myDbHelper.dodajLog(id_U, response);
                     r.setTextColor(Color.RED);
                 }
             }

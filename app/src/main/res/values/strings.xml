@@ -43,6 +43,7 @@
         <item>pwm fr</item>
         <item>pwm dc</item>
         <item>in chain</item>
+        <item>ping</item>
     </string-array>
 
 

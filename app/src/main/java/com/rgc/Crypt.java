@@ -102,7 +102,7 @@ public   byte[] decrypt(   byte[] bytes)
 
     keyBytes = key.getBytes();
     byte[] ivB = Arrays.copyOfRange(bytes,0,16);
-    Log.d(tag, "IV: "+new String(ivB));
+    //Log.d(tag, "IV: "+new String(ivB));
     byte[] codB = Arrays.copyOfRange(bytes,16,bytes.length);
 
     AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivB);

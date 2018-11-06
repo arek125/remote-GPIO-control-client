@@ -23,17 +23,19 @@ public class Connection implements Parcelable {
     private DatagramSocket clientSocket;
     private Socket s;
     private InetAddress IPAddress;
-    public boolean isConnecting = false;
+    public boolean isConnecting = false,tcpOnly = false;
     public String ip,pass,enc_key;
+    public int timeout = 20000;
     public int port;
     BufferedReader in;
     PrintWriter out;
 
-    Connection(String ip, int port, String pass, String enc_key){
+    Connection(String ip, int port, String pass, String enc_key, boolean tcpOnly){
         this.ip = ip;
         this.port = port;
         this.pass = pass;
         this.enc_key = enc_key;
+        this.tcpOnly = tcpOnly;
     }
 
     public void cancel(){
@@ -50,11 +52,19 @@ public class Connection implements Parcelable {
             out.flush();
             out.close();
         }
-
         isConnecting = false;
     }
 
-    public String sendString(String message, int receivesize) throws IOException, Exception {
+    public String sendString(String message, int receivesize) throws Exception {
+        if(tcpOnly) return sendStringTCP(message,true);
+        else return sendStringUDP(message,receivesize);
+    }
+    public void sendString(String message) throws Exception {
+        if(tcpOnly) sendStringTCP(message,false);
+        else sendStringUDP(message);
+    }
+
+    public String sendStringUDP(String message, int receivesize) throws Exception {
         //clientSocket.close();
         isConnecting = true;
         String modifiedSentence = "CONNECTION ERROR";
@@ -125,10 +135,10 @@ public class Connection implements Parcelable {
         return string.toString();
     }
 
-    public void sendString(String message) throws Exception {
+    public void sendStringUDP(String message) throws Exception {
         isConnecting = true;
         clientSocket = new DatagramSocket();
-        clientSocket.setSoTimeout(20000);
+        clientSocket.setSoTimeout(timeout);
         if(URLUtil.isValidUrl(ip))
             IPAddress = InetAddress.getByName(new URL(ip).getHost());
         else
@@ -148,7 +158,7 @@ public class Connection implements Parcelable {
         else
             IPAddress = InetAddress.getByName(ip);
         s = new Socket(IPAddress, port);
-        s.setSoTimeout(20000);
+        s.setSoTimeout(timeout);
         in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream())), true);
         message = encrypt(message);

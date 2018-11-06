@@ -1,0 +1,47 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\src\\main\\res\\values-v11\\styles.xml",
+                    "from": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "182",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "313"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "184"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-1\\files-1.1\\core-0.9.6.0.aar\\a30df6ff9581ea3d7c855e39a9913ace\\res\\values-v11\\values-v11.xml",
+                    "from": {
+                        "startLines": "2,19",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,1044",
+                        "endLines": "18,35",
+                        "endColumns": "10,10",
+                        "endOffsets": "1039,2010"
+                    },
+                    "to": {
+                        "startLines": "5,22",
+                        "startColumns": "4,4",
+                        "startOffsets": "189,1178",
+                        "endLines": "21,38",
+                        "endColumns": "10,10",
+                        "endOffsets": "1173,2144"
+                    }
+                }
+            ]
+        }
+    ]
+}

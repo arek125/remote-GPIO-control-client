@@ -195,7 +195,7 @@ public class Chains extends Fragment {
                 r.setTextColor(Color.GREEN);
                 if (list.get(1).equals("GPIO_ChainEtime")) {
                     if (!(list.get(2)).equals("None")) {
-                        Date date =ScheduledActions.StringtoDate(list.get(2));
+                        Date date =AdvSAListAdapter.StringtoDate(list.get(2));
                         if (!date.equals(edittime)) {
                             list_update();
                             edittime = date;

@@ -177,17 +177,17 @@ public class AdvScheduledActions extends Fragment {
                 else if (params[0].equals("GPIO_ASAlist"))
                     response = c.sendString(params[0] + ";", 16384);
                 else if (params[0].equals("GPIO_ASA_Add"))
-                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + params[7] + ";" + params[8] + ";" +ScheduledActions.DatetoString(new Date()), 1024);
+                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + params[7] + ";" + params[8] + ";" +AdvSAListAdapter.DatetoString(new Date()), 1024);
                 else if (params[0].equals("GPIO_ASA_Update"))
-                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + params[7] + ";" + params[8] + ";" + params[9] + ";" + ScheduledActions.DatetoString(new Date()), 1024);
+                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + params[7] + ";" + params[8] + ";" + params[9] + ";" + AdvSAListAdapter.DatetoString(new Date()), 1024);
                 else if (params[0].equals("GPIO_ASA_Delete"))
                     response = c.sendString(params[0]+ ";" + params[1], 256);
                 else if (params[0].matches("GPIO_ASA_DeleteTrigger|GPIO_ASA_SetConj"))
                     response = c.sendString(params[0]+ ";" + params[1] + ";" + params[2], 256);
                 else if (params[0].equals("GPIO_ASA_AddTrigger"))
-                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + ScheduledActions.DatetoString(new Date()), 1024);
+                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + AdvSAListAdapter.DatetoString(new Date()), 1024);
                 else if (params[0].equals("GPIO_ASA_UpdateTrigger"))
-                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + ScheduledActions.DatetoString(new Date()), 1024);
+                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + AdvSAListAdapter.DatetoString(new Date()), 1024);
 
                 list = new ArrayList<String>(Arrays.asList(response.split(";")));
                 if (list.get(0).equals("true")) passwd = true;
@@ -214,7 +214,7 @@ public class AdvScheduledActions extends Fragment {
                 r.setTextColor(Color.GREEN);
                 if (list.get(1).equals("GPIO_ASAEtime")) {
                     if (!(list.get(2)).equals("None")) {
-                        Date date = ScheduledActions.StringtoDate(list.get(2));
+                        Date date = AdvSAListAdapter.StringtoDate(list.get(2));
                         if (!date.equals(edittime)) {
                             list_update();
                             edittime = date;
@@ -229,7 +229,7 @@ public class AdvScheduledActions extends Fragment {
                     if(list.size() > 2){
                         for (int i = 2; i < list.size()-1; i+=18) {
                             if(list.get(i+1).equals("output")) {
-                                int reverseNumber = Integer.parseInt(list.get(i + 12));
+//                                int reverseNumber = Integer.parseInt(list.get(i + 12));
                                 int stateNumber = Integer.parseInt(list.get(i + 5));
                                 String stan = "";
 //                                if (stateNumber == 0 && reverseNumber == 0 || stateNumber == 1 && reverseNumber == 1)
@@ -273,7 +273,7 @@ public class AdvScheduledActions extends Fragment {
                                         stan,
                                         list.get(i + 7),
                                         list.get(i + 8),
-                                        list.get(i + 11),
+                                        list.get(i + 13),//11?
                                         list.get(i + 15).equals("1")
                                 ));
                             }

@@ -55,12 +55,13 @@ public class AdvScheduledActionTrigger {
         final TextView title = view.findViewById(R.id.titleL);
         final Spinner type = view.findViewById(R.id.type);
         final ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(context, R.array.triggersType, android.R.layout.simple_spinner_item);
+        //type.setAdapter(typeAdapter);
         final EditText op = view.findViewById(R.id.op);
         final DatePicker date = view.findViewById(R.id.date);
         final TimePicker time = view.findViewById(R.id.hour);
         time.setIs24HourView(true);
         final NumberPicker tmhours = (NumberPicker) view.findViewById(R.id.timerhours);
-        tmhours.setMaxValue(672);
+        tmhours.setMaxValue(23);
         tmhours.setMinValue(0);
         final NumberPicker tmminutes = (NumberPicker) view.findViewById(R.id.timerminutes);
         tmminutes.setMaxValue(59);
@@ -98,6 +99,8 @@ public class AdvScheduledActionTrigger {
         pwm_dc.setAdapter(pwm_ssAdapter);
         final EditText pwm_dcValue = view.findViewById(R.id.pwmDCValue);
         final CheckBox trueFalse = view.findViewById(R.id.falseTrue);
+        final CheckBox pingtrueFalse = view.findViewById(R.id.ping);
+        final EditText pingHost = view.findViewById(R.id.pingHost);
 
         final TableRow dateRow = view.findViewById(R.id.dateRow);
         final TableRow hourRow = view.findViewById(R.id.hourRow);
@@ -109,10 +112,12 @@ public class AdvScheduledActionTrigger {
         final TableRow pwm_frRow = view.findViewById(R.id.pwmFRRow);
         final TableRow pwm_dcRow = view.findViewById(R.id.pwmDCRow);
         final TableRow trueFalseRow = view.findViewById(R.id.falseTrueRow);
+        final TableRow pingRow = view.findViewById(R.id.pingRow);
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cal.setTimeZone(TimeZone.getDefault());
+                //typeAdapter.notifyDataSetChanged();
                 switch (position){
                     case 0:
                         dateRow.setVisibility(View.VISIBLE);
@@ -125,6 +130,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 1:
                         dateRow.setVisibility(View.GONE);
@@ -137,6 +143,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 2:
                         dateRow.setVisibility(View.GONE);
@@ -149,6 +156,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 3:
                         dateRow.setVisibility(View.GONE);
@@ -161,6 +169,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 4:
                         dateRow.setVisibility(View.GONE);
@@ -173,6 +182,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 5:
                         dateRow.setVisibility(View.GONE);
@@ -185,6 +195,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 6:
                         dateRow.setVisibility(View.GONE);
@@ -197,6 +208,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 7:
                         dateRow.setVisibility(View.GONE);
@@ -209,6 +221,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.VISIBLE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 8:
                         dateRow.setVisibility(View.GONE);
@@ -221,6 +234,7 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.VISIBLE);
                         trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.GONE);
                         break;
                     case 9:
                         dateRow.setVisibility(View.GONE);
@@ -233,6 +247,20 @@ public class AdvScheduledActionTrigger {
                         pwm_frRow.setVisibility(View.GONE);
                         pwm_dcRow.setVisibility(View.GONE);
                         trueFalseRow.setVisibility(View.VISIBLE);
+                        pingRow.setVisibility(View.GONE);
+                        break;
+                    case 10:
+                        dateRow.setVisibility(View.GONE);
+                        hourRow.setVisibility(View.GONE);
+                        timerRow.setVisibility(View.GONE);
+                        weekdayRow.setVisibility(View.GONE);
+                        sensorRow.setVisibility(View.GONE);
+                        ioRow.setVisibility(View.GONE);
+                        pwm_ssRow.setVisibility(View.GONE);
+                        pwm_frRow.setVisibility(View.GONE);
+                        pwm_dcRow.setVisibility(View.GONE);
+                        trueFalseRow.setVisibility(View.GONE);
+                        pingRow.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -298,6 +326,10 @@ public class AdvScheduledActionTrigger {
                 case "in chain":
                     trueFalse.setChecked(Boolean.parseBoolean(dane));
                     break;
+                case "ping":
+                    pingtrueFalse.setChecked(Boolean.parseBoolean(dane));
+                    pingHost.setText(id_s);
+                    break;
             }
         }
 
@@ -350,8 +382,15 @@ public class AdvScheduledActionTrigger {
                                 else
                                     dane = "False";
                                 break;
+                            case "ping":
+                                if(pingtrueFalse.isChecked())
+                                    dane = "True";
+                                else
+                                    dane = "False";
+                                id_s = pingHost.getText().toString();
+                                break;
                         }
-                        if((dane == null || dane.isEmpty()) || (type.getSelectedItem().toString().matches("sensor|i/o|pwm") && (id_s == null|| id_s.isEmpty())))
+                        if((dane == null || dane.isEmpty()) || (type.getSelectedItem().toString().matches("sensor|i/o|pwm|ping") && (id_s == null|| id_s.isEmpty())))
                             Toast.makeText(context, "Fill all visible fields !", Toast.LENGTH_SHORT).show();
                         else if(!op.getText().toString().matches("^==|<=|>=|<|>|!=$"))
                             Toast.makeText(context, "Not allowed operator, must be one of (==|<=|>=|<|>|!=) !", Toast.LENGTH_SHORT).show();
