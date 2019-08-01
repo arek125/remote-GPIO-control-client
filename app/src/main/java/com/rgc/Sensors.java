@@ -1,5 +1,6 @@
 package com.rgc;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 
@@ -17,6 +18,8 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,13 +28,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 
 public class Sensors extends Fragment {
@@ -49,6 +59,7 @@ public class Sensors extends Fragment {
     public static Context mContext;
     LayoutInflater inflater;
     static Connection c;
+    List<HashMap<String, String>> fillMaps;
     public Sensors() {
     }
 
@@ -103,25 +114,26 @@ public class Sensors extends Fragment {
                                         myClientTask2_1.execute("SENSOR_history",dId.getText().toString(),dType.getText().toString(),dName.getText().toString());
                                         break;
                                     case R.id.edit:
-                                        new AlertDialog.Builder(getActivity())
-                                                .setView(loginView)
-                                                .setPositiveButton("SAVE",
-                                                        new Dialog.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface d, int which) {
-                                                                myClientTask2_1.execute("SENSOR_update",dId.getText().toString(),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString());
-                                                            }
-                                                        })
-                                                .setNeutralButton("REMOVE",
-                                                        new Dialog.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface d, int which) {
-                                                                myClientTask2_1.execute("SENSOR_remove",dId.getText().toString());
-                                                            }
-                                                        })
-                                                .setNegativeButton("CANCEL", null)
-                                                .create()
-                                                .show();
+                                        modalDialog(true,position);
+//                                        new AlertDialog.Builder(getActivity())
+//                                                .setView(loginView)
+//                                                .setPositiveButton("SAVE",
+//                                                        new Dialog.OnClickListener() {
+//                                                            @Override
+//                                                            public void onClick(DialogInterface d, int which) {
+//                                                                myClientTask2_1.execute("SENSOR_update",dId.getText().toString(),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString());
+//                                                            }
+//                                                        })
+//                                                .setNeutralButton("REMOVE",
+//                                                        new Dialog.OnClickListener() {
+//                                                            @Override
+//                                                            public void onClick(DialogInterface d, int which) {
+//                                                                myClientTask2_1.execute("SENSOR_remove",dId.getText().toString());
+//                                                            }
+//                                                        })
+//                                                .setNegativeButton("CANCEL", null)
+//                                                .create()
+//                                                .show();
                                         break;
 
                                 }
@@ -209,8 +221,8 @@ public class Sensors extends Fragment {
             try {
                 if (params[0].equals("SENSOR_list"))
                     response = c.sendString( params[0], 1024);
-                else if (params[0].equals("SENSOR_update"))
-                    response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3]+ ";" + params[4], 256);
+                else if (params[0].matches("SENSOR_update|SENSOR_addCustom|SENSOR_updateCustom"))
+                    response = c.sendString(TextUtils.join(";", params) + ";", 1024);
                 else if (params[0].matches("SENSOR_remove|SENSOR_refresh"))
                     response = c.sendString(params[0] + ";" + params[1], 256);
                 else if (params[0].equals("SENSOR_history")) {
@@ -249,8 +261,8 @@ public class Sensors extends Fragment {
                         String[] from = new String[]{"id", "name", "type", "value", "h_refresh", "h_keep","refresh_date"};
                         int[] to = new int[]{R.id.id, R.id.name, R.id.type, R.id.value, R.id.h_refresh, R.id.h_keep, R.id.refresh_date};
 
-                        List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
-                        for (int i = 2; i < list.size()-1; i+=8) {
+                        fillMaps = new ArrayList<HashMap<String, String>>();
+                        for (int i = 2; i < list.size()-1; i+=11) {
                             HashMap<String, String> map = new HashMap<String, String>();
                             map.put("id", list.get(i));
                             map.put("name", list.get(i+1));
@@ -259,12 +271,16 @@ public class Sensors extends Fragment {
                             map.put("h_refresh", list.get(i+4));
                             map.put("h_keep", list.get(i+5));
                             map.put("refresh_date",AdvSAListAdapter.UTCtoLocalDate(list.get(i+7),"yyyy-MM-dd HH:mm:ss",false));
+                            map.put("cmdId", list.get(i+8));
+                            map.put("gpio", list.get(i+9));
+                            map.put("dataName", list.get(i+10));
+                            map.put("unit", list.get(i+6));
                             fillMaps.add(map);
                         }
                         adapter = new SimpleAdapter(mContext, fillMaps, R.layout.sensor_elem, from, to);
                         listview.setAdapter(adapter);
                     }
-                } else if (list.get(1).matches("SENSOR_update|SENSOR_remove|SENSOR_refresh")) {
+                } else if (list.get(1).matches("SENSOR_update|SENSOR_addCustom|SENSOR_updateCustom|SENSOR_remove|SENSOR_refresh")) {
                     check_state();
                 } else if (list.get(1).equals("SENSOR_history")) {
                     final View loginView = inflater.inflate(R.layout.sensor_history, null);
@@ -336,6 +352,106 @@ public class Sensors extends Fragment {
         }
 
     }
+    HashMap<String, String> selectedSensor;String selectedSensorType = "custom";
+    public void modalDialog(final boolean editMode,final int position){
+        final View loginView = inflater.inflate(R.layout.edit_sensor, null);
+        final EditText edName = loginView.findViewById(R.id.name);
+        final EditText edhr = loginView.findViewById(R.id.hr);
+        final EditText edhk = loginView.findViewById(R.id.hk);
+        final EditText unit = loginView.findViewById(R.id.unit);
+        final EditText gpio = loginView.findViewById(R.id.gpio);
+        final EditText dataName = loginView.findViewById(R.id.dataName);
+        final Spinner dataSource = loginView.findViewById(R.id.sourceCmd);
+        final SparseArray CmdsList= new SparseArray<>();
+        if(editMode){
+            selectedSensor = fillMaps.get(position);
+            selectedSensorType = selectedSensor.get("type");
+            edName.setText(selectedSensor.get("name"));
+            edhr.setText(selectedSensor.get("h_refresh"));
+            edhk.setText(selectedSensor.get("h_keep"));
+            unit.setText(selectedSensor.get("unit"));
+            gpio.setText(selectedSensor.get("gpio"));
+            dataName.setText(selectedSensor.get("dataName"));
+        }
+        else{
+            edhr.setText("3600");
+            edhk.setText("7");
+        }
+        if(!selectedSensorType.equals("custom")){
+            TableRow unitRow = loginView.findViewById(R.id.tableRow4);
+            TableRow gpioRow = loginView.findViewById(R.id.tableRow5);
+            TableRow dataNameRow = loginView.findViewById(R.id.tableRow6);
+            TableRow dataSourceRow = loginView.findViewById(R.id.sourceCmdRow);
+            unitRow.setVisibility(View.GONE);
+            gpioRow.setVisibility(View.GONE);
+            dataNameRow.setVisibility(View.GONE);
+            dataSourceRow.setVisibility(View.GONE);
+        }
+        GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
+            @Override
+            public void processFinish(List<String> list) {
+                CmdsList.clear();
+                for (int i = 2; i < list.size()-1; i+=4) {
+                    CmdsList.put(Integer.parseInt(list.get(i)),list.get(i+1));
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item, AdvScheduledAction.ConvertToList(CmdsList));
+                adapter.setDropDownViewResource(R.layout.spinner_item);
+                dataSource.setAdapter(adapter);
+                if(editMode){
+                    if(selectedSensorType.equals("custom")){
+                        int cmdId =Integer.parseInt(selectedSensor.get("cmdId"));
+                        dataSource.setSelection(CmdsList.indexOfKey(cmdId));
+                    }
+                }
+            }
+            @Override
+            public void processFail(String error) {
+
+            }
+        },mContext,c,id_U,1024,pb,r);
+        execad.execute("GetCustomCmds");
+
+        final SensorsTask myClientTask2_1 = new SensorsTask();
+        MaterialDialog d = new MaterialDialog.Builder(mContext)
+                //.title(R.string.title)
+                .customView(loginView, true)
+                .autoDismiss(false)
+                .positiveText("SAVE")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if(edName.getText().toString().isEmpty()) Toast.makeText(mContext, "Name required !", Toast.LENGTH_SHORT).show();
+                        else if(edhr.getText().toString().isEmpty()) Toast.makeText(mContext, "History refresh value is required !", Toast.LENGTH_SHORT).show();
+                        else if(edhk.getText().toString().isEmpty()) Toast.makeText(mContext, "History range back value is required !", Toast.LENGTH_SHORT).show();
+                        else if(dataSource.getSelectedItem() == null && selectedSensorType.equals("custom"))Toast.makeText(mContext, "Source for custom sensor is required  !", Toast.LENGTH_SHORT).show();
+                        else{
+                            if(editMode && selectedSensorType.equals("custom"))myClientTask2_1.execute("SENSOR_updateCustom",selectedSensor.get("id"),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString(),unit.getText().toString(),gpio.getText().toString(),dataName.getText().toString(),String.valueOf(CmdsList.keyAt(dataSource.getSelectedItemPosition())));
+                            else if (editMode)myClientTask2_1.execute("SENSOR_update",selectedSensor.get("id"),edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString());
+                            else myClientTask2_1.execute("SENSOR_addCustom",edName.getText().toString(),edhr.getText().toString(),edhk.getText().toString(),unit.getText().toString(),gpio.getText().toString(),dataName.getText().toString(),String.valueOf(CmdsList.keyAt(dataSource.getSelectedItemPosition())));
+                            dialog.dismiss();
+                        }
+                    }
+                })
+                .neutralText("DELETE")
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        myClientTask2_1.execute("SENSOR_remove",selectedSensor.get("id"));
+                    }
+                })
+                .negativeText("CANCEL")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
+        if(!editMode)
+            d.getActionButton(DialogAction.NEUTRAL).setVisibility(View.INVISIBLE);
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -344,8 +460,15 @@ public class Sensors extends Fragment {
         View v = MenuItemCompat.getActionView(actionViewItem);
         pb = (ProgressBar) v.findViewById(R.id.pbProgressAction);
         Button b = (Button) v.findViewById(R.id.btnCustomAction);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedSensorType = "custom";
+                modalDialog(false,-1);
+            }
+        });
         //Button b2 = (Button) v.findViewById(R.id.btnCustomAction2);
-        b.setVisibility(View.GONE);
+        //b.setVisibility(View.GONE);
         //b2.setVisibility(View.VISIBLE);
         r = (Button) v.findViewById(R.id.btnCustomAction3);
         r.setOnClickListener( new View.OnClickListener() {

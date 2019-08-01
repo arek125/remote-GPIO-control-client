@@ -2,10 +2,10 @@
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/on_off_widgetm"
-    android:configure="com.rgc.OnOffWidgetConfActivity"
+    android:configure="com.rgc.MultiTypeWidgetConfActivity"
     android:minHeight="120dp"
     android:minWidth="120dp"
-    android:previewImage="@drawable/green"
+    android:previewImage="@drawable/view_grid"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen">

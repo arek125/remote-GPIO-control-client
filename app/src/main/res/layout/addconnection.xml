@@ -338,12 +338,13 @@
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:paddingBottom="5dp"
-                android:text="Advanced scheduled actions: " />
+                android:text="Automation: " />
             <CheckBox
                 android:id="@+id/GPIO_ASA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true" />
+                android:clickable="false"
+                android:checked="false" />
         </TableRow>
 
         <TableRow
@@ -396,6 +397,42 @@
                 android:text="Notifications: " />
             <CheckBox
                 android:id="@+id/notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/rfL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Radio frequency: " />
+            <CheckBox
+                android:id="@+id/rf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15.0sp"
+                android:textColor="#ff000000"
+                android:id="@+id/cmdL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Custom commands: " />
+            <CheckBox
+                android:id="@+id/cmd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true" />

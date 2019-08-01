@@ -29,11 +29,15 @@ public class ChainsListAdapter extends BaseAdapter {
     SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
     SimpleDateFormat sdfSeconds = new SimpleDateFormat("HH:mm:ss");
+    Connection c;
+    private int idU;
 
-    public ChainsListAdapter(List<Chain> chainsList, Context context) {
+    public ChainsListAdapter(List<Chain> chainsList, Context context, Connection c , int idU) {
         super();
         this.chainsList = chainsList;
         this.context = context;
+        this.c = c;
+        this.idU = idU;
         layoutInflater = LayoutInflater.from(context);
         alpha.setDuration(250);
         //namesOfDays = DateFormatSymbols.getInstance().getWeekdays();
@@ -93,7 +97,7 @@ public class ChainsListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     v.startAnimation(alpha);
-                    bond.bondDialog(true,context,Chains.gpio_o,Chains.gpio_pwm,Chains.actions);
+                    bond.bondDialog(true,context,c,idU);
                 }
             });
             TextView targetName = bondView.findViewById(R.id.targetname);
@@ -118,7 +122,7 @@ public class ChainsListAdapter extends BaseAdapter {
                                 break;
                             case R.id.addBond:
                                 ChainBond bond = new ChainBond(chain.id);
-                                bond.bondDialog(false,context,Chains.gpio_o,Chains.gpio_pwm,Chains.actions);
+                                bond.bondDialog(false,context,c,idU);
                                 break;
                             case R.id.setOrder:
                                 chain.setBondOrderDialog(context,sdfSeconds);

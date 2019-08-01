@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-el\\values-el.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\ba6544efedbccb89cb1532498b6e2d8c\\res\\values-el\\values-el.xml",
+                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-2\\files-2.1\\beea86592b175a63ae093bff4b945a0a\\res\\values-el\\values-el.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\57f749462a36a6a778cc1ea2d61bc536\\res\\values-el\\values-el.xml",
+                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-2\\files-2.1\\e50074cf4c8be2391bfad8e207445f57\\res\\values-el\\values-el.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

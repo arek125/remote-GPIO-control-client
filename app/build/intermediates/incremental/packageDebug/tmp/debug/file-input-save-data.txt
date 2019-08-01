@@ -1,15 +1,11 @@
 #Internal package file, do not edit.
-#Fri Oct 26 13:50:54 CEST 2018
-1.base=C\:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-2.path=baza_danych
+#Fri Jun 07 16:06:40 CEST 2019
+1.base=C\:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
 0.baseType=DIRECTORY
-2.base=C\:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
-2.set=ASSET
 1.baseType=DIRECTORY
-count=3
+count=2
 1.set=DEX
-0.path=rgc-server
+0.path=baza_danych
 0.set=ASSET
-0.base=C\:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
-2.baseType=DIRECTORY
+0.base=C\:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\merged_assets\\debug\\out
 1.path=classes.dex

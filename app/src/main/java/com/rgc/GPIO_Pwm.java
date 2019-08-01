@@ -54,13 +54,14 @@ public class GPIO_Pwm extends Fragment {
     public static Context mContext;
     private static ArrayList<String> idki = new ArrayList<String>();
     private static ArrayList<String> gpios = new ArrayList<String>();
-    private static ArrayList<String> gpios_in = new ArrayList<String>();
-    private static ArrayList<String> gpios_out = new ArrayList<String>();
+//    private static ArrayList<String> gpios_in = new ArrayList<String>();
+//    private static ArrayList<String> gpios_out = new ArrayList<String>();
     private static ArrayList<String> s_s = new ArrayList<String>();
     private static ArrayList<String> nazwy = new ArrayList<String>();
     private static ArrayList<String> dc = new ArrayList<String>();
     private static ArrayList<String> fr = new ArrayList<String>();
     private static ArrayList<String> reverses = new ArrayList<String>();
+    private static ArrayList<String> allUsedPins = new ArrayList<String>();
     static Date edittime = new Date(1);
     static Connection c;
     public GPIO_Pwm() {
@@ -199,10 +200,12 @@ public class GPIO_Pwm extends Fragment {
                     response = c.sendString( params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + params[7] + ";" + DatetoString(new Date()) + ";" + android.os.Build.MODEL, 1024);
                 else if (params[0].equals("Delete_GPIO_pwm"))
                     response = c.sendString( params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + android.os.Build.MODEL, 256);
-                else if (params[0].equals("Allpins_GPIO_out"))
-                    response = c.sendString( params[0] + ";", 1024);
-                else if (params[0].equals("Allpins_GPIO_in"))
-                    response = c.sendString( params[0] + ";", 1024);
+//                else if (params[0].equals("Allpins_GPIO_out"))
+//                    response = c.sendString( params[0] + ";", 1024);
+//                else if (params[0].equals("Allpins_GPIO_in"))
+//                    response = c.sendString( params[0] + ";", 1024);
+                else if (params[0].equals("AllUsedPins_GPIO"))
+                    response = c.sendString( params[0] + ";pwm;" + params[1] + ";", 1024);
                 list = new ArrayList<String>(Arrays.asList(response.split(";")));
                 if (list.get(0).equals("true")) passwd = true;
                 else if (list.get(0).equals("false")) passwd = false;
@@ -269,24 +272,37 @@ public class GPIO_Pwm extends Fragment {
                 } else if (list.get(1).equals("Add_GPIO_pwm") || list.get(1).equals("Edit_GPIO_pwm") || list.get(1).equals("Delete_GPIO_pwm")) {
                     edittime = new Date(1);
                     check_state();
-                } else if (list.get(1).equals("Allpins_GPIO_out")) {
-                    gpios_out.clear();
+                }
+//                else if (list.get(1).equals("Allpins_GPIO_out")) {
+//                    gpios_out.clear();
+//                    String pins = "";
+//                    for (int j = 2; j < (list.size() - 1); j++) {
+//                        GPIO_Pwm.gpios_out.add(list.get(j));
+//                        pins = pins + (list.get(j) + ",");
+//                    }
+//                    this.delegate.processFinish(pins);
+//                } else if (list.get(1).equals("Allpins_GPIO_in")) {
+//                    gpios_in.clear();
+//                    String pins = "";
+//                    for (int j = 2; j < (list.size() - 1); j++) {
+//                        gpios_in.add(list.get(j));
+//                        pins = pins + (list.get(j) + ",");
+//                    }
+//                    this.delegate.processFinish(pins);
+//                }
+                else if (list.get(1).equals("AllUsedPins_GPIO")) {
+                    allUsedPins.clear();
                     String pins = "";
-                    for (int j = 2; j < (list.size() - 1); j++) {
-                        GPIO_Pwm.gpios_out.add(list.get(j));
-                        pins = pins + (list.get(j) + ",");
-                    }
-                    this.delegate.processFinish(pins);
-                } else if (list.get(1).equals("Allpins_GPIO_in")) {
-                    gpios_in.clear();
-                    String pins = "";
-                    for (int j = 2; j < (list.size() - 1); j++) {
-                        gpios_in.add(list.get(j));
-                        pins = pins + (list.get(j) + ",");
+                    for (int j = 2; j < list.size() - 1; j++) {
+                        allUsedPins.add(list.get(j));
+                        pins += list.get(j);
+                        if(j<(list.size()-2))pins+=",";
                     }
                     this.delegate.processFinish(pins);
                 }
-            } else if (result == false || passwd == false) {
+            }
+
+            else if (result == false || passwd == false) {
                 if (result == false) {
                     myDbHelper.dodajLog(id_U, response);
                     r.setTextColor(Color.RED);
@@ -334,18 +350,24 @@ public class GPIO_Pwm extends Fragment {
 
                 LayoutInflater factory = LayoutInflater.from(mContext);
                 final View loginView = factory.inflate(R.layout.addpwm, null);
-                GPIO_PwmTask Allpins_GPIO_out = new GPIO_PwmTask(new AsyncResponse() {
+//                GPIO_PwmTask Allpins_GPIO_out = new GPIO_PwmTask(new AsyncResponse() {
+//                    @Override
+//                    public void processFinish(String output) {
+//                    }
+//                });
+//                Allpins_GPIO_out.execute("Allpins_GPIO_out");
+//                GPIO_PwmTask Allpins_GPIO_in = new GPIO_PwmTask(new AsyncResponse() {
+//                    @Override
+//                    public void processFinish(String output) {
+//                    }
+//                });
+//                Allpins_GPIO_in.execute("Allpins_GPIO_in");
+                GPIO_PwmTask Allpins_GPIO = new GPIO_PwmTask(new AsyncResponse() {
                     @Override
                     public void processFinish(String output) {
                     }
                 });
-                Allpins_GPIO_out.execute("Allpins_GPIO_out");
-                GPIO_PwmTask Allpins_GPIO_in = new GPIO_PwmTask(new AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                    }
-                });
-                Allpins_GPIO_in.execute("Allpins_GPIO_in");
+                Allpins_GPIO.execute("AllUsedPins_GPIO","0");
 
                 final AlertDialog d = new AlertDialog.Builder(mContext)
                         .setView(loginView)
@@ -379,7 +401,7 @@ public class GPIO_Pwm extends Fragment {
                                 boolean cont = false;
                                 boolean notbcm = false;
                                 for (String temp : new ArrayList<String>(Arrays.asList(gpio.getText().toString().split(",")))) {
-                                    if (!gpios_out.contains(temp) && !gpios_in.contains(temp)) {
+                                    if (!allUsedPins.contains(temp)) {
                                         Iterator it = gpios.iterator();
                                         while (it.hasNext()) {
                                             if (!new ArrayList<String>(Arrays.asList(((String) it.next()).split(","))).contains(temp)) {

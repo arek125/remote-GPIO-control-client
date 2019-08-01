@@ -204,6 +204,28 @@ public class AdvSAListAdapter extends BaseAdapter {
 
         return dueDateAsNormal;
     }
+    public static String UTCtoLocalDate(String UTCdate,String pattern, boolean timeOnly, String returnPattern){
+        SimpleDateFormat oldFormatter = null;
+        if(timeOnly){
+            oldFormatter = new SimpleDateFormat("yyyy-MM-dd "+pattern);
+            UTCdate = currentUTC("yyyy-MM-dd")+" "+UTCdate;
+        }
+        else
+            oldFormatter = new SimpleDateFormat(pattern);
+        oldFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date value = null;
+        String dueDateAsNormal ="";
+        try {
+            value = oldFormatter.parse(UTCdate);
+            SimpleDateFormat newFormatter = new SimpleDateFormat(returnPattern);
+            newFormatter.setTimeZone(TimeZone.getDefault());
+            dueDateAsNormal = newFormatter.format(value);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dueDateAsNormal;
+    }
 
     public static String currentUTC(String pattern){
         Date date = new Date();

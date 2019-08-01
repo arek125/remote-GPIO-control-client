@@ -21,11 +21,29 @@
         android:textColor="#000"
         android:text="Select connection:" />
 
+    <Spinner
+        android:id="@+id/types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:entries="@array/widgetsTypes"
+        android:layout_below="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textColor="#000"
+        android:layout_below="@+id/connections"
+        android:text="Select type:" />
+
     <Button
         android:id="@+id/addWidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/connections"
+        android:layout_below="@+id/types"
         android:layout_centerHorizontal="true"
         android:text="Add widget" />
 </RelativeLayout>

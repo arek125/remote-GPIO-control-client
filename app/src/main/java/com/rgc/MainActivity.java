@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +40,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -59,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     //boolean activityCreated = false;
     Connection cC;
     DataBaseHelper myDbHelper;
-
+    ListView listView;
+    SimpleCursorAdapter customAdapter;
 
     public void addConnection() {
 
@@ -82,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         final CheckBox tab_ASA = (CheckBox) loginView.findViewById(R.id.GPIO_ASA);
         final CheckBox tab_Chains = (CheckBox) loginView.findViewById(R.id.GPIO_chains);
         final CheckBox tcpOnly = (CheckBox) loginView.findViewById(R.id.tcpOnly);
+        final CheckBox rf = (CheckBox) loginView.findViewById(R.id.rf);
+        final CheckBox cmd = (CheckBox) loginView.findViewById(R.id.cmd);
         tab_SA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundbutton, boolean flag) {
@@ -138,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
                                 passWd = sha256(passWd);
                                 encWd = md5(pass.getText().toString());
                             }
-                            myDbHelper.dodajUrzadzenie(name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnly.isChecked()) ? 1 : 0);
+                            myDbHelper.dodajUrzadzenie(name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0,
+                                    (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnly.isChecked()) ? 1 : 0, (rf.isChecked()) ? 1 : 0,(cmd.isChecked()) ? 1 : 0);
                             Toast.makeText(getApplicationContext(), "Added: " + name.getText().toString(), Toast.LENGTH_SHORT).show();
                             recreate();
                             myDbHelper.close();
@@ -444,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        final ListView listView = (ListView) findViewById(R.id.listView1);
+        listView = findViewById(R.id.listView1);
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
                 if(cC != null)
@@ -617,6 +624,8 @@ public class MainActivity extends AppCompatActivity {
                                         final CheckBox tab_ASA = (CheckBox) loginView.findViewById(R.id.GPIO_ASA);
                                         final CheckBox tab_Chains = (CheckBox) loginView.findViewById(R.id.GPIO_chains);
                                         final CheckBox tcpOnlyCh = (CheckBox) loginView.findViewById(R.id.tcpOnly);
+                                        final CheckBox rf = (CheckBox) loginView.findViewById(R.id.rf);
+                                        final CheckBox cmd = (CheckBox) loginView.findViewById(R.id.cmd);
                                         tab_SA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                             @Override
                                             public void onCheckedChanged(CompoundButton compoundbutton, boolean flag) {
@@ -638,7 +647,9 @@ public class MainActivity extends AppCompatActivity {
                                         tab_ASA.setChecked(k.getInt(15) != 0);
                                         tab_Chains.setChecked(k.getInt(16) != 0);
                                         tcpOnlyCh.setChecked(k.getInt(17) != 0);
-                                        ((TableRow) loginView.findViewById(R.id.tableRow4_5)).setVisibility(View.VISIBLE);
+                                        rf.setChecked(k.getInt(18) != 0);
+                                        cmd.setChecked(k.getInt(19) != 0);
+                                        loginView.findViewById(R.id.tableRow4_5).setVisibility(View.VISIBLE);
 
                                         final AlertDialog d = new AlertDialog.Builder(MainActivity.this)
                                                 .setView(loginView)
@@ -682,14 +693,12 @@ public class MainActivity extends AppCompatActivity {
                                                                 encWd = md5(pass.getText().toString());
                                                             }
                                                             if (chk.isChecked()) {
-                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0);
+                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), passWd, encWd, Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0, (rf.isChecked()) ? 1 : 0, (cmd.isChecked()) ? 1 : 0);
                                                             } else if (!chk.isChecked() && !chk2.isChecked()) {
-                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0);
+                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0, (rf.isChecked()) ? 1 : 0, (cmd.isChecked()) ? 1 : 0);
                                                             } else if (chk2.isChecked()) {
-                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), "", "", Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0);
+                                                                myDbHelper.edytujUrzadzenie(idu, name.getText().toString(), ip.getText().toString(), Integer.parseInt(port.getText().toString()), "", "", Float.parseFloat(artime.getText().toString()), (tab_output.isChecked()) ? 1 : 0, (tab_input.isChecked()) ? 1 : 0, (tab_pwm.isChecked()) ? 1 : 0, (tab_SA.isChecked()) ? 1 : 0, (tab_history.isChecked()) ? 1 : 0,(sensors.isChecked()) ? 1 : 0,(notifications.isChecked()) ? 1 : 0, (tab_ASA.isChecked()) ? 1 : 0, (tab_Chains.isChecked()) ? 1 : 0, (tcpOnlyCh.isChecked()) ? 1 : 0, (rf.isChecked()) ? 1 : 0, (cmd.isChecked()) ? 1 : 0);
                                                             }
-
-
                                                             recreate();
                                                             d.dismiss();
                                                         }
@@ -713,23 +722,42 @@ public class MainActivity extends AppCompatActivity {
         if (k.moveToNext()) {
             k.moveToPrevious();
             b1.setVisibility(View.GONE);
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
 
-                    String[] columns = new String[]{"nazwa", "ip", "port"};
-                    int[] to = new int[]{R.id.nazwa, R.id.ip, R.id.port};
-                    ListAdapter customAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list1, k, columns, to);
-                    listView.setAdapter(customAdapter);
+            String[] columns = new String[]{"nazwa", "ip", "port","port"};
+            int[] to = new int[]{R.id.nazwa, R.id.ip, R.id.port, R.id.list_item_image};
+            customAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list1, k, columns, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            customAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+                @Override
+                public boolean setViewValue(View view, Cursor c, int columnIndex) {
+                    if (view.getId() == R.id.list_item_image) {
+                        final ImageView image = (ImageView) view;
+                        //image.setImageResource(R.drawable.red);
+                        //Toast.makeText(getApplicationContext(), "check!", Toast.LENGTH_SHORT).show();
+                        Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), false,2000);
+                        GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
+                            @Override
+                            public void processFinish(List<String> list) {
+                                image.setImageResource(R.drawable.green);
+                            }
+                            @Override
+                            public void processFail(String error) {
+                                image.setImageResource(R.drawable.red);
+                            }
+                        },getApplicationContext(),cQuick,c.getInt(0),256,null,null);
+                        execad.execute("version_check");
+                        return true;
+                    }
+                    return false;
                 }
             });
+            listView.setAdapter(customAdapter);
         } else b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addConnection();
             }
         });
-
+        //checkIfUp();
         reconnect(getIntent().getIntExtra("ID_U",-1));
         myDbHelper.close();
     }
@@ -771,6 +799,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        if (customAdapter != null)
+            customAdapter.notifyDataSetChanged();
         super.onResume();
     }
 

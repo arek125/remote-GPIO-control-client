@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rgc"
-    android:versionCode="4"
-    android:versionName="2.1">
+    android:versionCode="5"
+    android:versionName="3.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -39,24 +39,30 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".OnOffWidget" android:label="On/Off Output" android:icon="@drawable/green">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-            </intent-filter>
+        <receiver android:name=".MultiTypeWidget" android:label="Multi type widget" android:icon="@drawable/view_grid">
+        <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+        </intent-filter>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/on_off_widget_info"/>
-        </receiver>
-        <service android:name=".UpdateOnOffWidgetService"/>
+        <meta-data
+            android:name="android.appwidget.provider"
+            android:resource="@xml/on_off_widget_info"/>
+    </receiver>
+        <service android:name=".UpdateMultiTypeWidgetService"/>
         <service android:name=".OnOffRemoteViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
+        <service android:name=".SensorsRemoteViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
+        <service android:name=".ChainsRemoteViewService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
         <activity
             android:name="com.rgc.PagerTabStripActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_pager_tab_strip" />
-        <activity android:name=".OnOffWidgetConfActivity"
+        <activity android:name=".MultiTypeWidgetConfActivity"
             android:theme="@android:style/Theme.Dialog"
             android:excludeFromRecents="true"
             />

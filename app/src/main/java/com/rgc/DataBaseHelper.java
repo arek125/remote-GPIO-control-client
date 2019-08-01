@@ -1,5 +1,6 @@
 package com.rgc;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,18 +26,19 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
-	private final static int DATABASE_VERSION = 7;
+	private final static int DATABASE_VERSION = 8;
 
     public DataBaseHelper(Context context) {
- 
+
     	super(context, DB_NAME, null, DATABASE_VERSION);
-    	if(android.os.Build.VERSION.SDK_INT >= 4.2){
-            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";         
-        } else {
-           DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-        }
+//    	if(android.os.Build.VERSION.SDK_INT >= 4.2){
+//            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+//			DB_PATH = context.getFilesDir().getPath() + "/databases/";
+//        } else {
+//           DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+//        }
         this.myContext = context;
-    }	
+    }
  
   /**
      * Creates a empty database on the system and rewrites it with your own database.
@@ -51,7 +53,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
  
     		
         	this.getReadableDatabase();
- 
+ 			this.close();
         	try {
  
     			copyDataBase();
@@ -69,23 +71,25 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private boolean checkDataBase(){
  
     	SQLiteDatabase checkDB = null;
- 
+
     	try{
     		String myPath = DB_PATH + DB_NAME;
+            File file = new File(myPath);
+            if (file.exists() && !file.isDirectory())
     		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
- 
+
     	}catch(SQLiteException e){
- 
-    		
- 
+
+
+
     	}
- 
+
     	if(checkDB != null){
- 
+
     		checkDB.close();
- 
+
     	}
- 
+
     	return checkDB != null ? true : false;
     }
  
@@ -133,6 +137,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	}
 
 	@Override
+	public void onOpen(SQLiteDatabase db) {
+		super.onOpen(db);
+		db.disableWriteAheadLogging();
+	}
+
+	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (oldVersion<2) {
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_Output INT DEFAULT 1 NOT NULL");
@@ -165,6 +175,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_GPIO_Chains INT DEFAULT 1 NOT NULL");
 		if(oldVersion<7)
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN TCP_Only INTEGER DEFAULT 0 NOT NULL");
+		if(oldVersion<8){
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_RF INTEGER DEFAULT 0 NOT NULL");
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_Cmd INTEGER DEFAULT 0 NOT NULL");
+		}
 	}
  
 	
@@ -180,7 +194,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		return kursor;
 	}
 	
-	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only){
+	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm,
+								int Tab_GPIO_SA, int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -199,11 +214,14 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         wartosci.put("Tab_Notifications",Tab_Notifications);
 		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
         wartosci.put("TCP_Only",TCP_Only);
+		wartosci.put("Tab_RF",Tab_rf);
+		wartosci.put("Tab_Cmd",Tab_Cmd);
 		db.insertOrThrow("urzadzenia", null, wartosci);
 		
 	}
 	
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only){
+	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm,
+								 int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
 		SQLiteDatabase db = getWritableDatabase(); 
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -223,9 +241,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
         wartosci.put("TCP_Only",TCP_Only);
         wartosci.put("selected_tab",0);
+		wartosci.put("Tab_RF",Tab_rf);
+		wartosci.put("Tab_Cmd",Tab_Cmd);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors , int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only){
+	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors,
+								 int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -243,6 +264,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
         wartosci.put("TCP_Only",TCP_Only);
         wartosci.put("selected_tab",0);
+		wartosci.put("Tab_RF",Tab_rf);
+		wartosci.put("Tab_Cmd",Tab_Cmd);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}
     public void edytujUrzadzenie(int id, int selectedPos){

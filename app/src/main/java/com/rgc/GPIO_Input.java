@@ -64,10 +64,11 @@ public class GPIO_Input extends Fragment {
     private ArrayList<String> reverses = new ArrayList<String>();
     private ArrayList<String> bindidG = new ArrayList<String>();
     private ArrayList<String> bindtypeG = new ArrayList<String>();
-    private ArrayList<String> idki_out = new ArrayList<String>();
-    private ArrayList<String> nazwy_out = new ArrayList<String>();
-    private ArrayList<String> gpios_out = new ArrayList<String>();
-    private ArrayList<String> gpios_pwm = new ArrayList<String>();
+//    private ArrayList<String> idki_out = new ArrayList<String>();
+//    private ArrayList<String> nazwy_out = new ArrayList<String>();
+//    private ArrayList<String> gpios_out = new ArrayList<String>();
+//    private ArrayList<String> gpios_pwm = new ArrayList<String>();
+    private ArrayList<String> allUsedPins = new ArrayList<String>();
     Date edittime = new Date(1);
     static Connection c;
 
@@ -90,61 +91,64 @@ public class GPIO_Input extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_gpio_in, container, false);
-        setHasOptionsMenu(true);
-        gridView = (GridView) rootView.findViewById(R.id.gridView1);
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_gpio_in, container, false);
+            setHasOptionsMenu(true);
+            gridView = (GridView) rootView.findViewById(R.id.gridView1);
         gridView.setOnItemClickListener(new OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, final View v,
-                                    final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View v,final int position, long id) {
                 LayoutInflater factory = LayoutInflater.from(mContext);
                 final View loginView = factory.inflate(R.layout.addtypein, null);
                 TextView title = (TextView) loginView.findViewById(R.id.titleL);
                 title.setText("Edit GPIO Input:");
-                final Spinner bindtype = (Spinner) loginView.findViewById(R.id.bindtype);
-                final Spinner bindid = (Spinner) loginView.findViewById(R.id.bindid);
-                String[] items = new String[]{"None (Read only)", "Output on/off switch", "Output pushbutton"};
-                ArrayAdapter<String> adapterbt = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
-                bindtype.setAdapter(adapterbt);
-                bindtype.setSelection(Integer.parseInt(bindtypeG.get(position)));
-                final TableRow tr1 = (TableRow) loginView.findViewById(R.id.tableRow5);
-                bindtype.setOnItemSelectedListener(new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        if (position == 0) tr1.setVisibility(View.INVISIBLE);
-                        else tr1.setVisibility(View.VISIBLE);
-                    }
+                //final Spinner bindtype = (Spinner) loginView.findViewById(R.id.bindtype);
+                //final Spinner bindid = (Spinner) loginView.findViewById(R.id.bindid);
+//                String[] items = new String[]{"None (Read only)", "Output on/off switch", "Output pushbutton"};
+//                ArrayAdapter<String> adapterbt = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
+//                bindtype.setAdapter(adapterbt);
+//                bindtype.setSelection(Integer.parseInt(bindtypeG.get(position)));
+//                final TableRow tr1 = (TableRow) loginView.findViewById(R.id.tableRow5);
+//                bindtype.setOnItemSelectedListener(new OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                        if (position == 0) tr1.setVisibility(View.INVISIBLE);
+//                        else tr1.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parentView) {
+//                        // your code here
+//                    }
+//                });
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        // your code here
-                    }
-                });
-
-                GPIO_InputTask GPIO_NameGet = new GPIO_InputTask(new AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                        if (output.equals("1")) {
-
-                            String[] items = nazwy_out.toArray(new String[0]);
-                            ArrayAdapter<String> adapterbi = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
-                            bindid.setAdapter(adapterbi);
-                            int temp = idki_out.indexOf(bindidG.get(position));
-                            if (temp > 0) bindid.setSelection(temp);
-                        }
-                    }
-                });
-                GPIO_NameGet.execute("GPIO_Oname");
-                GPIO_InputTask Allpins_GPIO_pwm = new GPIO_InputTask(new AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-                    }
-                });
-                Allpins_GPIO_pwm.execute("Allpins_GPIO_pwm");
-
+//                GPIO_InputTask GPIO_NameGet = new GPIO_InputTask(new AsyncResponse() {
+//                    @Override
+//                    public void processFinish(String output) {
+//                        if (output.equals("1")) {
+//
+//                            String[] items = nazwy_out.toArray(new String[0]);
+//                            ArrayAdapter<String> adapterbi = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
+//                            bindid.setAdapter(adapterbi);
+//                            int temp = idki_out.indexOf(bindidG.get(position));
+//                            if (temp > 0) bindid.setSelection(temp);
+//                        }
+//                    }
+//                });
+//                GPIO_NameGet.execute("GPIO_Oname");
+//                GPIO_InputTask Allpins_GPIO_pwm = new GPIO_InputTask(new AsyncResponse() {
+//                    @Override
+//                    public void processFinish(String output) {
+//                    }
+//                });
+//                Allpins_GPIO_pwm.execute("Allpins_GPIO_pwm");
                 final String idt = idki.get(position);
+                GPIO_InputTask Allpins_GPIO = new GPIO_InputTask(new AsyncResponse() {
+                    @Override
+                    public void processFinish(String output) {
+                    }
+                });
+                Allpins_GPIO.execute("AllUsedPins_GPIO",idt);
                 final String nazwaL = nazwy.get(position);
                 final EditText name = (EditText) loginView.findViewById(R.id.name);
                 name.setText(nazwaL);
@@ -192,12 +196,12 @@ public class GPIO_Input extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 List<String> templist = new ArrayList(Arrays.asList(gpio.getText().toString().split(",")));
-                                List<String> templist2 = new ArrayList(Arrays.asList(gpios.get(position).split(",")));
+//                                List<String> templist2 = new ArrayList(Arrays.asList(gpios.get(position).split(",")));
                                 boolean cont = false;
                                 boolean notbcm = false;
                                 for (String temp : templist) {
                                     if (temp.matches("2|3|4|17|27|22|10|9|11|5|6|13|19|26|14|15|18|23|24|25|8|7|12|16|20|21")) {
-                                        if (!templist2.contains(temp) && (gpios_pwm.contains(temp) || gpios_out.contains(temp) || gpios.contains(temp))) {
+                                        if (allUsedPins.contains(temp)) {
                                             cont = true;
                                             break;
                                         }
@@ -208,11 +212,11 @@ public class GPIO_Input extends Fragment {
                                 }
                                 String reverseS = "0";
                                 if (reverse.isChecked()) reverseS = "1";
-                                int bindtypeI = bindtype.getSelectedItemPosition();
-                                String bindtypeS = String.valueOf(bindtypeI);
-                                String bindidS = "0";
-                                if (bindtypeI > 0 && idki_out.size() > 0)
-                                    bindidS = idki_out.get(bindid.getSelectedItemPosition());
+//                                int bindtypeI = bindtype.getSelectedItemPosition();
+//                                String bindtypeS = String.valueOf(bindtypeI);
+//                                String bindidS = "0";
+//                                if (bindtypeI > 0 && idki_out.size() > 0)
+//                                    bindidS = idki_out.get(bindid.getSelectedItemPosition());
                                 if (name.getText().toString().matches("") || gpio.getText().toString().matches(""))
                                     Toast.makeText(mContext, "Fill in Name and GPIO!", Toast.LENGTH_SHORT).show();
                                 else if (cont)
@@ -226,7 +230,7 @@ public class GPIO_Input extends Fragment {
 
                                         }
                                     });
-                                    Edit_Type.execute("Edit_GPIO_in", idt, gpio.getText().toString(), name.getText().toString(), DatetoString(new Date()), reverseS, bindidS, bindtypeS, gpioL);
+                                    Edit_Type.execute("Edit_GPIO_in", idt, gpio.getText().toString(), name.getText().toString(), GPIO_Status.DatetoString(new Date()), reverseS, "0", "0", gpioL);
 
                                     d.dismiss();
                                 }
@@ -265,34 +269,34 @@ public class GPIO_Input extends Fragment {
         GPIO_ListGet.execute("GPIO_Ilist");
     }
 
-    public Date StringtoDate(String dtStart) {
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date date = null;
-        try {
-            date = format.parse(dtStart);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (java.text.ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    public String DatetoString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String stringtime = null;
-        try {
-            stringtime = format.format(date);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return stringtime;
-    }
+//    public Date StringtoDate(String dtStart) {
+//
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//        Date date = null;
+//        try {
+//            date = format.parse(dtStart);
+//        } catch (ParseException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (java.text.ParseException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        return date;
+//    }
+//
+//    public String DatetoString(Date date) {
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        String stringtime = null;
+//        try {
+//            stringtime = format.format(date);
+//        } catch (ParseException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        return stringtime;
+//    }
 
     public class GPIO_InputTask extends AsyncTask<String, String, Boolean> {
 
@@ -342,10 +346,12 @@ public class GPIO_Input extends Fragment {
                     response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + params[4] + ";" + params[5] + ";" + params[6] + ";" + params[7] + ";" + params[8] + ";" + android.os.Build.MODEL, 1024);
                 else if (params[0].equals("Delete_GPIO_out"))
                     response = c.sendString(params[0] + ";" + params[1] + ";" + params[2] + ";" + params[3] + ";" + android.os.Build.MODEL, 256);
-                else if (params[0].equals("GPIO_Oname"))
-                    response = c.sendString(params[0] + ";", 8192);
-                else if (params[0].equals("Allpins_GPIO_pwm"))
-                    response = c.sendString( params[0] + ";", 1024);
+//                else if (params[0].equals("GPIO_Oname"))
+//                    response = c.sendString(params[0] + ";", 8192);
+//                else if (params[0].equals("Allpins_GPIO_pwm"))
+//                    response = c.sendString( params[0] + ";", 1024);
+                else if (params[0].equals("AllUsedPins_GPIO"))
+                    response = c.sendString( params[0] + ";in;" + params[1] + ";", 1024);
                 list = new ArrayList<String>(Arrays.asList(response.split(";")));
                 if (list.get(0).equals("true")) passwd = true;
                 else if (list.get(0).equals("false")) passwd = false;
@@ -375,7 +381,7 @@ public class GPIO_Input extends Fragment {
                 r.setTextColor(Color.GREEN);
                 if (list.get(1).equals("GPIO_IEtime")) {
                     if (!list.get(2).equals("None")) {
-                        Date date = StringtoDate(list.get(2));
+                        Date date = GPIO_Status.StringtoDate(list.get(2));
                         if (!date.equals(edittime)) {
                             list_update();
                             edittime = date;
@@ -404,29 +410,36 @@ public class GPIO_Input extends Fragment {
                 } else if (list.get(1).equals("Add_GPIO_in") || list.get(1).equals("Edit_GPIO_in") || list.get(1).equals("Delete_GPIO_out")) {
                     edittime = new Date(1);
                     check_state();
-                } else if (list.get(1).equals("GPIO_Oname")) {
-                    try {
-                        idki_out.clear();
-                        nazwy_out.clear();
-                        gpios_out.clear();
-                        for (int j = 2; j < (list.size() - 1); j = j + 4) {
-                            idki_out.add(list.get(j));
-                            nazwy_out.add(list.get(j + 1));
-                            for (String temp : new ArrayList<String>(Arrays.asList(list.get(j + 2).split(","))))
-                                gpios_out.add(temp);
-
-                        }
-                        delegate.processFinish("1");
-                    } catch (IndexOutOfBoundsException e) {
-                        idki_out.clear();
-                        nazwy_out.clear();
-                        delegate.processFinish("0");
-                    }
-
-                } else if (list.get(1).equals("Allpins_GPIO_pwm")) {
-                    gpios_pwm.clear();
+                }
+//                else if (list.get(1).equals("GPIO_Oname")) {
+//                    try {
+//                        idki_out.clear();
+//                        nazwy_out.clear();
+//                        gpios_out.clear();
+//                        for (int j = 2; j < (list.size() - 1); j = j + 4) {
+//                            idki_out.add(list.get(j));
+//                            nazwy_out.add(list.get(j + 1));
+//                            for (String temp : new ArrayList<String>(Arrays.asList(list.get(j + 2).split(","))))
+//                                gpios_out.add(temp);
+//
+//                        }
+//                        delegate.processFinish("1");
+//                    } catch (IndexOutOfBoundsException e) {
+//                        idki_out.clear();
+//                        nazwy_out.clear();
+//                        delegate.processFinish("0");
+//                    }
+//
+//                } else if (list.get(1).equals("Allpins_GPIO_pwm")) {
+//                    gpios_pwm.clear();
+//                    for (int j = 2; j < list.size() - 1; j++) {
+//                        gpios_pwm.add(list.get(j));
+//                    }
+//                }
+                else if (list.get(1).equals("AllUsedPins_GPIO")) {
+                    allUsedPins.clear();
                     for (int j = 2; j < list.size() - 1; j++) {
-                        gpios_pwm.add(list.get(j));
+                        allUsedPins.add(list.get(j));
                     }
                 }else if (list.get(1).equals("Delete_GPIO_out")) {
                     myDbHelper.usunPowiadomieniePoTID(list.get(2));
@@ -478,45 +491,51 @@ public class GPIO_Input extends Fragment {
 
                 LayoutInflater factory = LayoutInflater.from(mContext);
                 final View loginView = factory.inflate(R.layout.addtypein, null);
-                final Spinner bindtype = (Spinner) loginView.findViewById(R.id.bindtype);
-                final Spinner bindid = (Spinner) loginView.findViewById(R.id.bindid);
-                String[] items = new String[]{"None (Read only)", "Output on/off switch", "Output pushbutton"};
-                ArrayAdapter<String> adapterbt = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
-                bindtype.setAdapter(adapterbt);
-                final TableRow tr1 = (TableRow) loginView.findViewById(R.id.tableRow5);
-                bindtype.setOnItemSelectedListener(new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        if (position == 0) tr1.setVisibility(View.INVISIBLE);
-                        else tr1.setVisibility(View.VISIBLE);
-                    }
+                //final Spinner bindtype = (Spinner) loginView.findViewById(R.id.bindtype);
+                //final Spinner bindid = (Spinner) loginView.findViewById(R.id.bindid);
+//                String[] items = new String[]{"None (Read only)", "Output on/off switch", "Output pushbutton"};
+//                ArrayAdapter<String> adapterbt = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
+//                bindtype.setAdapter(adapterbt);
+//                final TableRow tr1 = (TableRow) loginView.findViewById(R.id.tableRow5);
+//                bindtype.setOnItemSelectedListener(new OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                        if (position == 0) tr1.setVisibility(View.INVISIBLE);
+//                        else tr1.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parentView) {
+//                        // your code here
+//                    }
+//                });
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        // your code here
-                    }
-                });
-
-                GPIO_InputTask GPIO_NameGet = new GPIO_InputTask(new AsyncResponse() {
+//                GPIO_InputTask GPIO_NameGet = new GPIO_InputTask(new AsyncResponse() {
+//                    @Override
+//                    public void processFinish(String output) {
+//                        if (output.equals("1")) {
+//
+//                            String[] items = nazwy_out.toArray(new String[0]);
+//                            ArrayAdapter<String> adapterbi = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
+//                            //bindid.setAdapter(adapterbi);
+//
+//                        }
+//                    }
+//                });
+//                GPIO_NameGet.execute("GPIO_Oname");
+//                GPIO_InputTask Allpins_GPIO_pwm = new GPIO_InputTask(new AsyncResponse() {
+//                    @Override
+//                    public void processFinish(String output) {
+//
+//                    }
+//                });
+//                Allpins_GPIO_pwm.execute("Allpins_GPIO_pwm");
+                GPIO_InputTask Allpins_GPIO = new GPIO_InputTask(new AsyncResponse() {
                     @Override
                     public void processFinish(String output) {
-                        if (output.equals("1")) {
-
-                            String[] items = nazwy_out.toArray(new String[0]);
-                            ArrayAdapter<String> adapterbi = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, items);
-                            bindid.setAdapter(adapterbi);
-
-                        }
                     }
                 });
-                GPIO_NameGet.execute("GPIO_Oname");
-                GPIO_InputTask Allpins_GPIO_pwm = new GPIO_InputTask(new AsyncResponse() {
-                    @Override
-                    public void processFinish(String output) {
-
-                    }
-                });
-                Allpins_GPIO_pwm.execute("Allpins_GPIO_pwm");
+                Allpins_GPIO.execute("AllUsedPins_GPIO","0");
                 final AlertDialog d = new AlertDialog.Builder(mContext)
                         .setView(loginView)
                         .setPositiveButton("ADD",
@@ -544,15 +563,15 @@ public class GPIO_Input extends Fragment {
                                 CheckBox reverse = (CheckBox) loginView.findViewById(R.id.reverse);
                                 String reverseS = "0";
                                 if (reverse.isChecked()) reverseS = "1";
-                                int bindtypeI = bindtype.getSelectedItemPosition();
-                                String bindtypeS = String.valueOf(bindtypeI);
-                                String bindidS = "0";
-                                if (bindtypeI > 0 && idki_out.size() > 0)
-                                    bindidS = idki_out.get(bindid.getSelectedItemPosition());
+                                //int bindtypeI = bindtype.getSelectedItemPosition();
+                                //String bindtypeS = String.valueOf(bindtypeI);
+//                                String bindidS = "0";
+//                                if (bindtypeI > 0 && idki_out.size() > 0)
+//                                    bindidS = idki_out.get(bindid.getSelectedItemPosition());
                                 boolean cont = false;
                                 boolean notbcm = false;
                                 for (String temp : new ArrayList<String>(Arrays.asList(gpio.getText().toString().split(",")))) {
-                                    if (!gpios_pwm.contains(temp) && !gpios_out.contains(temp) && !gpios.contains(temp)) {
+                                    if (!allUsedPins.contains(temp)) {
                                         if (!temp.matches("2|3|4|17|27|22|10|9|11|5|6|13|19|26|14|15|18|23|24|25|8|7|12|16|20|21")) {
                                             notbcm = true;
                                             break;
@@ -575,7 +594,7 @@ public class GPIO_Input extends Fragment {
 
                                         }
                                     });
-                                    Add_Type.execute("Add_GPIO_in", gpio.getText().toString(), name.getText().toString(), DatetoString(new Date()), reverseS, bindidS, bindtypeS);
+                                    Add_Type.execute("Add_GPIO_in", gpio.getText().toString(), name.getText().toString(), GPIO_Status.DatetoString(new Date()), reverseS, "0", "0");
 
                                     d.dismiss();
                                 }
@@ -603,7 +622,6 @@ public class GPIO_Input extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return false;
     }
 
@@ -639,7 +657,6 @@ public class GPIO_Input extends Fragment {
 
 
     public void hendlerm() {
-
         if (handlerOn == false && menuCreated == true && arTime > 0) {
             runabble = new Runnable() {
                 public void run() {

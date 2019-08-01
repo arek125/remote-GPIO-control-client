@@ -2,9 +2,11 @@ package com.rgc;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,7 +66,7 @@ public class Notifications extends Fragment{
     Map <String,String> sensorsUnit = new HashMap<String,String>();
     CountDownLatch latch;
     static Connection c;
-
+    Uri FselectedSound;
     public Notifications() {
     }
 
@@ -276,7 +278,26 @@ public class Notifications extends Fragment{
         r.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Chains.showLogs(mContext);
+                RingtonePickerDialog.Builder ringtonePickerBuilder = new RingtonePickerDialog
+                        .Builder(mContext, getActivity().getSupportFragmentManager())
+                        .setTitle("Select ringtone")
+                        .displayDefaultRingtone(true)
+                        .displaySilentRingtone(true)
+                        .setPositiveButtonText("SET RINGTONE")
+                        .setCancelButtonText("CANCEL")
+                        .setPlaySampleWhileSelection(true)
+                        .setListener(new RingtonePickerListener() {
+                            @Override
+                            public void OnRingtoneSelected(@NonNull String ringtoneName, Uri ringtoneUri) {
+                                //soundURL.setText(ringtoneUri.getPath());
+                            }
+                        });
+
+                //ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_MUSIC);
+                ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_NOTIFICATION);
+                ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_RINGTONE);
+                ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_ALARM);
+                ringtonePickerBuilder.show();
                 return false;
             }
         });
@@ -415,7 +436,7 @@ public class Notifications extends Fragment{
                 if(!k.getString(8).isEmpty())
                     soundURL.setText(k.getString(8));
         }
-        MaterialDialog d = new MaterialDialog.Builder(mContext)
+        final MaterialDialog d = new MaterialDialog.Builder(mContext)
                 //.title(R.string.title)
                 .customView(view, true)
                 .autoDismiss(false)
@@ -563,18 +584,18 @@ public class Notifications extends Fragment{
         soundURL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //d.dismiss();
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+//                d.dismiss();
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED ){
                     ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
-                    ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
+                    //ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
                 }
-                else {
+                if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
                     RingtonePickerDialog.Builder ringtonePickerBuilder = new RingtonePickerDialog
-                            .Builder(mContext, getActivity().getSupportFragmentManager())
+                            .Builder(getActivity(), getActivity().getSupportFragmentManager())
                             .setTitle("Select ringtone")
-                            .displayDefaultRingtone(true)
-                            .displaySilentRingtone(true)
+//                            .displayDefaultRingtone(true)
+//                            .displaySilentRingtone(true)
                             .setPositiveButtonText("SET RINGTONE")
                             .setCancelButtonText("CANCEL")
                             .setPlaySampleWhileSelection(true)
@@ -582,23 +603,23 @@ public class Notifications extends Fragment{
                                 @Override
                                 public void OnRingtoneSelected(@NonNull String ringtoneName, Uri ringtoneUri) {
                                     soundURL.setText(ringtoneUri.getPath());
-                                    //d.show();
+//                                    FselectedSound = ringtoneUri;
+//                                    Toast.makeText(mContext, ringtoneUri.getEncodedPath(), Toast.LENGTH_LONG).show();
+//                                    d.show();
                                 }
                             });
-                    if(editMode && !soundURL.getText().toString().equals("Not selected")){
-                        Uri selectedSound = Uri.parse(soundURL.getText().toString());
-                        ringtonePickerBuilder.setCurrentRingtoneUri(selectedSound);
-                    }
+//                    if(!soundURL.getText().toString().equals("Not selected")){
+//                        Uri selectedSound = Uri.parse(soundURL.getText().toString());
+//                        ringtonePickerBuilder.setCurrentRingtoneUri(selectedSound);
+//                    }
                     //ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_MUSIC);
                     ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_NOTIFICATION);
                     ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_RINGTONE);
                     ringtonePickerBuilder.addRingtoneType(RingtonePickerDialog.Builder.TYPE_ALARM);
-
                     ringtonePickerBuilder.show();
                 }
             }
         });
-        //d.show();
 
         if(!editMode)
             d.getActionButton(DialogAction.NEUTRAL).setVisibility(View.INVISIBLE);

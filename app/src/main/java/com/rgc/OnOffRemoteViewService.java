@@ -113,6 +113,7 @@ class OnOffRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
                 c.close();
                 try {
                     Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
+                    conn.timeout = 5000;
                     response = conn.sendString("GPIO_OlistT0", 32384);
                     list = new ArrayList<String>(Arrays.asList(response.split(";")));
                     if (list.get(0).equals("true")) passwd = true;
