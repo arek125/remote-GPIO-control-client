@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                         i.putExtra("artime", temp);
                         i.putExtra("selectedTab", selectedTab);
                         startActivity(i);
-                    }else if (Integer.parseInt(list.get(2)) > 2)
+                    }else if (Integer.parseInt(list.get(2)) > 5)
                         new MaterialDialog.Builder(MainActivity.this)
                                 .title("Incompatible version of the server.")
                                 .content("Would you like to update ?")
@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                                 .negativeText("Cancel")
                                 .show();
                     else
-                        Toast.makeText(getApplicationContext(), "Incompatible version of the server.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Incompatible version of the server. (Automatic update from version 2.x to 3.x is not possible, check the docs !)", Toast.LENGTH_LONG).show();
 
                 }
                 else if (list.get(1).matches("Server_logs|Server_status")){

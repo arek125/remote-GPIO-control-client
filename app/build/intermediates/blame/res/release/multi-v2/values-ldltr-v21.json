@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
+            "outputFile": "C:\\Users\\Mdi\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-2\\files-2.1\\beea86592b175a63ae093bff4b945a0a\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\13f086643879e86caba77073371904aa\\appcompat-v7-27.1.0\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

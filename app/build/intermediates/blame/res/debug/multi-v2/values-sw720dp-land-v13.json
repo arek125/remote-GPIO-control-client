@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
+            "outputFile": "C:\\Users\\Mdi\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-2\\files-2.1\\0c40a1e937b5f5baf6455dae3db5c1cb\\res\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\88226117ba8cd6b2dc234f70f1ce92dc\\core-0.9.6.0\\res\\values-sw720dp-land-v13\\values-sw720dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
