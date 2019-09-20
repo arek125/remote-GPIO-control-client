@@ -4,6 +4,7 @@ package com.rgc;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Base64;
+import android.util.Log;
 import android.webkit.URLUtil;
 import java.io.*;
 import java.net.*;
@@ -37,6 +38,14 @@ public class Connection implements Parcelable {
         this.enc_key = enc_key;
         this.tcpOnly = tcpOnly;
     }
+    Connection(String ip, int port, String pass, String enc_key, boolean tcpOnly,int timeout){
+        this.ip = ip;
+        this.port = port;
+        this.pass = pass;
+        this.enc_key = enc_key;
+        this.tcpOnly = tcpOnly;
+        this.timeout = timeout;
+    }
 
     public void cancel(){
         if(clientSocket != null)
@@ -69,7 +78,7 @@ public class Connection implements Parcelable {
         isConnecting = true;
         String modifiedSentence = "CONNECTION ERROR";
         clientSocket = new DatagramSocket();
-        clientSocket.setSoTimeout(20000);
+        clientSocket.setSoTimeout(timeout);
         if(URLUtil.isValidUrl(ip))
             IPAddress = InetAddress.getByName(new URL(ip).getHost());
         else
@@ -227,29 +236,29 @@ public class Connection implements Parcelable {
             try {
                 modifiedSentence = c.decrypt_string(list.get(1), enc_key)+" ";
             } catch (InvalidKeyException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (NoSuchAlgorithmException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (NoSuchPaddingException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (InvalidAlgorithmParameterException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (IllegalBlockSizeException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (BadPaddingException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (IOException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             } catch (ClassNotFoundException e) {
-                modifiedSentence = encSentence;
-                e.printStackTrace();
+                modifiedSentence = encSentence+e.getMessage();
+                Log.e("mdi",e.getMessage());
             }
         }
         return modifiedSentence;

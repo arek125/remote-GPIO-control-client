@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kevalpatel2106:ringtonepicker:1.2@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ringtonepicker-1.2.aar/08956f1a8c3706b7e80f0eee0068c25c/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ringtonepicker-1.2.aar/08956f1a8c3706b7e80f0eee0068c25c/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/ringtonepicker-1.2.aar/08956f1a8c3706b7e80f0eee0068c25c/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kevalpatel2106/ringtonepicker/1.2/2d54f2cd3760ddc4c26221e103007d307e899528/ringtonepicker-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

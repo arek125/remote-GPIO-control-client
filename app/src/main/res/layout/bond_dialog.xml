@@ -83,6 +83,43 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/linkedPiChRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/linkedPiChL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Linked pi execute ?"
+                android:textSize="15sp"
+                android:textColor="#000"  />
+            <CheckBox
+                android:id="@+id/linkedPiCh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/linkedpiRow"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/linkedpiL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Linked pi device: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/linkedpi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+        <TableRow
         android:id="@+id/targetoRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -140,7 +177,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+        </TableRow>
 
+        <TableRow
+            android:id="@+id/targetRFRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetRFL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetRF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/targetCmdRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetCmdL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetCmd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/targetChainRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetChainL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetChain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </TableRow>
 

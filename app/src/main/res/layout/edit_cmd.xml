@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     android:divider="@drawable/divider"
+    android:dividerPadding="5dip"
+    android:showDividers="middle"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:id="@+id/titleL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit CMD:"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
+         <TableRow
+            android:id="@+id/tableRow0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/nameRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/nameL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLength="20"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" />
+            
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/cmdRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+             <TextView
+                 android:id="@+id/cmdL"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Command: "
+                 android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/cmd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/waitRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/waitL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wait for output: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+
+            <CheckBox
+                android:id="@+id/wait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </TableRow>
+
+
+
+       
+    </TableLayout>
+
+</LinearLayout>
+</ScrollView>

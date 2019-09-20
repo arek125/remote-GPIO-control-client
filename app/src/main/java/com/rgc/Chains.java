@@ -1,6 +1,5 @@
 package com.rgc;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -166,10 +165,9 @@ public class Chains extends Fragment {
                 else if (params[0].matches("GPIO_ChainUpdate|GPIO_ChainBondsOrder|GPIO_ChainBondDelete"))
                     response = c.sendString( params[0]+";"+params[1]+";"+params[2], 256);
                 else if (params[0].matches("GPIO_ChainBondUpdate"))
-                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";"+params[5]+";"+params[6]+";"+params[7]+";"+params[8], 256);
+                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";"+params[5]+";"+params[6]+";"+params[7]+";"+params[8]+";"+params[9]+";"+params[10], 256);
                 else if (params[0].matches("GPIO_ChainBondAdd"))
-                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";"+params[5]+";"+params[6]+";"+params[7], 256);
-
+                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";"+params[5]+";"+params[6]+";"+params[7]+";"+params[8]+";"+params[9], 256);
                 list = new ArrayList<String>(Arrays.asList(response.split(";")));
                 if (list.get(0).equals("true")) passwd = true;
                 else if (list.get(0).equals("false")) passwd = false;
@@ -208,16 +206,27 @@ public class Chains extends Fragment {
                     listview.setAdapter(null);
                     chainList.clear();
                     if(list.size() > 2){
-                        for (int i = 2; i < list.size()-1; i+=5) {
+                        for (int i = 2; i < list.size()-1; i+=6) {
                             chainList.add(new Chain(
                                     Integer.parseInt(list.get(i)),
                                     Integer.parseInt(list.get(i+1)),
                                     list.get(i+1).equals("0")?"Ready":"In progress at Lp. "+list.get(i+1),
                                     list.get(i+2),
-                                    list.get(i+4)
+                                    list.get(i+4),
+                                    list.get(i+5)
                             ));
                         }
-                        listview.setAdapter(new ChainsListAdapter(chainList,mContext));
+                        for(Chain ch : chainList)
+                            for(ChainBond chb : ch.bondsList)
+                                if(chb.typ.equals("chain"))
+                                    for(Chain chs : chainList){
+                                        if(chb.C_id==chs.id){
+                                            chb.targetName = chs.nazwa;
+                                            break;
+                                        }
+                                    }
+
+                        listview.setAdapter(new ChainsListAdapter(chainList,mContext,c,id_U));
                     }
                 }else if (list.get(1).matches("GPIO_ChainCancel|GPIO_ChainExecute|GPIO_ChainUpdate|GPIO_ChainAdd|GPIO_ChainDelete|GPIO_ChainBondUpdate|GPIO_ChainBondAdd|GPIO_ChainBondsOrder|GPIO_ChainBondDelete"))
                     list_update();

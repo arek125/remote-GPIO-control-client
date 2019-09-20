@@ -1,4 +1,4 @@
-#Tue Nov 06 08:58:58 CET 2018
-base.0=C\:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\transforms\\dexMerger\\release\\0
+#Sun Sep 15 14:53:22 CEST 2019
+base.0=C\:\\Users\\Mdi\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

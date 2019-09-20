@@ -28,8 +28,9 @@ public class CustomGridAdapter2 extends BaseAdapter {
         private Context context;
         private ArrayList<String> idki;
         private ArrayList<String> gpios;
-        private ArrayList<String> gpios_in;
-        private ArrayList<String> gpios_out;
+//        private ArrayList<String> gpios_in;
+//        private ArrayList<String> gpios_out;
+        private ArrayList<String> allUsedPins;
         private ArrayList<String> fr;
         private ArrayList<String> dc;
         private ArrayList<String> s_s;
@@ -46,8 +47,9 @@ public class CustomGridAdapter2 extends BaseAdapter {
             this.s_s     		= s_s;
             this.nazwy     		= nazwy;
             this.reverses     	= reverses;
-            this.gpios_out     		= new ArrayList<String>();
-            this.gpios_in     		= new ArrayList<String>();
+//            this.gpios_out     		= new ArrayList<String>();
+//            this.gpios_in     		= new ArrayList<String>();
+            this.allUsedPins    = new ArrayList<String>();
         }
 
 
@@ -113,20 +115,27 @@ public class CustomGridAdapter2 extends BaseAdapter {
                     	final EditText dcE = (EditText) loginView.findViewById(R.id.dc);dcE.setText(dc.get(position));
                     	final CheckBox reverse = (CheckBox) loginView.findViewById(R.id.reverse);
                         if (reverses.get(position).equals("1"))reverse.setChecked(true);
-                        GPIO_Pwm.GPIO_PwmTask Allpins_GPIO_out = new GPIO_Pwm.GPIO_PwmTask(new GPIO_Pwm.AsyncResponse(){
+//                        GPIO_Pwm.GPIO_PwmTask Allpins_GPIO_out = new GPIO_Pwm.GPIO_PwmTask(new GPIO_Pwm.AsyncResponse(){
+//                            @Override
+//                            public void processFinish(String output){
+//                                gpios_out.clear();
+//                                gpios_out = new ArrayList(Arrays.asList(output.split(",")));
+//                            }});
+//                        Allpins_GPIO_out.execute("Allpins_GPIO_out");
+//                        GPIO_Pwm.GPIO_PwmTask Allpins_GPIO_in = new GPIO_Pwm.GPIO_PwmTask(new GPIO_Pwm.AsyncResponse(){
+//                            @Override
+//                            public void processFinish(String output){
+//                                gpios_in.clear();
+//                                gpios_in = new ArrayList(Arrays.asList(output.split(",")));
+//                            }});
+//                        Allpins_GPIO_in.execute("Allpins_GPIO_in");
+                        GPIO_Pwm.GPIO_PwmTask Allpins_GPIO = new GPIO_Pwm.GPIO_PwmTask(new GPIO_Pwm.AsyncResponse() {
                             @Override
-                            public void processFinish(String output){
-                                gpios_out.clear();
-                                gpios_out = new ArrayList(Arrays.asList(output.split(",")));
-                            }});
-                        Allpins_GPIO_out.execute("Allpins_GPIO_out");
-                        GPIO_Pwm.GPIO_PwmTask Allpins_GPIO_in = new GPIO_Pwm.GPIO_PwmTask(new GPIO_Pwm.AsyncResponse(){
-                            @Override
-                            public void processFinish(String output){
-                                gpios_in.clear();
-                                gpios_in = new ArrayList(Arrays.asList(output.split(",")));
-                            }});
-                        Allpins_GPIO_in.execute("Allpins_GPIO_in");
+                            public void processFinish(String output) {
+                                allUsedPins = new ArrayList(Arrays.asList(output.split(",")));
+                            }
+                        });
+                        Allpins_GPIO.execute("AllUsedPins_GPIO",idki.get(position));
                 		final AlertDialog d = new AlertDialog.Builder(context)
                                 .setView(loginView)
                                 .setPositiveButton("SAVE",
@@ -163,25 +172,27 @@ public class CustomGridAdapter2 extends BaseAdapter {
 
                          	        	String reverseS = "0";if (reverse.isChecked())reverseS = "1";
                                         List<String> templist = new ArrayList(Arrays.asList(gpio.getText().toString().split(",")));
-                                        List<String> templist2 = new ArrayList(Arrays.asList(gpios.get(position).split(",")));
+                                        //List<String> templist2 = new ArrayList(Arrays.asList(gpios.get(position).split(",")));
                                         boolean cont = false;
                                         boolean notbcm = false;
                                         for (String temp : templist) {
                                             if (temp.matches("2|3|4|17|27|22|10|9|11|5|6|13|19|26|14|15|18|23|24|25|8|7|12|16|20|21")) {
-                                                if (!templist2.contains(temp)) {
-                                                    if (!gpios_out.contains(temp) && !gpios_in.contains(temp)) {
-                                                        Iterator it = gpios.iterator();
-                                                        while (it.hasNext()) {
-                                                            if (new ArrayList(Arrays.asList(((String) it.next()).split(","))).contains(temp)) {
-                                                                cont = true;
-                                                                break;
-                                                            }
-                                                        }
+                                                //if (!templist2.contains(temp)) {
+                                                    if (allUsedPins.contains(temp)) {
+                                                        cont = true;
+                                                        break;
+//                                                        Iterator it = gpios.iterator();
+//                                                        while (it.hasNext()) {
+//                                                            if (new ArrayList(Arrays.asList(((String) it.next()).split(","))).contains(temp)) {
+//                                                                cont = true;
+//                                                                break;
+//                                                            }
+//                                                        }
                                                     }
-                                                    else{
-                                                    cont = true;
-                                                    break;}
-                                                }
+//                                                    else{
+//                                                    cont = true;
+//                                                    break;}
+                                                //}
                                             } else {
                                                 notbcm = true;
                                                 break;

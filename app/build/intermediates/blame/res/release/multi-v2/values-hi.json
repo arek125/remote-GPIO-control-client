@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\agolen\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-hi\\values-hi.xml",
+            "outputFile": "C:\\Users\\Mdi\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-hi\\values-hi.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-1\\files-1.1\\ringtonepicker-1.3.aar\\4fce47dfe52858f47a21ae80e83ecc93\\res\\values-hi\\values-hi.xml",
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\13f086643879e86caba77073371904aa\\appcompat-v7-27.1.0\\res\\values-hi\\values-hi.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,211,308,418,504,606,728,805,883,973,1082,1185,1287,1397,1498,1613,1775,1876",
+                        "endColumns": "105,96,109,85,101,121,76,77,89,108,102,101,109,100,114,161,100,79",
+                        "endOffsets": "206,303,413,499,601,723,800,878,968,1077,1180,1282,1392,1493,1608,1770,1871,1951"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,211,308,418,504,606,728,805,883,973,1082,1185,1287,1397,1498,1613,1775,1948",
+                        "endColumns": "105,96,109,85,101,121,76,77,89,108,102,101,109,100,114,161,100,79",
+                        "endOffsets": "206,303,413,499,601,723,800,878,968,1077,1180,1282,1392,1493,1608,1770,1871,2023"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\a6eeabe83cdef944d8abbd016a60809a\\ringtonepicker-1.3\\res\\values-hi\\values-hi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\57f749462a36a6a778cc1ea2d61bc536\\res\\values-hi\\values-hi.xml",
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\f986b3b5fa303767bd88eedaa2241cd1\\support-compat-27.1.0\\res\\values-hi\\values-hi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -35,23 +52,6 @@
                         "startOffsets": "2028",
                         "endColumns": "100",
                         "endOffsets": "2124"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\agolen\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\ba6544efedbccb89cb1532498b6e2d8c\\res\\values-hi\\values-hi.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,211,308,418,504,606,728,805,883,973,1082,1185,1287,1397,1498,1613,1775,1876",
-                        "endColumns": "105,96,109,85,101,121,76,77,89,108,102,101,109,100,114,161,100,79",
-                        "endOffsets": "206,303,413,499,601,723,800,878,968,1077,1180,1282,1392,1493,1608,1770,1871,1951"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,211,308,418,504,606,728,805,883,973,1082,1185,1287,1397,1498,1613,1775,1948",
-                        "endColumns": "105,96,109,85,101,121,76,77,89,108,102,101,109,100,114,161,100,79",
-                        "endOffsets": "206,303,413,499,601,723,800,878,968,1077,1180,1282,1392,1493,1608,1770,1871,2023"
                     }
                 }
             ]
