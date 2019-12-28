@@ -1,6 +1,11 @@
 package com.rgc;
 
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Base64;
@@ -24,12 +29,13 @@ public class Connection implements Parcelable {
     private DatagramSocket clientSocket;
     private Socket s;
     private InetAddress IPAddress;
-    public boolean isConnecting = false,tcpOnly = false;
-    public String ip,pass,enc_key;
+    public boolean isConnecting = false,tcpOnly = false,wifiCHeck = false;
+    public String ip,pass,enc_key,ssid;
     public int timeout = 20000;
     public int port;
     BufferedReader in;
     PrintWriter out;
+    Context ctx;
 
     Connection(String ip, int port, String pass, String enc_key, boolean tcpOnly){
         this.ip = ip;
@@ -39,13 +45,57 @@ public class Connection implements Parcelable {
         this.tcpOnly = tcpOnly;
     }
     Connection(String ip, int port, String pass, String enc_key, boolean tcpOnly,int timeout){
-        this.ip = ip;
-        this.port = port;
-        this.pass = pass;
-        this.enc_key = enc_key;
-        this.tcpOnly = tcpOnly;
+        this(ip,port,pass,enc_key,tcpOnly);
         this.timeout = timeout;
     }
+    Connection(DataBaseHelper myDbHelper, int idU, int timeout, Context ctx){
+        Cursor k = myDbHelper.dajUrzadzenie(idU);
+        this.ctx = ctx;
+        if(k.moveToFirst()){
+            this.ip = k.getString(2);
+            this.port = k.getInt(3);
+            this.pass = k.getString(4);
+            this.enc_key = k.getString(5);
+            if(!k.isNull(17))this.tcpOnly = (k.getInt(17)==1);
+            if(timeout != -1) this.timeout = timeout;
+            if(!k.isNull(23))this.ssid = k.getString(22);
+            if(!k.isNull(23))this.wifiCHeck = (k.getInt(23)==1);
+            if(this.wifiCHeck)chooseIp( k.getString(20), k.getString(21));
+        }
+        k.close();
+    }
+
+//    Connection(String ip1, int port1, String pass, String enc_key, boolean tcpOnly,String ip2,String port2) {
+//        this(ip1,port1,pass,enc_key,tcpOnly);
+//        if(ip2 != null && port2 != null )if(!ip2.isEmpty() && port2.isEmpty())
+//            chooseIp(ip1,ip2,port2);
+//    }
+//    Connection(String ip1, int port1, String pass, String enc_key, boolean tcpOnly,int timeout,String ip2,String port2){
+//        this(ip1,port1,pass,enc_key,tcpOnly,timeout);
+//        if(ip2 != null && port2 != null )if(!ip2.isEmpty() && port2.isEmpty())
+//            chooseIp(ip1,ip2,port2);
+//    }
+    public void chooseIp(String ip2, String port2) {
+        WifiManager wifiManager = (WifiManager)ctx.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        if (wifiInfo.getSupplicantState() == SupplicantState.COMPLETED) {
+            if(wifiInfo.getSSID().replaceAll("\"","").matches(this.ssid)){
+                this.ip = ip2;
+                this.port = Integer.parseInt(port2);
+            };
+        }
+//        try{
+//            if(!InetAddress.getByName(ip1).isReachable(1000))
+//            if (InetAddress.getByName(ip2).isReachable(1000)){
+//                this.ip = ip2;
+//                this.port = Integer.parseInt(port2);
+//            }
+//        }catch (IOException e){
+//
+//        }
+
+    }
+
 
     public void cancel(){
         if(clientSocket != null)

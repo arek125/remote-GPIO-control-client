@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <string-array name="inputMethod">
+        <item>Loop monitoring</item>
+        <item>Edge detection</item>
+    </string-array>
+    <string-array name="resistor">
+        <item>Pull up</item>
+        <item>Pull down</item>
+        <item>None</item>
+    </string-array>
     <string-array name="states">
         <item>OFF</item>
         <item>ON</item>

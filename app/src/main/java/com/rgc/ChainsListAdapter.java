@@ -83,7 +83,7 @@ public class ChainsListAdapter extends BaseAdapter {
                     public void processFinish(String output) {
                     }
                 });
-                if(chain.status == 0)exec.execute("GPIO_ChainExecute",String.valueOf(chain.id));
+                if(chain.status == 0)exec.execute("GPIO_ChainExecute",String.valueOf(chain.id),(chain.keepLog?"1":"0"));
                 else exec.execute("GPIO_ChainCancel",String.valueOf(chain.id));
             }
         });

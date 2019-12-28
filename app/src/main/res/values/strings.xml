@@ -52,7 +52,15 @@
         <item>Chains</item>
     </string-array>
 
-
+    <string-array name="resistor">
+        <item>Pull up</item>
+        <item>Pull down</item>
+        <item>None</item>
+    </string-array>
+    <string-array name="inputMethod">
+        <item>Loop monitoring</item>
+        <item>Edge detection</item>
+    </string-array>
 
 
 </resources>

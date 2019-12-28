@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\Mdi\\Desktop\\workspaceAS\\remote-GPIO-control-client\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\13f086643879e86caba77073371904aa\\appcompat-v7-27.1.0\\res\\values-pa\\values-pa.xml",
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\def26274c89bfa88ca4399a66e314f0a\\appcompat-v7-27.1.0\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\f986b3b5fa303767bd88eedaa2241cd1\\support-compat-27.1.0\\res\\values-pa\\values-pa.xml",
+                    "source": "C:\\Users\\Mdi\\.gradle\\caches\\transforms-2\\files-2.1\\f193a451298a132103515b1cc52b39c9\\support-compat-27.1.0\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

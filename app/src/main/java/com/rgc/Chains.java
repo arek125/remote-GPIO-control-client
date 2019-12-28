@@ -160,14 +160,20 @@ public class Chains extends Fragment {
                     response = c.sendString(params[0] + ";", 8192);
                 else if (params[0].equals("GPIO_ChainList"))
                     response = c.sendString(params[0] + ";", 16384);
-                else if (params[0].matches("GPIO_ChainCancel|GPIO_ChainExecute|GPIO_ChainAdd|GPIO_ChainDelete"))
+                else if (params[0].matches("GPIO_ChainCancel|GPIO_ChainDelete"))
                     response = c.sendString( params[0]+";"+params[1]+";" + android.os.Build.MODEL, 256);
-                else if (params[0].matches("GPIO_ChainUpdate|GPIO_ChainBondsOrder|GPIO_ChainBondDelete"))
+                else if (params[0].matches("GPIO_ChainBondsOrder|GPIO_ChainBondDelete"))
                     response = c.sendString( params[0]+";"+params[1]+";"+params[2], 256);
                 else if (params[0].matches("GPIO_ChainBondUpdate"))
                     response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";"+params[5]+";"+params[6]+";"+params[7]+";"+params[8]+";"+params[9]+";"+params[10], 256);
                 else if (params[0].matches("GPIO_ChainBondAdd"))
                     response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";"+params[5]+";"+params[6]+";"+params[7]+";"+params[8]+";"+params[9], 256);
+                else if (params[0].matches("GPIO_ChainUpdate"))
+                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";"+params[4]+";" + android.os.Build.MODEL, 256);
+                else if (params[0].matches("GPIO_ChainExecute"))
+                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";" + android.os.Build.MODEL, 256);
+                else if (params[0].matches("GPIO_ChainAdd"))
+                    response = c.sendString( params[0]+";"+params[1]+";"+params[2]+";"+params[3]+";" + android.os.Build.MODEL, 256);
                 list = new ArrayList<String>(Arrays.asList(response.split(";")));
                 if (list.get(0).equals("true")) passwd = true;
                 else if (list.get(0).equals("false")) passwd = false;
@@ -206,14 +212,15 @@ public class Chains extends Fragment {
                     listview.setAdapter(null);
                     chainList.clear();
                     if(list.size() > 2){
-                        for (int i = 2; i < list.size()-1; i+=6) {
+                        for (int i = 2; i < list.size()-1; i+=7) {
                             chainList.add(new Chain(
                                     Integer.parseInt(list.get(i)),
                                     Integer.parseInt(list.get(i+1)),
                                     list.get(i+1).equals("0")?"Ready":"In progress at Lp. "+list.get(i+1),
                                     list.get(i+2),
                                     list.get(i+4),
-                                    list.get(i+5)
+                                    list.get(i+5).equals("1"),
+                                    list.get(i+6)
                             ));
                         }
                         for(Chain ch : chainList)

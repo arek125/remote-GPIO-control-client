@@ -26,7 +26,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     private final Context myContext;
 
-	private final static int DATABASE_VERSION = 8;
+	private final static int DATABASE_VERSION = 9;
 
     public DataBaseHelper(Context context) {
 
@@ -179,6 +179,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_RF INTEGER DEFAULT 0 NOT NULL");
 			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN Tab_Cmd INTEGER DEFAULT 0 NOT NULL");
 		}
+		if(oldVersion<9){
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN ip2 TEXT");
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN port2 INTEGER");
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN ssid TEXT");
+			db.execSQL("ALTER TABLE urzadzenia ADD COLUMN wifi_check INTEGER DEFAULT 0");
+		}
 	}
  
 	
@@ -195,7 +201,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	}
 	
 	public void dodajUrzadzenie(String nazwa, String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm,
-								int Tab_GPIO_SA, int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
+								int Tab_GPIO_History, int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd,String ip2 ,String port2, String ssid, int wifi_check){
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
@@ -207,7 +213,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		wartosci.put("Tab_GPIO_Output",Tab_GPIO_Output);
 		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
 		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
-		wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
+		//wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
 		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
 		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
 		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
@@ -216,24 +222,28 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         wartosci.put("TCP_Only",TCP_Only);
 		wartosci.put("Tab_RF",Tab_rf);
 		wartosci.put("Tab_Cmd",Tab_Cmd);
+		if(ip2 != null)if(!ip2.matches(""))wartosci.put("ip2",ip2);
+		if(ip2 != null)if(!port2.matches(""))wartosci.put("port2",port2);
+		if(ssid != null)if(!ssid.matches(""))wartosci.put("ssid",ssid);
+		wartosci.put("wifi_check",wifi_check);
 		db.insertOrThrow("urzadzenia", null, wartosci);
 		
 	}
 	
 	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, String haslosh, String haslomd, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm,
-								 int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
+								  int Tab_GPIO_History,int Tab_Sensors, int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd, String ip2 ,String port2,String ssid, int wifi_check){
 		SQLiteDatabase db = getWritableDatabase(); 
 		ContentValues wartosci = new ContentValues();
 		wartosci.put("nazwa",nazwa);
 		wartosci.put("ip",ip);
 		wartosci.put("port",port);
-		wartosci.put("haslo",haslosh);
-		wartosci.put("haslo2",haslomd);
+		if(haslosh != null)wartosci.put("haslo",haslosh);
+		if(haslomd != null)wartosci.put("haslo2",haslomd);
 		wartosci.put("autorefreshtime",artime);
 		wartosci.put("Tab_GPIO_Output",Tab_GPIO_Output);
 		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
 		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
-		wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
+		//wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
 		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
 		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
 		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
@@ -243,31 +253,35 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         wartosci.put("selected_tab",0);
 		wartosci.put("Tab_RF",Tab_rf);
 		wartosci.put("Tab_Cmd",Tab_Cmd);
+		if(ip2 != null)if(!ip2.matches(""))wartosci.put("ip2",ip2);
+		if(ip2 != null)if(!port2.matches(""))wartosci.put("port2",port2);
+		if(ssid != null)if(!ssid.matches(""))wartosci.put("ssid",ssid);
+		wartosci.put("wifi_check",wifi_check);
 		db.update("urzadzenia",wartosci, "_id="+id, null);
 	}
-	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_SA, int Tab_GPIO_History,int Tab_Sensors,
-								 int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
-		SQLiteDatabase db = getWritableDatabase();
-		ContentValues wartosci = new ContentValues();
-		wartosci.put("nazwa",nazwa);
-		wartosci.put("ip",ip);
-		wartosci.put("port",port);
-		wartosci.put("autorefreshtime",artime);
-		wartosci.put("Tab_GPIO_Output",Tab_GPIO_Output);
-		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
-		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
-		wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
-		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
-		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
-		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
-        wartosci.put("Tab_Notifications",Tab_Notifications);
-		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
-        wartosci.put("TCP_Only",TCP_Only);
-        wartosci.put("selected_tab",0);
-		wartosci.put("Tab_RF",Tab_rf);
-		wartosci.put("Tab_Cmd",Tab_Cmd);
-		db.update("urzadzenia",wartosci, "_id="+id, null);
-	}
+//	public void edytujUrzadzenie(int id, String nazwa,String ip, int port, float artime, int Tab_GPIO_Output, int Tab_GPIO_Input, int Tab_GPIO_Pwm, int Tab_GPIO_History,int Tab_Sensors,
+//								 int Tab_Notifications, int Tab_GPIO_ASA, int Tab_GPIO_Chains, int TCP_Only, int Tab_rf, int Tab_Cmd){
+//		SQLiteDatabase db = getWritableDatabase();
+//		ContentValues wartosci = new ContentValues();
+//		wartosci.put("nazwa",nazwa);
+//		wartosci.put("ip",ip);
+//		wartosci.put("port",port);
+//		wartosci.put("autorefreshtime",artime);
+//		wartosci.put("Tab_GPIO_Output",Tab_GPIO_Output);
+//		wartosci.put("Tab_GPIO_Input",Tab_GPIO_Input);
+//		wartosci.put("Tab_GPIO_Pwm",Tab_GPIO_Pwm);
+//		//wartosci.put("Tab_GPIO_SA",Tab_GPIO_SA);
+//		wartosci.put("Tab_GPIO_ASA",Tab_GPIO_ASA);
+//		wartosci.put("Tab_GPIO_History",Tab_GPIO_History);
+//		wartosci.put("Tab_GPIO_Sensors",Tab_Sensors);
+//        wartosci.put("Tab_Notifications",Tab_Notifications);
+//		wartosci.put("Tab_GPIO_Chains",Tab_GPIO_Chains);
+//        wartosci.put("TCP_Only",TCP_Only);
+//        wartosci.put("selected_tab",0);
+//		wartosci.put("Tab_RF",Tab_rf);
+//		wartosci.put("Tab_Cmd",Tab_Cmd);
+//		db.update("urzadzenia",wartosci, "_id="+id, null);
+//	}
     public void edytujUrzadzenie(int id, int selectedPos){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues wartosci = new ContentValues();

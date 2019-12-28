@@ -34,7 +34,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			//t0 =k.getInt(7);t1 =k.getInt(8);t2 =k.getInt(9);t3 =k.getInt(16);/*t4 =k.getInt(10);*/t5 =k.getInt(15);t6 =k.getInt(11);t7 =k.getInt(12);t8 =k.getInt(13);
 			if(k.getInt(7) == 1) {
 				fragmentList.add(GPIO_Status.newInstance(positionCounter + 1,dstName,c,mContext,arTime,id_u));
-				charSequenceList.add("GPIO Outpust");
+				charSequenceList.add("GPIO Outputs");
 				positionCounter++;
 			}
 			if(k.getInt(8) == 1) {

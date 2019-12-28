@@ -26,7 +26,9 @@
 
 
     <TableLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
+        android:stretchColumns="*"
+        android:shrinkColumns="1"
         android:layout_height="wrap_content" >
         
          <TableRow
@@ -39,6 +41,7 @@
 </TableRow>
         <TableRow
             android:id="@+id/tableRow1"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -109,6 +112,91 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/resistorL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Resistor: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <Spinner
+                android:id="@+id/resistor"
+                android:entries="@array/resistor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/methodL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Method: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <Spinner
+                android:id="@+id/method"
+                android:entries="@array/inputMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/timeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CPU rest time (s): "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:text="0.05"
+                android:inputType="numberDecimal"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/methodDisc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_span="2"
+                android:text="(The smaller the value, the faster the response, but the greater the CPU demand.)"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:textStyle="italic" />
         </TableRow>
         
                                 <!--<TableRow-->

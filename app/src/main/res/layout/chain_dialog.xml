@@ -105,6 +105,28 @@
                 android:textSize="13sp"
                 android:textStyle="italic" />
         </TableRow>
+        <TableRow
+            android:id="@+id/keepLogsRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/keepLogsL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keep logs: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <CheckBox
+                android:id="@+id/keepLogs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                >
+            </CheckBox>
+        </TableRow>
 
 
 
