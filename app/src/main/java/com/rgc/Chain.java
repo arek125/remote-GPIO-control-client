@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,17 +26,18 @@ import java.util.List;
 public class Chain {
     public int id,status;
     public String nazwa,bonds,nazwaStatusu,execCd;
+    public boolean keepLog;
     public List<ChainBond> bondsList = new ArrayList<>();
 
     Chain(){
     }
 
-    Chain(int id, int status, String nazwaStatusu, String nazwa, String execCd, String bonds){
-        this.id = id; this.status =status; this.nazwaStatusu=nazwaStatusu;this.bonds = bonds; this.nazwa = nazwa;this.execCd = execCd;
+    Chain(int id, int status, String nazwaStatusu, String nazwa, String execCd,boolean keepLog, String bonds){
+        this.id = id; this.status =status; this.nazwaStatusu=nazwaStatusu;this.bonds = bonds; this.nazwa = nazwa;this.execCd = execCd;this.keepLog = keepLog;
         parseBonds();
     }
-    Chain(int id, int status, String nazwaStatusu, String nazwa,String execCd){
-        this.id = id; this.status =status; this.nazwaStatusu=nazwaStatusu; this.nazwa = nazwa;this.execCd = execCd;
+    Chain(int id, int status, String nazwaStatusu, String nazwa,String execCd,boolean keepLog){
+        this.id = id; this.status =status; this.nazwaStatusu=nazwaStatusu; this.nazwa = nazwa;this.execCd = execCd;this.keepLog = keepLog;
     }
 
     private void parseBonds(){
@@ -111,10 +113,12 @@ public class Chain {
         TextView title = view.findViewById(R.id.titleL);
         final EditText name = view.findViewById(R.id.name);
         final EditText ecd = view.findViewById(R.id.ecd);
+        final CheckBox keeplogsCh = view.findViewById(R.id.keepLogs);
         if(editMode) {
             name.setText(nazwa);
             title.setText("Edit chain:");
             ecd.setText(execCd);
+            keeplogsCh.setChecked(this.keepLog);
         }
         final Chains.ChainsTask exec = new Chains.ChainsTask(new Chains.AsyncResponse() {
             @Override
@@ -132,8 +136,8 @@ public class Chain {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if(!name.getText().toString().isEmpty()&&!ecd.getText().toString().isEmpty()){
                             dialog.dismiss();
-                            if(editMode)exec.execute("GPIO_ChainUpdate",String.valueOf(id),name.getText().toString(),ecd.getText().toString());
-                            else exec.execute("GPIO_ChainAdd",name.getText().toString(),ecd.getText().toString());
+                            if(editMode)exec.execute("GPIO_ChainUpdate",String.valueOf(id),name.getText().toString(),ecd.getText().toString(),(keeplogsCh.isChecked()?"1":"0"));
+                            else exec.execute("GPIO_ChainAdd",name.getText().toString(),ecd.getText().toString(),(keeplogsCh.isChecked()?"1":"0"));
                         }else
                             Toast.makeText(context, "Fill all fields !", Toast.LENGTH_SHORT).show();
                     }

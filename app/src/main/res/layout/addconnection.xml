@@ -51,6 +51,7 @@
                 android:layout_weight="1"
                 android:theme="@style/AppTheme"
                 android:textSize="15sp" />
+            <requestFocus/>
 
         </TableRow>
 
@@ -77,7 +78,6 @@
                 android:theme="@style/AppTheme"
                 android:textSize="15sp" >
 
-                <requestFocus />
             </EditText>
         </TableRow>
 
@@ -105,7 +105,6 @@
                 android:theme="@style/AppTheme"
                 android:inputType="number" >
 
-                <requestFocus />
             </EditText>
         </TableRow>
 		 <TableRow
@@ -136,7 +135,6 @@
                 android:editable="false"
                 android:theme="@style/AppTheme"
                 android:inputType="textPassword" >
-		     <requestFocus />
             </EditText>
 		     
 		     </TableRow>
@@ -184,7 +182,6 @@
                 android:textColor="#000" 
                 android:theme="@style/AppTheme"
                 android:inputType="numberDecimal" >
-		     <requestFocus />
             </EditText>
 		     
 		     </TableRow>
@@ -225,6 +222,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/TabsL"
             android:textSize="20sp"
+            android:layout_span="3"
             android:textColor="#000"/>
     </TableRow>
         <TableRow
@@ -241,7 +239,7 @@
                 android:text="GPIO Output control: " />
             <CheckBox
                 android:id="@+id/GPIO_output"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
@@ -265,7 +263,7 @@
         </TableRow>
         <TableRow
             android:id="@+id/tableRow9"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:textSize="15.0sp"
@@ -277,7 +275,7 @@
                 android:text="GPIO PWM control: " />
             <CheckBox
                 android:id="@+id/GPIO_pwm"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
@@ -295,36 +293,11 @@
                 android:text="Execution chains: " />
             <CheckBox
                 android:id="@+id/GPIO_chains"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
-        <TableRow
-            android:id="@+id/tableRow10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-            <TextView
-                android:textSize="15.0sp"
-                android:textColor="#f44e42"
-                android:id="@+id/GPIO_SAL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:paddingBottom="5dp"
-                android:text="Scheduled actions: " />
-            <CheckBox
-                android:id="@+id/GPIO_SA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false" />
-            <TextView
-                android:textSize="10.0sp"
-                android:textColor="#f44e42"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Will be deleted." />
-        </TableRow>
+
 
         <TableRow
             android:id="@+id/tableRow10_5"
@@ -341,7 +314,7 @@
                 android:text="Automation: " />
             <CheckBox
                 android:id="@+id/GPIO_ASA"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:checked="false" />
@@ -355,13 +328,13 @@
                 android:textSize="15.0sp"
                 android:textColor="#ff000000"
                 android:id="@+id/GPIO_historyL"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:text="History log: " />
             <CheckBox
                 android:id="@+id/GPIO_history"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
@@ -379,7 +352,7 @@
                 android:text="Sensors: " />
             <CheckBox
                 android:id="@+id/sensors"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
@@ -397,7 +370,7 @@
                 android:text="Notifications: " />
             <CheckBox
                 android:id="@+id/notifications"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
         </TableRow>
@@ -415,7 +388,7 @@
                 android:text="Radio frequency: " />
             <CheckBox
                 android:id="@+id/rf"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="false" />
         </TableRow>
@@ -433,9 +406,116 @@
                 android:text="Custom commands: " />
             <CheckBox
                 android:id="@+id/cmd"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true" />
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tableRow_16" >
+
+            <TextView
+                android:text="WiFi SSID Specific data:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/AlterL"
+                android:textSize="20sp"
+                android:layout_span="2"
+                android:layout_weight="1"
+                android:textColor="#000"/>
+            <CheckBox
+                android:id="@+id/wifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow15_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/ssidL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SSID: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/ssid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+            <Button
+                android:id="@+id/getWifiSSID"
+                android:text="Get ssid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+
+                />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/ip2L"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IP/HOST/URL: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/ip2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/port2L"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Port: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/port2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textSize="15sp"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:inputType="number" >
+
+            </EditText>
         </TableRow>
 </TableLayout>
 </LinearLayout>

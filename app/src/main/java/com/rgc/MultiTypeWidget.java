@@ -117,7 +117,8 @@ public class MultiTypeWidget extends AppWidgetProvider {
                     if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
                     c.close();
                     try {
-                        Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
+                        //Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
+                        Connection conn = new Connection(db,id_U,-1,context);
                         response = conn.sendString("GPIO_set"+";"+idt+";"+gpio+";"+stanUstaw+";"+GPIO_Status.DatetoString(new Date())+";"+String.valueOf(reverse)+";"+android.os.Build.MODEL, 256);
                         list = new ArrayList<String>(Arrays.asList(response.split(";")));
                         if (list.get(0).equals("true")) passwd = true;
@@ -158,9 +159,10 @@ public class MultiTypeWidget extends AppWidgetProvider {
             DataBaseHelper db = new DataBaseHelper(context);
             Cursor c = db.dajUrzadzenie(id_U);
             c.moveToFirst();
-            boolean tcpOnly=false;
-            if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
-            Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), tcpOnly,5000);
+            //boolean tcpOnly=false;
+            //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
+            //Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), tcpOnly,5000);
+            Connection cQuick = new Connection(db,id_U,5000,context);
             GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
                 @Override
                 public void processFinish(List<String> list) {

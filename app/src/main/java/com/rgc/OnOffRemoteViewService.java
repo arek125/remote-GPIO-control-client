@@ -101,19 +101,20 @@ class OnOffRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
                 rv.setViewVisibility(R.id.pbProgressAction, View.VISIBLE);
                 appWidgetManager.updateAppWidget(mAppWidgetId,rv);
                 DataBaseHelper db = new DataBaseHelper(mContext);
-                Cursor c = db.dajUrzadzenie(id_U);
-                c.moveToFirst();
+                //Cursor c = db.dajUrzadzenie(id_U);
+                //c.moveToFirst();
                 String response = "";
                 boolean succes = false;
                 boolean passwd = false,tcpOnly=false;
                 List<String> list = new ArrayList<String>();
-                int dstPort = c.getInt(3);
-                String dstAddress = c.getString(2), dstPassword = c.getString(4), encKey = c.getString(5);
-                if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
-                c.close();
+                //int dstPort = c.getInt(3);
+                //String dstAddress = c.getString(2), dstPassword = c.getString(4), encKey = c.getString(5);
+                //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
+                //c.close();
                 try {
-                    Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
-                    conn.timeout = 5000;
+                    //Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
+                    Connection conn = new Connection(db,id_U,5000,mContext);
+                    //conn.timeout = 5000;
                     response = conn.sendString("GPIO_OlistT0", 32384);
                     list = new ArrayList<String>(Arrays.asList(response.split(";")));
                     if (list.get(0).equals("true")) passwd = true;

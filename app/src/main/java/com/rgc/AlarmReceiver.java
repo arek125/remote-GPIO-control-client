@@ -43,11 +43,12 @@ public class AlarmReceiver extends BroadcastReceiver{
                         boolean passwd=false,tcpOnly=false;
                         List<String> list = new ArrayList<String>();
                         int id_U=powK.getInt(1),dstPort=powK.getInt(13);
-                        String dstAddress=powK.getString(12),dstPassword=powK.getString(14),encKey=powK.getString(15);
-                        if(!powK.isNull(17))tcpOnly = powK.getInt(17)==1;
+                        //String dstAddress=powK.getString(12),dstPassword=powK.getString(14),encKey=powK.getString(15);
+                        //if(!powK.isNull(17))tcpOnly = powK.getInt(17)==1;
                         notificationIntent.putExtra("ID_U",id_U);
                         try {
-                            Connection c = new Connection(dstAddress, dstPort, dstPassword,encKey,tcpOnly);
+                            //Connection c = new Connection(dstAddress, dstPort, dstPassword,encKey,tcpOnly);
+                            Connection c = new Connection(myDbHelper,id_U,-1,context);
                             response = c.sendStringTCP("NOTIF_check;"+powK.getString(2)+";"+powK.getString(3)+";"+powK.getString(4)+";"+powK.getString(5)+";"+powK.getString(9), true);
                             list = new ArrayList<String>(Arrays.asList(response.split(";")));
                             if (list.get(0).equals("true")) passwd = true;

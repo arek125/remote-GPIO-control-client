@@ -86,11 +86,12 @@ class SensorsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
                 rv.setViewVisibility(R.id.pbProgressAction, View.VISIBLE);
                 appWidgetManager.updateAppWidget(mAppWidgetId,rv);
                 final DataBaseHelper db = new DataBaseHelper(mContext);
-                final Cursor c = db.dajUrzadzenie(id_U);
-                c.moveToFirst();
-                boolean tcpOnly=false;
-                if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
-                Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), tcpOnly,5000);
+                //final Cursor c = db.dajUrzadzenie(id_U);
+                //c.moveToFirst();
+                //boolean tcpOnly=false;
+                //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
+                //Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), tcpOnly,5000);
+                Connection cQuick = new Connection(db,id_U,5000,mContext);
                 GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
                     @Override
                     public void processFinish(List<String> list) {
@@ -107,7 +108,7 @@ class SensorsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
                         rv.setTextColor(R.id.refresh, Color.RED);
                         finishFlag = true;
                     }
-                },mContext,cQuick,c.getInt(0),32384,null,null);
+                },mContext,cQuick,id_U,32384,null,null);
                 execad.execute("SENSOR_list");
                 while (!finishFlag) {
                     try { Thread.sleep(100); }
@@ -116,7 +117,7 @@ class SensorsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
                 finishFlag = false;
                 rv.setViewVisibility(R.id.pbProgressAction, View.INVISIBLE);
                 appWidgetManager.updateAppWidget(mAppWidgetId,rv);
-                c.close();
+                //c.close();
                 db.close();
 
     }

@@ -14,6 +14,8 @@ anim abc_tooltip_exit
 anim decelerate_cubic
 anim popup_enter
 anim popup_exit
+array inputMethod
+array resistor
 array states
 array states_two
 array triggersType
@@ -714,12 +716,11 @@ drawable transfer_up
 drawable view_grid
 drawable yelow
 id ALT
+id AlterL
 id CTRL
 id FUNCTION
 id GPIO_ASA
 id GPIO_ASAL
-id GPIO_SA
-id GPIO_SAL
 id GPIO_chains
 id GPIO_chainsL
 id GPIO_history
@@ -848,6 +849,7 @@ id fill_vertical
 id forever
 id fr
 id frL
+id getWifiSSID
 id gpio
 id gpioL
 id gridView1
@@ -889,6 +891,8 @@ id io
 id ioRow
 id ioState
 id ip
+id ip2
+id ip2L
 id ipL
 id italic
 id item_touch_helper_previous_elevation
@@ -931,6 +935,9 @@ id md_root
 id md_title
 id md_titleFrame
 id message
+id method
+id methodDisc
+id methodL
 id miActionButton
 id middle
 id multiply
@@ -967,6 +974,8 @@ id pingL
 id pingRow
 id podwarunek
 id port
+id port2
+id port2L
 id portL
 id precise
 id preciseL
@@ -997,6 +1006,8 @@ id refresh_date
 id repeatT
 id repeatTL
 id repeatTRow
+id resistor
+id resistorL
 id restartServer
 id reverse
 id reverseL
@@ -1054,6 +1065,8 @@ id split_action_bar
 id src_atop
 id src_in
 id src_over
+id ssid
+id ssidL
 id stan
 id start
 id startEndButton
@@ -1068,13 +1081,15 @@ id tabMode
 id tableHistory
 id tableRow0
 id tableRow1
-id tableRow10
 id tableRow10_5
 id tableRow11
 id tableRow12
 id tableRow13
 id tableRow14
 id tableRow15
+id tableRow15_5
+id tableRow16
+id tableRow17
 id tableRow2
 id tableRow3
 id tableRow4
@@ -1086,6 +1101,7 @@ id tableRow7
 id tableRow8
 id tableRow9
 id tableRow9_5
+id tableRow_16
 id tag_transition_group
 id target
 id targetActions
@@ -1122,6 +1138,7 @@ id textSpacerNoTitle
 id textView
 id textView2
 id time
+id timeL
 id timerRow
 id timerhours
 id timerminutes
@@ -1160,6 +1177,7 @@ id waitRow
 id warunek
 id weekday
 id weekdayRow
+id wifi
 id withText
 id wrap_content
 integer abc_config_activityDefaultDur
