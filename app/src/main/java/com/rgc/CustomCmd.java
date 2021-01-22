@@ -1,6 +1,7 @@
 package com.rgc;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,9 +51,9 @@ public class CustomCmd {
                         else {
                             dialog.dismiss();
                             if (editMode)
-                                execad.execute("UpdateCustomCmd", String.valueOf(id), name.getText().toString(), cmd.getText().toString(), String.valueOf(wait.isChecked()?1:0));
+                                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"UpdateCustomCmd", String.valueOf(id), name.getText().toString(), cmd.getText().toString(), String.valueOf(wait.isChecked()?1:0));
                             else
-                                execad.execute("AddCustomCmd", name.getText().toString(), cmd.getText().toString(), String.valueOf(wait.isChecked()?1:0));
+                                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"AddCustomCmd", name.getText().toString(), cmd.getText().toString(), String.valueOf(wait.isChecked()?1:0));
                         }
                     }
                 })
@@ -61,7 +62,7 @@ public class CustomCmd {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
-                        execad.execute("DeleteCustomCmd",String.valueOf(id));
+                        execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"DeleteCustomCmd",String.valueOf(id));
                     }
                 })
                 .negativeText("CANCEL")

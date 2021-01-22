@@ -92,29 +92,39 @@ class SensorsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
                 //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
                 //Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), tcpOnly,5000);
                 Connection cQuick = new Connection(db,id_U,5000,mContext);
-                GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
-                    @Override
-                    public void processFinish(List<String> list) {
-                        sensors.clear();
-                        for (int i = 2; i < list.size()-1; i+=11) {//id;name;value;unit;date
-                            String sensor[] = {list.get(i),list.get(i+1),list.get(i+3),list.get(i+6),AdvSAListAdapter.UTCtoLocalDate(list.get(i+7),"yyyy-MM-dd HH:mm:ss",false,"MM/dd HH:mm")};
-                            sensors.add(sensor);
-                        }
-                        rv.setTextColor(R.id.refresh, Color.GREEN);
-                        finishFlag = true;
+//                GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
+//                    @Override
+//                    public void processFinish(List<String> list) {
+//                        sensors.clear();
+//                        for (int i = 2; i < list.size()-1; i+=11) {//id;name;value;unit;date
+//                            String sensor[] = {list.get(i),list.get(i+1),list.get(i+3),list.get(i+6),AdvSAListAdapter.UTCtoLocalDate(list.get(i+7),"yyyy-MM-dd HH:mm:ss",false,"MM/dd HH:mm")};
+//                            sensors.add(sensor);
+//                        }
+//                        rv.setTextColor(R.id.refresh, Color.GREEN);
+//                        finishFlag = true;
+//                    }
+//                    @Override
+//                    public void processFail(String error) {
+//                        rv.setTextColor(R.id.refresh, Color.RED);
+//                        finishFlag = true;
+//                    }
+//                },mContext,cQuick,id_U,32384,null,null);
+//                execad.execute("SENSOR_list");
+                GetSyncData execsd = new GetSyncData(mContext,cQuick,id_U,32384,null,null);
+                execsd.execute("SENSOR_list");
+                if(execsd.succes && execsd.passwd){
+                    sensors.clear();
+                    for (int i = 2; i < execsd.list.size()-1; i+=11) {//id;name;value;unit;date
+                        String sensor[] = {execsd.list.get(i),execsd.list.get(i+1),execsd.list.get(i+3),execsd.list.get(i+6),AdvSAListAdapter.UTCtoLocalDate(execsd.list.get(i+7),"yyyy-MM-dd HH:mm:ss",false,"MM/dd HH:mm")};
+                        sensors.add(sensor);
                     }
-                    @Override
-                    public void processFail(String error) {
-                        rv.setTextColor(R.id.refresh, Color.RED);
-                        finishFlag = true;
-                    }
-                },mContext,cQuick,id_U,32384,null,null);
-                execad.execute("SENSOR_list");
-                while (!finishFlag) {
-                    try { Thread.sleep(100); }
-                    catch (InterruptedException e) { e.printStackTrace(); }
-                }
-                finishFlag = false;
+                    rv.setTextColor(R.id.refresh, Color.GREEN);
+                }else  rv.setTextColor(R.id.refresh, Color.RED);
+//                while (!finishFlag) {
+//                    try { Thread.sleep(100); }
+//                    catch (InterruptedException e) { e.printStackTrace(); }
+//                }
+//                finishFlag = false;
                 rv.setViewVisibility(R.id.pbProgressAction, View.INVISIBLE);
                 appWidgetManager.updateAppWidget(mAppWidgetId,rv);
                 //c.close();

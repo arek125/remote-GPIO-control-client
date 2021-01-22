@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import java.io.IOException;
@@ -62,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
     Connection cC;
     DataBaseHelper myDbHelper;
     ListView listView;
-    SimpleCursorAdapter customAdapter;
+    //SimpleCursorAdapter customAdapter;
+    DevicesCursorAdapter customAdapter;
 
     public void addConnection(final boolean editMode, final Cursor k) {
 
@@ -428,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
                                             }
                                         },getApplicationContext(),c,id_U,256,pb,null);
-                                        execad.execute("ServerUpdateFromGH");
+                                        execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"ServerUpdateFromGH");
 //                                        byte[] bytes;
 //                                        byte[] buffer = new byte[16384];
 //                                        int bytesRead;
@@ -807,39 +809,49 @@ public class MainActivity extends AppCompatActivity {
         });
         final Cursor k = myDbHelper.dajUrzadzenia();
         Button b1 = (Button) findViewById(R.id.btn);
-        if (k.moveToNext()) {
-            k.moveToPrevious();
+        if (k.moveToFirst()) {
+            //k.moveToPrevious();
             b1.setVisibility(View.GONE);
+            customAdapter = new DevicesCursorAdapter(getApplicationContext(),k,myDbHelper);
+//            String[] columns = new String[]{"nazwa", "ip", "port","port"};
+//            int[] to = new int[]{R.id.nazwa, R.id.ip, R.id.port, R.id.list_item_image};
+//            customAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list1, k, columns, to, CursorAdapter.NO_SELECTION);
+//            customAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+//                @Override
+//                public boolean setViewValue(View view, Cursor c, int columnIndex) {
+//                    if (view.getId() == R.id.list_item_image) {
+//                        final ImageView image = (ImageView) view;
+//                        //image.setImageResource(R.drawable.red);
+//                        //Toast.makeText(getApplicationContext(), "check!", Toast.LENGTH_SHORT).show();
+//                        //Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), false,2000,c.getString(20),c.getString(21));
+//                        Connection cQuick = new Connection(myDbHelper,c.getInt(0),2000,getApplicationContext());
+//                        GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
+//                            @Override
+//                            public void processFinish(List<String> list) {
+//                                image.setImageResource(R.drawable.green);
+//
+//                            }
+//                            @Override
+//                            public void processFail(String error) {
+//                                image.setImageResource(R.drawable.red);
+//                            }
+//                        },getApplicationContext(),cQuick,c.getInt(0),256,null,null);
+//                        execad.execute("version_check");
+//                        return true;
+//                    }
+//                    return false;
+//                }
+//            });
 
-            String[] columns = new String[]{"nazwa", "ip", "port","port"};
-            int[] to = new int[]{R.id.nazwa, R.id.ip, R.id.port, R.id.list_item_image};
-            customAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.list1, k, columns, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-            customAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            listView.setAdapter(customAdapter);
+            final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
+            pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
-                public boolean setViewValue(View view, Cursor c, int columnIndex) {
-                    if (view.getId() == R.id.list_item_image) {
-                        final ImageView image = (ImageView) view;
-                        //image.setImageResource(R.drawable.red);
-                        //Toast.makeText(getApplicationContext(), "check!", Toast.LENGTH_SHORT).show();
-                        //Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), false,2000,c.getString(20),c.getString(21));
-                        Connection cQuick = new Connection(myDbHelper,c.getInt(0),2000,getApplicationContext());
-                        GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
-                            @Override
-                            public void processFinish(List<String> list) {
-                                image.setImageResource(R.drawable.green);
-                            }
-                            @Override
-                            public void processFail(String error) {
-                                image.setImageResource(R.drawable.red);
-                            }
-                        },getApplicationContext(),cQuick,c.getInt(0),256,null,null);
-                        execad.execute("version_check");
-                        return true;
-                    }
-                    return false;
+                public void onRefresh() {
+                    recreate();
+                    pullToRefresh.setRefreshing(false);
                 }
             });
-            listView.setAdapter(customAdapter);
         } else b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -225,10 +225,13 @@ public class Chains extends Fragment {
                         }
                         for(Chain ch : chainList)
                             for(ChainBond chb : ch.bondsList)
-                                if(chb.typ.equals("chain"))
+                                if(chb.typ.equals("chain")||chb.typ.equals("chain_ec"))
                                     for(Chain chs : chainList){
                                         if(chb.C_id==chs.id){
-                                            chb.targetName = chs.nazwa;
+                                            if(chb.typ.equals("chain_ec"))
+                                                chb.targetName = chs.nazwa + " E.C. = ";
+                                            else
+                                                chb.targetName = chs.nazwa;
                                             break;
                                         }
                                     }

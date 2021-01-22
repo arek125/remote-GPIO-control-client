@@ -2,6 +2,7 @@ package com.rgc;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -64,7 +65,7 @@ public class CustomCmds extends Fragment {
             public void processFail(String error) {
 
             }
-        },mContext,c,id_U,16384,pb,r).execute("GetCustomCmds");
+        },mContext,c,id_U,16384,pb,r).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GetCustomCmds");
     }
 
     @Override

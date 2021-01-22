@@ -43,7 +43,7 @@ public class Chain {
     private void parseBonds(){
         bondsList.clear();
         List<String> bondsStrings = new ArrayList<>(Arrays.asList(bonds.split("\\$")));
-        for (int i = 0;i<bondsStrings.size()-1;i+=23) {
+        for (int i = 0;i<bondsStrings.size()-1;i+=28) {
                bondsList.add(new ChainBond(
                        bondsStrings.get(i),
                        bondsStrings.get(i+1),
@@ -67,7 +67,12 @@ public class Chain {
                        bondsStrings.get(i+19),
                        bondsStrings.get(i+20),
                        bondsStrings.get(i+21),
-                       bondsStrings.get(i+22)
+                       bondsStrings.get(i+22),
+                       bondsStrings.get(i+23),
+                       bondsStrings.get(i+24),
+                       bondsStrings.get(i+25),
+                       bondsStrings.get(i+26),
+                       bondsStrings.get(i+27)
                 ));
 //            if(bondsStrings.get(i+4).equals("action"))
 //                bondsList.add(new ChainBond(

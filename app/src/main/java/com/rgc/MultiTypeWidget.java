@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -87,7 +88,7 @@ public class MultiTypeWidget extends AppWidgetProvider {
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         final int mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
-        if ("SWITCH".equals(intent.getAction())){
+        if ("SWITCH_".equals(intent.getAction())){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -150,7 +151,8 @@ public class MultiTypeWidget extends AppWidgetProvider {
                 }
             }).start();
 
-        } else if ("REFRESH_SENSOR".equals(intent.getAction()) || "CHAIN_EXE".equals(intent.getAction())){
+
+        } else if ("REFRESH_SENSOR".equals(intent.getAction()) || "CHAIN_EXE".equals(intent.getAction()) || "SWITCH".equals(intent.getAction())){
             int id_U = intent.getIntExtra("id_u",-1);
             String idt = intent.getStringExtra("id");
             final RemoteViews rv = new RemoteViews(context.getPackageName(),R.layout.on_off_widgetm);
@@ -177,9 +179,22 @@ public class MultiTypeWidget extends AppWidgetProvider {
                 }
             },context,cQuick,c.getInt(0),256,null,null);
             if("REFRESH_SENSOR".equals(intent.getAction()))
-                execad.execute("SENSOR_refresh",idt);
-            else
-                execad.execute("GPIO_ChainExecute",idt);
+                //execad.execute("SENSOR_refresh",idt);
+                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"SENSOR_refresh",idt);
+            else if ("CHAIN_EXE".equals(intent.getAction()))
+                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GPIO_ChainExecute",idt,(intent.getBooleanExtra("keepLog",true)?"1":"0"));
+            else if("SWITCH".equals(intent.getAction())){
+                int reverse = Integer.parseInt(intent.getStringExtra("reverse"));
+                int stanAktualny = Integer.parseInt(intent.getStringExtra("stan"));
+                String gpio = intent.getStringExtra("gpio");
+                String stanUstaw = "";
+                if (stanAktualny==1||(stanAktualny==2 && reverse==1))
+                    stanUstaw="0";
+                else
+                    stanUstaw="1";
+                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GPIO_set",idt,gpio,stanUstaw,GPIO_Status.DatetoString(new Date()),String.valueOf(reverse));
+            }
+
         }else if ("REFRESH".equals(intent.getAction())){
             //int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, OnOffWidget.class));
             appWidgetManager.notifyAppWidgetViewDataChanged(mAppWidgetId, R.id.switches);

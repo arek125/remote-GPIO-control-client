@@ -1,6 +1,7 @@
 package com.rgc;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,9 +84,9 @@ public class RFCode {
                         else {
                             dialog.dismiss();
                             if (editMode)
-                                execad.execute("UpdateRfCode", String.valueOf(id), name.getText().toString(), type.getSelectedItem().toString(), code.getText().toString(), pulseL.getText().toString(), protocol.getText().toString(), repT.getText().toString(), bitL.getText().toString());
+                                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"UpdateRfCode", String.valueOf(id), name.getText().toString(), type.getSelectedItem().toString(), code.getText().toString(), pulseL.getText().toString(), protocol.getText().toString(), repT.getText().toString(), bitL.getText().toString());
                             else
-                                execad.execute("AddRfCode", name.getText().toString(), type.getSelectedItem().toString(), code.getText().toString(), pulseL.getText().toString(), protocol.getText().toString(), repT.getText().toString(), bitL.getText().toString());
+                                execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"AddRfCode", name.getText().toString(), type.getSelectedItem().toString(), code.getText().toString(), pulseL.getText().toString(), protocol.getText().toString(), repT.getText().toString(), bitL.getText().toString());
                         }
                     }
                 })
@@ -94,7 +95,7 @@ public class RFCode {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
-                        execad.execute("DeleteRfCode",String.valueOf(id));
+                        execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"DeleteRfCode",String.valueOf(id));
                     }
                 })
                 .negativeText("CANCEL")

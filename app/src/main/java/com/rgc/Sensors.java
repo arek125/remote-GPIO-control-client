@@ -409,7 +409,7 @@ public class Sensors extends Fragment {
 
             }
         },mContext,c,id_U,1024,pb,r);
-        execad.execute("GetCustomCmds");
+        execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GetCustomCmds");
 
         final SensorsTask myClientTask2_1 = new SensorsTask();
         MaterialDialog d = new MaterialDialog.Builder(mContext)

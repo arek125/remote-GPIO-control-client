@@ -4,14 +4,12 @@ package com.rgc;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChainsRemoteViewService extends RemoteViewsService {
     @Override
@@ -58,7 +56,7 @@ class ChainsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
             fillInIntent.setAction("CHAIN_EXE");
             fillInIntent.putExtra("id_u",id_U);
             fillInIntent.putExtra("id",String.valueOf(ch.id));
-
+            fillInIntent.putExtra("keepLog",ch.keepLog);
             rv.setOnClickFillInIntent(R.id.llgi, fillInIntent);
         }
 
@@ -92,34 +90,50 @@ class ChainsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory 
                 //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
                 //Connection cQuick = new Connection(c.getString(2), c.getInt(3), c.getString(4), c.getString(5), tcpOnly,5000);
                 Connection cQuick = new Connection(db,id_U,5000,mContext);
-                GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
-                    @Override
-                    public void processFinish(List<String> list) {
-                        chains.clear();
-                        for (int i = 2; i < list.size()-1; i+=7)
-                            chains.add(new Chain(
-                                    Integer.parseInt(list.get(i)),
-                                    Integer.parseInt(list.get(i+1)),
-                                    list.get(i+1).equals("0")?"Ready":"At Lp. "+list.get(i+1),
-                                    list.get(i+2),
-                                    list.get(i+4),
-                                    list.get(i+5).equals("1")
-                            ));
-                        rv.setTextColor(R.id.refresh, Color.GREEN);
-                        finishFlag = true;
-                    }
-                    @Override
-                    public void processFail(String error) {
-                        rv.setTextColor(R.id.refresh, Color.RED);
-                        finishFlag = true;
-                    }
-                },mContext,cQuick,id_U,16384,null,null);
-                execad.execute("GPIO_ChainList");
-                while (!finishFlag) {
-                    try { Thread.sleep(100); }
-                    catch (InterruptedException e) { e.printStackTrace(); }
-                }
-                finishFlag = false;
+//                GetAsyncData execad = new GetAsyncData(new GetAsyncData.AsyncResponse() {
+//                    @Override
+//                    public void processFinish(List<String> list) {
+//                        chains.clear();
+//                        for (int i = 2; i < list.size()-1; i+=7)
+//                            chains.add(new Chain(
+//                                    Integer.parseInt(list.get(i)),
+//                                    Integer.parseInt(list.get(i+1)),
+//                                    list.get(i+1).equals("0")?"Ready":"At Lp. "+list.get(i+1),
+//                                    list.get(i+2),
+//                                    list.get(i+4),
+//                                    list.get(i+5).equals("1")
+//                            ));
+//                        rv.setTextColor(R.id.refresh, Color.GREEN);
+//                        //finishFlag = true;
+//                    }
+//                    @Override
+//                    public void processFail(String error) {
+//                        rv.setTextColor(R.id.refresh, Color.RED);
+//                        //finishFlag = true;
+//                    }
+//                },mContext,cQuick,id_U,16384,null,null);
+//                execad.execute("GPIO_ChainList");
+                GetSyncData execsd = new GetSyncData(mContext,cQuick,id_U,16384,null,null);
+                execsd.execute("GPIO_ChainList");
+                if(execsd.succes && execsd.passwd){
+                    chains.clear();
+                    for (int i = 2; i < execsd.list.size()-1; i+=7)
+                        chains.add(new Chain(
+                                Integer.parseInt(execsd.list.get(i)),
+                                Integer.parseInt(execsd.list.get(i+1)),
+                                execsd.list.get(i+1).equals("0")?"Ready":"At Lp. "+execsd.list.get(i+1),
+                                execsd.list.get(i+2),
+                                execsd.list.get(i+4),
+                                execsd.list.get(i+5).equals("1")
+                        ));
+                    rv.setTextColor(R.id.refresh, Color.GREEN);
+                }else  rv.setTextColor(R.id.refresh, Color.RED);
+
+//                while (!finishFlag) {
+//                    try { Thread.sleep(100); }
+//                    catch (InterruptedException e) { e.printStackTrace(); }
+//                }
+//                finishFlag = false;
                 rv.setViewVisibility(R.id.pbProgressAction, View.INVISIBLE);
                 appWidgetManager.updateAppWidget(mAppWidgetId,rv);
                 //c.close();

@@ -103,56 +103,76 @@ class OnOffRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
                 DataBaseHelper db = new DataBaseHelper(mContext);
                 //Cursor c = db.dajUrzadzenie(id_U);
                 //c.moveToFirst();
-                String response = "";
-                boolean succes = false;
-                boolean passwd = false,tcpOnly=false;
-                List<String> list = new ArrayList<String>();
-                //int dstPort = c.getInt(3);
-                //String dstAddress = c.getString(2), dstPassword = c.getString(4), encKey = c.getString(5);
-                //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
-                //c.close();
-                try {
-                    //Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
-                    Connection conn = new Connection(db,id_U,5000,mContext);
-                    //conn.timeout = 5000;
-                    response = conn.sendString("GPIO_OlistT0", 32384);
-                    list = new ArrayList<String>(Arrays.asList(response.split(";")));
-                    if (list.get(0).equals("true")) passwd = true;
-                    else if (list.get(0).equals("false")) passwd = false;
-                    succes = true;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    response = "ERROR: " + e;
-                    succes = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response = "ERROR: " + e;
-                    succes = false;
-                }
-                if (succes && passwd) {
-                    rv.setTextColor(R.id.refresh, Color.GREEN);
+//                String response = "";
+//                boolean succes = false;
+//                boolean passwd = false,tcpOnly=false;
+//                List<String> list = new ArrayList<String>();
+//                //int dstPort = c.getInt(3);
+//                //String dstAddress = c.getString(2), dstPassword = c.getString(4), encKey = c.getString(5);
+//                //if(!c.isNull(17))tcpOnly = c.getInt(17)==1;
+//                //c.close();
+//                try {
+//                    //Connection conn = new Connection(dstAddress, dstPort, dstPassword, encKey,tcpOnly);
+//                    Connection conn = new Connection(db,id_U,5000,mContext);
+//                    //conn.timeout = 5000;
+//                    response = conn.sendString("GPIO_OlistT0", 32384);
+//                    list = new ArrayList<String>(Arrays.asList(response.split(";")));
+//                    if (list.get(0).equals("true")) passwd = true;
+//                    else if (list.get(0).equals("false")) passwd = false;
+//                    succes = true;
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    response = "ERROR: " + e;
+//                    succes = false;
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    response = "ERROR: " + e;
+//                    succes = false;
+//                }
+//                if (succes && passwd) {
+//                    rv.setTextColor(R.id.refresh, Color.GREEN);
+//                    idki.clear();
+//                    gpios.clear();
+//                    stany.clear();
+//                    nazwy.clear();
+//                    reverses.clear();
+//                    for (int j = 2; j < (list.size() - 1); j = j + 6) {
+//                        idki.add(list.get(j));
+//                        gpios.add(list.get(j + 1));
+//                        stany.add(list.get(j + 2));
+//                        nazwy.add(list.get(j + 3));
+//                        reverses.add(list.get(j + 4));
+//                        if (j > 1000) break;
+//                    }
+//
+//                } else if (!succes || !passwd) {
+//                    rv.setTextColor(R.id.refresh, Color.RED);
+//                    if (!succes) {
+//                        db.dodajLog(id_U, response);
+//                    } else if (!passwd) {
+//                        db.dodajLog(id_U, response);
+//                    }
+//                }
+
+                Connection cQuick = new Connection(db,id_U,5000,mContext);
+                GetSyncData execsd = new GetSyncData(mContext,cQuick,id_U,32384,null,null);
+                execsd.execute("GPIO_OlistT0");
+                if(execsd.succes && execsd.passwd){
                     idki.clear();
                     gpios.clear();
                     stany.clear();
                     nazwy.clear();
                     reverses.clear();
-                    for (int j = 2; j < (list.size() - 1); j = j + 6) {
-                        idki.add(list.get(j));
-                        gpios.add(list.get(j + 1));
-                        stany.add(list.get(j + 2));
-                        nazwy.add(list.get(j + 3));
-                        reverses.add(list.get(j + 4));
+                    for (int j = 2; j < (execsd.list.size() - 1); j = j + 6) {
+                        idki.add(execsd.list.get(j));
+                        gpios.add(execsd.list.get(j + 1));
+                        stany.add(execsd.list.get(j + 2));
+                        nazwy.add(execsd.list.get(j + 3));
+                        reverses.add(execsd.list.get(j + 4));
                         if (j > 1000) break;
                     }
-
-                } else if (!succes || !passwd) {
-                    rv.setTextColor(R.id.refresh, Color.RED);
-                    if (!succes) {
-                        db.dodajLog(id_U, response);
-                    } else if (!passwd) {
-                        db.dodajLog(id_U, response);
-                    }
-                }
+                    rv.setTextColor(R.id.refresh, Color.GREEN);
+                }else  rv.setTextColor(R.id.refresh, Color.RED);
                 rv.setViewVisibility(R.id.pbProgressAction, View.INVISIBLE);
                 appWidgetManager.updateAppWidget(mAppWidgetId,rv);
                 db.close();

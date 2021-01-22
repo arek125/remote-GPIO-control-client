@@ -1,6 +1,7 @@
 package com.rgc;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
@@ -25,13 +26,13 @@ import java.util.List;
 
 public class ChainBond {
     private boolean editMode = false,bondLinked = false;
-    public int id,lp,id_c,deley,A_id,Out_id,Out_Stan,Pwm_id,Pwm_ss,rfId,cmdId,linkId,C_id;
-    public String typ="output",targetSet,targetName,Pwm_fr,Pwm_dc,outputName,pwmName,actionName,rfName,cmdName,linkName,linkedDeviceName;
+    public int id,lp,id_c,deley,A_id,Out_id,Out_Stan,Pwm_id,Pwm_ss,rfId,cmdId,linkId,C_id,varId,actionNOE,chainEC;
+    public String typ="output",targetSet,targetName,Pwm_fr,Pwm_dc,outputName,pwmName,actionName,rfName,cmdName,linkName,linkedDeviceName,varName;
     Connection c;
     int idU;
     Context context;
-    Spinner targetO,targetPWM,targetActions,targetRF,targetCmd,targetChain;
-    SparseArray<String> targetOList= new SparseArray<>(),targetPWMList= new SparseArray<>(),targetActionsList= new SparseArray<>(),targetRFsList= new SparseArray<>(),targetCmdsList= new SparseArray<>(),linkedPis = new SparseArray<>(),targetChainsList= new SparseArray<>();
+    Spinner targetO,targetPWM,targetActions,targetRF,targetCmd,targetChain,targetVar;
+    SparseArray<String> targetOList= new SparseArray<>(),targetPWMList= new SparseArray<>(),targetActionsList= new SparseArray<>(),targetRFsList= new SparseArray<>(),targetCmdsList= new SparseArray<>(),linkedPis = new SparseArray<>(),targetChainsList= new SparseArray<>(),targetVarsList= new SparseArray<>();
     ChainBond(int id_c){
         this.id_c = id_c;
     }
@@ -51,7 +52,7 @@ public class ChainBond {
 ////        calcTargetSet();
 ////    }
     ChainBond(String id, String id_c, String lp, String deley, String typ, String A_id, String Out_id, String Out_Stan, String Pwm_id, String Pwm_fr, String Pwm_dc, String Pwm_ss, String outputName, String pwmName, String actionName, String rfId, String rfName,
-              String cmdId, String cmdName, String linkId, String linkName, String linkedDeviceName, String C_id){
+              String cmdId, String cmdName, String linkId, String linkName, String linkedDeviceName, String C_id, String varId,String varValue, String varName, String actionNOE, String chainEC){
         this.id = parseInt(id);
         this.id_c = parseInt(id_c);
         this.lp = parseInt(lp);
@@ -75,6 +76,10 @@ public class ChainBond {
         this.linkName = linkName;
         this.linkedDeviceName = linkedDeviceName;
         this.C_id = parseInt(C_id);
+        this.varId = parseInt(varId);
+        this.varName = varName;
+        this.actionNOE = parseInt(actionNOE);
+        this.chainEC = parseInt(chainEC);
         switch (typ){
             case "output":
                 targetName = outputName;
@@ -105,6 +110,19 @@ public class ChainBond {
             case "chain":
                 targetName = "?";
                 targetSet = "Execude";
+                break;
+            case "var":
+                targetName = varName + " = ";
+                targetSet = varValue;
+                break;
+            case "action_noe":
+                targetName = actionName + " N.O.E. = ";
+                targetSet = actionNOE;
+                break;
+            case "chain_ec":
+                targetName = "?";
+                targetSet = chainEC;
+                break;
         }
         if(this.linkId!=0){
             targetName = linkedDeviceName+":"+linkName;
@@ -172,7 +190,7 @@ public class ChainBond {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, AdvScheduledAction.ConvertToList(targetActionsList));
                 adapter.setDropDownViewResource(R.layout.spinner_item);
                 targetActions.setAdapter(adapter);
-                if(editMode && typ.equals("action"))targetActions.setSelection(targetActionsList.indexOfKey(A_id));
+                if(editMode && (typ.equals("action")|| typ.equals("action_noe")))targetActions.setSelection(targetActionsList.indexOfKey(A_id));
             }
             @Override
             public void processFail(String error) {
@@ -185,7 +203,8 @@ public class ChainBond {
             public void processFinish(List<String> list) {
                 targetRFsList.clear();
                 for (int i = 2; i < list.size()-1; i+=8) {
-                    targetRFsList.put(Integer.parseInt(list.get(i)),list.get(i+1));
+                    if(list.get(i+2).equals("Transmit"))
+                        targetRFsList.put(Integer.parseInt(list.get(i)),list.get(i+1));
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, AdvScheduledAction.ConvertToList(targetRFsList));
                 adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -208,7 +227,7 @@ public class ChainBond {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, AdvScheduledAction.ConvertToList(targetCmdsList));
                 adapter.setDropDownViewResource(R.layout.spinner_item);
                 targetCmd.setAdapter(adapter);
-                if(editMode && typ.equals("rfsend"))targetCmd.setSelection(targetCmdsList.indexOfKey(cmdId));
+                if(editMode && typ.equals("cmd"))targetCmd.setSelection(targetCmdsList.indexOfKey(cmdId));
             }
             @Override
             public void processFail(String error) {
@@ -227,13 +246,31 @@ public class ChainBond {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, AdvScheduledAction.ConvertToList(targetChainsList));
                 adapter.setDropDownViewResource(R.layout.spinner_item);
                 targetChain.setAdapter(adapter);
-                if(editMode && typ.equals("chain"))targetChain.setSelection(targetChainsList.indexOfKey(C_id));
+                if(editMode && (typ.equals("chain")||typ.equals("chain_ec")))targetChain.setSelection(targetChainsList.indexOfKey(C_id));
             }
             @Override
             public void processFail(String error) {
 
             }
         },context,c,idU,1024,null,null).execute(linkedData+"Chain_names");
+        targetVar.setAdapter(null);
+        new GetAsyncData(new GetAsyncData.AsyncResponse() {
+            @Override
+            public void processFinish(List<String> list) {
+                targetVarsList.clear();
+                for (int i = 2; i < list.size()-1; i+=5) {
+                    targetVarsList.put(Integer.parseInt(list.get(i)),list.get(i+1));
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, AdvScheduledAction.ConvertToList(targetVarsList));
+                adapter.setDropDownViewResource(R.layout.spinner_item);
+                targetVar.setAdapter(adapter);
+                if(editMode && typ.equals("var"))targetVar.setSelection(targetVarsList.indexOfKey(varId));
+            }
+            @Override
+            public void processFail(String error) {
+
+            }
+        },context,c,idU,1024,null,null).execute(linkedData+"GetGlobalVars");
     }
 
 
@@ -264,7 +301,7 @@ public class ChainBond {
 
             }
         },context,c,idU,1024,null,null);
-        execad.execute("GetLinkedPis","0");
+        execad.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GetLinkedPis","0");
         TextView title = view.findViewById(R.id.titleL);
         final Spinner type = view.findViewById(R.id.type);
         List<String> typeList = new ArrayList<String>();
@@ -274,6 +311,9 @@ public class ChainBond {
         typeList.add("rfsend");
         typeList.add("cmd");
         typeList.add("chain");
+        typeList.add("var");
+        typeList.add("action_noe");
+        typeList.add("chain_ec");
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(context, R.layout.spinner_item, typeList);
         typeAdapter.setDropDownViewResource(R.layout.spinner_item);
         type.setAdapter(typeAdapter);
@@ -294,7 +334,11 @@ public class ChainBond {
         targetRF = view.findViewById(R.id.targetRF);
         targetCmd = view.findViewById(R.id.targetCmd);
         targetChain = view.findViewById(R.id.targetChain);
+        targetVar = view.findViewById(R.id.targetVar);
         final Spinner state = (Spinner) view.findViewById(R.id.state);
+        final EditText varVal = view.findViewById(R.id.varValue);
+        final EditText actionNoe = view.findViewById(R.id.actionNoe);
+        final EditText chainEc = view.findViewById(R.id.chainEc);
         //final ArrayAdapter<CharSequence> stateAdapter = ArrayAdapter.createFromResource(context, R.array.states, android.R.layout.simple_spinner_item);
         final EditText pwmFR = view.findViewById(R.id.pwmFR);
         final EditText pwmDC = view.findViewById(R.id.pwmDC);
@@ -308,6 +352,10 @@ public class ChainBond {
         final TableRow rfRow = view.findViewById(R.id.targetRFRow);
         final TableRow cmdRow = view.findViewById(R.id.targetCmdRow);
         final TableRow chainRow = view.findViewById(R.id.targetChainRow);
+        final TableRow varRow = view.findViewById(R.id.targetVarRow);
+        final TableRow varValRow = view.findViewById(R.id.varValueRow);
+        final TableRow actionNoeRow = view.findViewById(R.id.actionNoeRow);
+        final TableRow chainEcRow = view.findViewById(R.id.chainEcRow);
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -321,6 +369,10 @@ public class ChainBond {
                     rfRow.setVisibility(View.GONE);
                     cmdRow.setVisibility(View.GONE);
                     chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
                 } else if (position == 1) {
                     targetoRow.setVisibility(View.GONE);
                     stateRow.setVisibility(View.VISIBLE);
@@ -331,6 +383,10 @@ public class ChainBond {
                     rfRow.setVisibility(View.GONE);
                     cmdRow.setVisibility(View.GONE);
                     chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
                 }else if (position == 2) {
                     targetoRow.setVisibility(View.GONE);
                     stateRow.setVisibility(View.GONE);
@@ -341,6 +397,10 @@ public class ChainBond {
                     rfRow.setVisibility(View.GONE);
                     cmdRow.setVisibility(View.GONE);
                     chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
                 }else if(position == 3){
                     targetoRow.setVisibility(View.GONE);
                     stateRow.setVisibility(View.GONE);
@@ -351,6 +411,10 @@ public class ChainBond {
                     rfRow.setVisibility(View.VISIBLE);
                     cmdRow.setVisibility(View.GONE);
                     chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
                 }else if(position == 4){
                     targetoRow.setVisibility(View.GONE);
                     stateRow.setVisibility(View.GONE);
@@ -361,6 +425,10 @@ public class ChainBond {
                     rfRow.setVisibility(View.GONE);
                     cmdRow.setVisibility(View.VISIBLE);
                     chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
                 }else if(position == 5){
                     targetoRow.setVisibility(View.GONE);
                     stateRow.setVisibility(View.VISIBLE);
@@ -371,6 +439,55 @@ public class ChainBond {
                     rfRow.setVisibility(View.GONE);
                     cmdRow.setVisibility(View.GONE);
                     chainRow.setVisibility(View.VISIBLE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
+                }
+                else if(position == 6){
+                    targetoRow.setVisibility(View.GONE);
+                    stateRow.setVisibility(View.GONE);
+                    targetpwmRow.setVisibility(View.GONE);
+                    pwmFRRow.setVisibility(View.GONE);
+                    pwmDCRow.setVisibility(View.GONE);
+                    targetActionsRow.setVisibility(View.GONE);
+                    rfRow.setVisibility(View.GONE);
+                    cmdRow.setVisibility(View.GONE);
+                    chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.VISIBLE);
+                    varValRow.setVisibility(View.VISIBLE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.GONE);
+                }
+                else if(position == 7){
+                    targetoRow.setVisibility(View.GONE);
+                    stateRow.setVisibility(View.GONE);
+                    targetpwmRow.setVisibility(View.GONE);
+                    pwmFRRow.setVisibility(View.GONE);
+                    pwmDCRow.setVisibility(View.GONE);
+                    targetActionsRow.setVisibility(View.VISIBLE);
+                    rfRow.setVisibility(View.GONE);
+                    cmdRow.setVisibility(View.GONE);
+                    chainRow.setVisibility(View.GONE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.VISIBLE);
+                    chainEcRow.setVisibility(View.GONE);
+                }
+                else if(position == 8){
+                    targetoRow.setVisibility(View.GONE);
+                    stateRow.setVisibility(View.GONE);
+                    targetpwmRow.setVisibility(View.GONE);
+                    pwmFRRow.setVisibility(View.GONE);
+                    pwmDCRow.setVisibility(View.GONE);
+                    targetActionsRow.setVisibility(View.GONE);
+                    rfRow.setVisibility(View.GONE);
+                    cmdRow.setVisibility(View.GONE);
+                    chainRow.setVisibility(View.VISIBLE);
+                    varRow.setVisibility(View.GONE);
+                    varValRow.setVisibility(View.GONE);
+                    actionNoeRow.setVisibility(View.GONE);
+                    chainEcRow.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -426,6 +543,15 @@ public class ChainBond {
             else if(type.getSelectedItemPosition() == 2) {
                 targetActions.setSelection(targetActionsList.indexOfKey(A_id));
             }
+            else if(type.getSelectedItemPosition() == 6) {
+                varVal.setText(targetSet);
+            }
+            else if(type.getSelectedItemPosition() == 7) {
+                actionNoe.setText(targetSet);
+            }
+            else if(type.getSelectedItemPosition() == 8) {
+                chainEc.setText(targetSet);
+            }
         }
         else
             reFetchTargetsData();
@@ -449,14 +575,18 @@ public class ChainBond {
                                 (type.getSelectedItemPosition() == 2 &&(targetActions.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))||
                                 (type.getSelectedItemPosition() == 3 &&(targetRF.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))||
                                 (type.getSelectedItemPosition() == 4 &&(targetCmd.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))||
-                                (type.getSelectedItemPosition() == 5 &&(targetChain.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))
-                                )
+                                (type.getSelectedItemPosition() == 5 &&(targetChain.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))||
+                                (type.getSelectedItemPosition() == 6 &&(targetVar.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))||
+                                (type.getSelectedItemPosition() == 7 &&(targetActions.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))||
+                                (type.getSelectedItemPosition() == 8 &&(targetChain.getSelectedItem() == null||daleyE.getText().toString().isEmpty()))
+                        )
                             Toast.makeText(context, "Fill in daley and choose target !", Toast.LENGTH_SHORT).show();
                         else if(bondLinked && linkId == 0)Toast.makeText(context, "Choose lined device !", Toast.LENGTH_SHORT).show();
                         else{
                             dialog.dismiss();
                             int target = -1;//String.valueOf((type.getSelectedItemPosition() == 0)?targetOList.keyAt(targetO.getSelectedItemPosition()):targetPWMList.keyAt(targetPWM.getSelectedItemPosition())
                             String linkName = "";
+                            String value = String.valueOf(state.getSelectedItemPosition());
                             if(type.getSelectedItemPosition() == 0){
                                 target = targetOList.keyAt(targetO.getSelectedItemPosition());
                                 linkName = targetO.getSelectedItem().toString();
@@ -479,11 +609,24 @@ public class ChainBond {
                             }else if(type.getSelectedItemPosition() == 5){
                                 target = targetChainsList.keyAt(targetChain.getSelectedItemPosition());
                                 linkName = targetChain.getSelectedItem().toString();
+                            }else if(type.getSelectedItemPosition() == 6){
+                                target = targetVarsList.keyAt(targetVar.getSelectedItemPosition());
+                                linkName = targetVar.getSelectedItem().toString();
+                                value = varVal.getText().toString();
+                            }else if(type.getSelectedItemPosition() == 7){
+                                target = targetActionsList.keyAt(targetActions.getSelectedItemPosition());
+                                linkName = targetActions.getSelectedItem().toString();
+                                value = actionNoe.getText().toString();
+                            }else if(type.getSelectedItemPosition() == 8){
+                                target = targetChainsList.keyAt(targetChain.getSelectedItemPosition());
+                                linkName = targetChain.getSelectedItem().toString();
+                                value = chainEc.getText().toString();
                             }
+
                             if(!editMode)
-                                exec.execute("GPIO_ChainBondAdd",String.valueOf(id_c),type.getSelectedItem().toString(),daleyE.getText().toString(),String.valueOf(target),String.valueOf(state.getSelectedItemPosition()),pwmFR.getText().toString(),pwmDC.getText().toString(),String.valueOf(linkId),linkName);
+                                exec.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GPIO_ChainBondAdd",String.valueOf(id_c),type.getSelectedItem().toString(),daleyE.getText().toString(),String.valueOf(target),value,pwmFR.getText().toString(),pwmDC.getText().toString(),String.valueOf(linkId),linkName);
                             else
-                                exec.execute("GPIO_ChainBondUpdate",String.valueOf(id_c),type.getSelectedItem().toString(),daleyE.getText().toString(),String.valueOf(target),String.valueOf(state.getSelectedItemPosition()),pwmFR.getText().toString(),pwmDC.getText().toString(),String.valueOf(id),String.valueOf(linkId),linkName);
+                                exec.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GPIO_ChainBondUpdate",String.valueOf(id_c),type.getSelectedItem().toString(),daleyE.getText().toString(),String.valueOf(target),value,pwmFR.getText().toString(),pwmDC.getText().toString(),String.valueOf(id),String.valueOf(linkId),linkName);
                         }
                     }
                 })
@@ -492,7 +635,7 @@ public class ChainBond {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
-                        exec.execute("GPIO_ChainBondDelete",String.valueOf(id),String.valueOf(id_c));
+                        exec.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"GPIO_ChainBondDelete",String.valueOf(id),String.valueOf(id_c));
                     }
                 })
                 .negativeText("CANCEL")

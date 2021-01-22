@@ -234,6 +234,24 @@
                 android:layout_height="wrap_content" />
 
         </TableRow>
+        <TableRow
+            android:id="@+id/targetVarRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/targetVarL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target: "
+                android:textSize="15sp"
+                android:textColor="#000" />
+            <Spinner
+                android:id="@+id/targetVar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
 
         <TableRow
             android:id="@+id/stateRow"
@@ -309,7 +327,82 @@
                 android:textSize="15sp" >
             </EditText>
         </TableRow>
-       
+        <TableRow
+            android:id="@+id/varValueRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/varValueL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Var value: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/varValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:id="@+id/actionNoeRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/actionNoeL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set action number of exec.: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/actionNoe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:inputType="number"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:id="@+id/chainEcRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+            <TextView
+                android:id="@+id/chainEcL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set chain exec. countdown: "
+                android:textSize="15sp"
+                android:textColor="#000"  />
+
+            <EditText
+                android:id="@+id/chainEc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textColor="#000"
+                android:inputType="number"
+                android:theme="@style/AppTheme"
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
     </TableLayout>
 
 </LinearLayout>
