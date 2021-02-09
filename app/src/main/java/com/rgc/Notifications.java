@@ -381,7 +381,8 @@ public class Notifications extends Fragment{
         });
         final Spinner targetIO = view.findViewById(R.id.targetio);
         final List<String> targetIOlist = new ArrayList<String>();
-        targetIOlist.addAll(gpio_io.values());
+        for(String val : gpio_io.values())targetIOlist.add(ellipsize(val,20,0));
+        //targetIOlist.addAll(gpio_io.values());
         final List<Integer> targetIOlistIDs = new ArrayList<Integer>();
         targetIOlistIDs.addAll(gpio_io.keySet());
         final ArrayAdapter<String> targetIOAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item, targetIOlist);
@@ -389,7 +390,8 @@ public class Notifications extends Fragment{
         targetIO.setAdapter(targetIOAdapter);
         final Spinner targetS = view.findViewById(R.id.targetS);
         final List<String> targetSlist = new ArrayList<String>();
-        targetSlist.addAll(sensors.values());
+        for(String val : sensors.values())targetSlist.add(ellipsize(val,20,0));
+        //targetSlist.addAll(sensors.values());
         final List<String> targetSlistIDs = new ArrayList<String>();
         targetSlistIDs.addAll(sensors.keySet());
         final ArrayAdapter<String> targetSAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item, targetSlist);
@@ -625,6 +627,19 @@ public class Notifications extends Fragment{
             d.getActionButton(DialogAction.NEUTRAL).setVisibility(View.INVISIBLE);
 
 
+    }
+
+    public static String ellipsize(String input, int maxCharacters, int charactersAfterEllipsis) {
+        if(maxCharacters < 3) {
+            throw new IllegalArgumentException("maxCharacters must be at least 3 because the ellipsis already take up 3 characters");
+        }
+//        if(maxCharacters - 3 > charactersAfterEllipsis) {
+//            throw new IllegalArgumentException("charactersAfterEllipsis must be less than maxCharacters");
+//        }
+        if (input == null || input.length() < maxCharacters) {
+            return input;
+        }
+        return input.substring(0, maxCharacters - 3 - charactersAfterEllipsis) + "..." + input.substring(input.length() - charactersAfterEllipsis);
     }
 
 //    public void hendlerm2() {

@@ -133,6 +133,7 @@
   <com.android.tools.lint/>
   <com.android.tools.metalava/>
   <com.android.tools.pixelprobe/>
+  <com.android.tools.utp/>
   <com.crashlytics.sdk.android/>
   <com.google.ads.afsn/>
   <com.google.ads.interactivemedia.v3/>

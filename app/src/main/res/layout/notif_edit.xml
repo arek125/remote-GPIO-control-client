@@ -202,7 +202,7 @@
             android:id="@+id/preciseL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precise: (High battery usage)"
+            android:text="Precise:"
             android:textSize="15sp"
             android:textColor="#000" />
 

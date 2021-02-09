@@ -220,7 +220,7 @@ public class Sensors extends Fragment {
 
             try {
                 if (params[0].equals("SENSOR_list"))
-                    response = c.sendString( params[0], 1024);
+                    response = c.sendString( params[0], 16384);
                 else if (params[0].matches("SENSOR_update|SENSOR_addCustom|SENSOR_updateCustom"))
                     response = c.sendString(TextUtils.join(";", params) + ";", 1024);
                 else if (params[0].matches("SENSOR_remove|SENSOR_refresh"))
